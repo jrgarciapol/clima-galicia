@@ -1,0 +1,470 @@
+[
+ {
+  "nombre": "yearly_AEMET_cd_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/cd/yearly_AEMET_cd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_dtr_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/dtr/yearly_AEMET_dtr_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_dtrp99_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/dtrp99/yearly_AEMET_dtrp99_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_fd_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/fd/yearly_AEMET_fd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_hd_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/hd/yearly_AEMET_hd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_hwd_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/hwd/yearly_AEMET_hwd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_mcwd_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/mcwd/yearly_AEMET_mcwd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_r01lmm_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/r01lmm/yearly_AEMET_r01lmm_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_r01mm_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/r01mm/yearly_AEMET_r01mm_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_rp95_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/rp95/yearly_AEMET_rp95_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_rx1day_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/rx1day/yearly_AEMET_rx1day_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_rx5day_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/rx5day/yearly_AEMET_rx5day_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_cd_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/cd/yearly_AEMET_cd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_dtr_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/dtr/yearly_AEMET_dtr_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_dtrp99_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/dtrp99/yearly_AEMET_dtrp99_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_fd_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/fd/yearly_AEMET_fd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_hd_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/hd/yearly_AEMET_hd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_hwd_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/hwd/yearly_AEMET_hwd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_mcwd_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/mcwd/yearly_AEMET_mcwd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_r01lmm_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/r01lmm/yearly_AEMET_r01lmm_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_r01mm_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/r01mm/yearly_AEMET_r01mm_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_rp95_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/rp95/yearly_AEMET_rp95_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_rx1day_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/rx1day/yearly_AEMET_rx1day_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_rx5day_None_1970-2022.nc",
+  "urlPath": "canarias/Observaciones_en_estaciones/Dato_anual/rx5day/yearly_AEMET_rx5day_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_cd_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/cd/yearly_AEMET_cd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_dtr_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/dtr/yearly_AEMET_dtr_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_dtrp99_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/dtrp99/yearly_AEMET_dtrp99_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_fd_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/fd/yearly_AEMET_fd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_hd_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/hd/yearly_AEMET_hd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_hwd_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/hwd/yearly_AEMET_hwd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_mcwd_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/mcwd/yearly_AEMET_mcwd_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_r01lmm_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/r01lmm/yearly_AEMET_r01lmm_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_r01mm_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/r01mm/yearly_AEMET_r01mm_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_rp95_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/rp95/yearly_AEMET_rp95_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_rx1day_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/rx1day/yearly_AEMET_rx1day_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_rx5day_None_1970-2022.nc",
+  "urlPath": "andorra/Observaciones_en_estaciones/Dato_anual/rx5day/yearly_AEMET_rx5day_None_1970-2022.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_PET_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Otras/PET/climatology_AEMET_PET_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_pr_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Precipitacion/pr/climatology_AEMET_pr_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prNa1_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Precipitacion/prNa1/climatology_AEMET_prNa1_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prNb1_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Precipitacion/prNb1/climatology_AEMET_prNb1_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prmax24_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Precipitacion/prmax24/climatology_AEMET_prmax24_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prmax5days_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Precipitacion/prmax5days/climatology_AEMET_prmax5days_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prp95_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Precipitacion/prp95/climatology_AEMET_prp95_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prspella1_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Precipitacion/prspella1/climatology_AEMET_prspella1_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prspellb1_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Precipitacion/prspellb1/climatology_AEMET_prspellb1_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_cdd_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/cdd/climatology_AEMET_cdd_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_hdd_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/hdd/climatology_AEMET_hdd_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasdr_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasdr/climatology_AEMET_tasdr_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasdrp99_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasdrp99/climatology_AEMET_tasdrp99_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasmax_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasmax/climatology_AEMET_tasmax_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasmaxNap90_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasmaxNap90/climatology_AEMET_tasmaxNap90_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasmaxhwdmax_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasmaxhwdmax/climatology_AEMET_tasmaxhwdmax_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasmaxmax_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasmaxmax/climatology_AEMET_tasmaxmax_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasmaxp5_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasmaxp5/climatology_AEMET_tasmaxp5_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasmaxp95_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasmaxp95/climatology_AEMET_tasmaxp95_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasmaxp99_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasmaxp99/climatology_AEMET_tasmaxp99_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasmin_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasmin/climatology_AEMET_tasmin_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasminNa20_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasminNa20/climatology_AEMET_tasminNa20_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasminNap90_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasminNap90/climatology_AEMET_tasminNap90_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasminNb0_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasminNb0/climatology_AEMET_tasminNb0_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasminmin_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasminmin/climatology_AEMET_tasminmin_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasminp1_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasminp1/climatology_AEMET_tasminp1_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasminp5_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasminp5/climatology_AEMET_tasminp5_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tasminp95_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tasminp95/climatology_AEMET_tasminp95_None.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_tmean_None.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Climatologia/Temperatura/tmean/climatology_AEMET_tmean_None.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_PET_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Otras/PET/yearly_AEMET_PET_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_pethg85variant_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/pethg85variant/yearly_AEMET_pethg85variant_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_pr_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/pr/yearly_AEMET_pr_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_prNa1_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prNa1/yearly_AEMET_prNa1_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_prNb1_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prNb1/yearly_AEMET_prNb1_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_prmax24_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prmax24/yearly_AEMET_prmax24_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_prmax5days_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prmax5days/yearly_AEMET_prmax5days_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_prp95_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prp95/yearly_AEMET_prp95_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_prspella1_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prspella1/yearly_AEMET_prspella1_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_prspellb1_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prspellb1/yearly_AEMET_prspellb1_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_cdd_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/cdd/yearly_AEMET_cdd_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_hdd_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/hdd/yearly_AEMET_hdd_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasdr_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasdr/yearly_AEMET_tasdr_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasdrp99_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasdrp99/yearly_AEMET_tasdrp99_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasmax_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmax/yearly_AEMET_tasmax_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasmaxNap90_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxNap90/yearly_AEMET_tasmaxNap90_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasmaxhwdmax_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxhwdmax/yearly_AEMET_tasmaxhwdmax_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasmaxmax_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxmax/yearly_AEMET_tasmaxmax_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasmaxp5_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxp5/yearly_AEMET_tasmaxp5_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasmaxp95_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxp95/yearly_AEMET_tasmaxp95_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasmaxp99_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxp99/yearly_AEMET_tasmaxp99_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasmin_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmin/yearly_AEMET_tasmin_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasminNa20_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminNa20/yearly_AEMET_tasminNa20_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasminNap90_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminNap90/yearly_AEMET_tasminNap90_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasminNb0_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminNb0/yearly_AEMET_tasminNb0_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasminmin_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminmin/yearly_AEMET_tasminmin_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasminp1_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminp1/yearly_AEMET_tasminp1_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasminp5_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminp5/yearly_AEMET_tasminp5_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tasminp95_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminp95/yearly_AEMET_tasminp95_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tmean_None_1975-2020.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tmean/yearly_AEMET_tmean_None_1975-2020.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tn_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tn/yearly_AEMET_tn_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tn90p_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tn90p/yearly_AEMET_tn90p_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tnn_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tnn/yearly_AEMET_tnn_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tnp1_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tnp1/yearly_AEMET_tnp1_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tnp5_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tnp5/yearly_AEMET_tnp5_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tnp95_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tnp95/yearly_AEMET_tnp95_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tr_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tr/yearly_AEMET_tr_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tx_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tx/yearly_AEMET_tx_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_tx90p_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tx90p/yearly_AEMET_tx90p_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_txp5_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/txp5/yearly_AEMET_txp5_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_txp95_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/txp95/yearly_AEMET_txp95_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_txp99_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/txp99/yearly_AEMET_txp99_None_1970-2022.nc"
+ },
+ {
+  "nombre": "yearly_AEMET_txx_None_1970-2022.nc",
+  "urlPath": "peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/txx/yearly_AEMET_txx_None_1970-2022.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_PET.nc",
+  "urlPath": "peninsula/Observaciones_en_rejilla/Climatologia/Otras/PET/climatology_AEMET_PET.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_pr.nc",
+  "urlPath": "peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/pr/climatology_AEMET_pr.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prNa1.nc",
+  "urlPath": "peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prNa1/climatology_AEMET_prNa1.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prNb1.nc",
+  "urlPath": "peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prNb1/climatology_AEMET_prNb1.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prmax24.nc",
+  "urlPath": "peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prmax24/climatology_AEMET_prmax24.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prmax5days.nc",
+  "urlPath": "peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prmax5days/climatology_AEMET_prmax5days.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prp95.nc",
+  "urlPath": "peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prp95/climatology_AEMET_prp95.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prspella1.nc",
+  "urlPath": "peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prspella1/climatology_AEMET_prspella1.nc"
+ },
+ {
+  "nombre": "climatology_AEMET_prspellb1.nc",
+  "urlPath": "peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prspellb1/climatology_AEMET_prspellb1.nc"
+ }
+]
