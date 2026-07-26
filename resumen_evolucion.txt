@@ -1,0 +1,63 @@
+Periodo: 2010-2025   estaciones: 130
+
+--- tendencia mediana en Galicia (pendiente de Sen por decada) ---
+metrica          mediana      p10      p90  % signif.   % al alza
+d_tx30             +2.25    -0.45    +6.93         4%         71%
+d_tx32             +1.36    +0.00    +6.71        12%         63%
+d_tx35             +0.00    +0.00    +3.80        10%         36%
+tx_p99             +0.84    -0.30    +1.71         5%         84%
+tx_verano          +1.12    +0.52    +1.69        23%         97%
+noches_trop        +0.00    +0.00    +0.89        16%         18%
+tmean              +0.83    +0.53    +1.13        83%        100%
+d_helada           -3.44   -13.30    +0.00        24%          9%
+hx_p99             +2.75    +0.65    +4.97        43%         94%
+d_hx35             +8.57    +0.00   +22.73        36%         86%
+
+--- media de Galicia por anio ---
+        n  tmean  tx_verano  d_tx30  d_tx32  noches_trop
+anio                                                    
+2010   96  12.07      23.79   15.17    6.99         1.08
+2011  117  13.29      22.87   16.03    7.48         0.97
+2012  119  12.37      22.67   14.87    7.90         0.38
+2013  129  12.54      24.32   21.43   12.63         1.53
+2014  130  13.00      22.87    8.83    3.69         0.38
+2015  132  13.27      24.68   17.42    8.91         0.39
+2016  134  13.08      25.22   24.19   14.70         1.23
+2017  135  13.62      24.82   21.41   11.72         1.30
+2018  137  13.02      23.97   21.12   11.45         2.05
+2019  137  12.94      23.14   13.93    6.55         0.33
+2020  147  13.67      24.18   22.84   13.16         0.95
+2021  148  13.00      23.13   11.72    5.73         0.35
+2022  149  14.03      25.41   26.30   16.42         3.39
+2023  152  14.06      24.67   15.49    7.55         2.01
+2024  153  13.84      24.51   16.26    8.58         1.24
+2025  153  13.93      26.07   27.31   17.61         2.31
+
+--- estabilidad del ranking (dias >32 C) ---
+  correlacion de rangos entre 2010-2018 y 2019-2025: 0.961
+  (1.0 = el orden de los sitios no ha cambiado nada;
+   si es alto, elegir por la media de 17 anios es una decision robusta)
+
+  los que mas EMPEORAN en el ranking:
+                       concello provincia  prim   seg  cambio
+estacion                                                     
+10132     PEDRAFITA DO CEBREIRO      Lugo  1.00  3.86    0.23
+10115                   A VEIGA   Ourense  0.56  3.14    0.20
+10057                    MACEDA   Ourense  1.22  3.86    0.19
+10062                 CERVANTES      Lugo  0.11  2.43    0.19
+10202                  CHANTADA      Lugo  1.00  3.43    0.19
+19037                   A VEIGA   Ourense  1.22  3.71    0.18
+10119                    MUÍÑOS   Ourense  1.56  4.14    0.17
+10137           NAVIA DE SUARNA      Lugo  2.22  4.57    0.14
+
+  los que mas MEJORAN en el ranking:
+                    concello   provincia   prim    seg  cambio
+estacion                                                      
+10905                   BUEU  Pontevedra   4.00   1.00   -0.29
+10087            SANTA COMBA    A Coruña   5.33   2.29   -0.24
+10139                    ZAS    A Coruña   5.56   3.00   -0.18
+10133                 CUNTIS  Pontevedra   1.62   0.71   -0.17
+10085     VILANOVA DE AROUSA  Pontevedra   2.56   1.71   -0.15
+10094                  MESÍA    A Coruña   3.56   2.43   -0.12
+10906                 CANGAS  Pontevedra   3.50   2.43   -0.12
+10156             PONTEVEDRA  Pontevedra  19.67  13.71   -0.12
