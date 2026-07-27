@@ -1,0 +1,85 @@
+Exploracion del THREDDS de MeteoGalicia - 2026-07-27 19:06
+--- eleccion de servidor ---
+  OK, 4,912 bytes          https://thredds.meteogalicia.gal/thredds
+  en uso: https://thredds.meteogalicia.gal/thredds
+
+--- alcanzabilidad ---
+  OK        4,912 bytes  https://thredds.meteogalicia.gal/thredds/catalog.xml
+  OK       31,759 bytes  https://thredds.meteogalicia.gal/thredds/catalog.html
+  FALLA        HTTP 404  https://thredds.meteogalicia.gal/thredds/catalog/modelos/catalog.xml
+
+--- recorrido del catalogo (profundidad 4) ---
+  [0] raiz: 29 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog.xml
+  [1] WRF_2D: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/WRF_2D/catalog.xml
+  [1] WRF_3D: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_grib.xml
+  [1] WRF_RAW: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_raw.xml
+  [1] WRF_HIST: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/WRF/WRF_hist.xml
+  [1] WRF_1.3km_DEPRECATED_HIST: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist.xml
+  [1] WRF_1km_HIST: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist_novo.xml
+  [1] WRF_ENS_2D: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_WRF_ENS_2D.xml
+  [1] WW3: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/WW3/catalog.xml
+  [1] WW3_HIST: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/WW3/WW3_catalog_hist.xml
+  [1] SWAN: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/SWAN/swan_catalog.xml
+  [1] SWAN_HIST: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/SWAN/swan_catalog_hist.xml
+  [1] ROMS: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/ROMS/catalog.xml
+  [1] ROMS_Novo: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/ROMS/catalognovo.xml
+  [1] ROMS_RAW: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/RAW_OUTPUTS/ROMS/catalog.xml
+  [1] MOHID: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/MOHID/catalog.xml
+  [1] MOHID_RAW: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/RAW_OUTPUTS/MOHID/catalog.xml
+  [1] MOHID_HIST: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/MOHID/catalog_hist.xml
+  [1] SWAT: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/SWAT/catalog.xml
+  [1] CHIMERE: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/CHIMERE/catalog.xml
+  [1] PPI: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/OBSERVACION/RADAR/catalog_radar.xml
+  [1] Boyas: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/OBSERVACION/BOYAS/catalog_boyas.xml
+  [1] BatimetriaRAIA: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/BatimetriaRAIA/batimetria_catalog_new.xml
+  [1] ATLAS_VENTO: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/Atlas/atlasvento_catalog.xml
+  [1] GFS: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/GFS/catalog.xml
+  [1] Navaz: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/NAVAZ/catalog.xml
+  [1] FITOVIT: ERROR XML ilegible (mismatched tag: line 32, column 23); primeros bytes: b'<!DOCTYPE html><html lang="gl">\n\n<head>\n\n  \t<meta charset="utf-8"><title>CAS - Xunta de Galicia</title>\n  \t<meta http-eq'   <- https://thredds.meteogalicia.gal/thredds/catalogos/PRIVATE/FITOVIT/catalog_fitovit.xml
+  [1] FWI: ERROR XML ilegible (mismatched tag: line 32, column 23); primeros bytes: b'<!DOCTYPE html><html lang="gl">\n\n<head>\n\n  \t<meta charset="utf-8"><title>CAS - Xunta de Galicia</title>\n  \t<meta http-eq'   <- https://thredds.meteogalicia.gal/thredds/catalogos/PRIVATE/FWI/catalog_fwi.xml
+  [1] TVG: ERROR XML ilegible (mismatched tag: line 32, column 23); primeros bytes: b'<!DOCTYPE html><html lang="gl">\n\n<head>\n\n  \t<meta charset="utf-8"><title>CAS - Xunta de Galicia</title>\n  \t<meta http-eq'   <- https://thredds.meteogalicia.gal/thredds/catalogos/PRIVATE/TVG/catalog_tvg.xml
+  [1] EIRA: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/PRIVATE/EIRA/catalog_eira.xml
+
+--- conjuntos con 'wrf' en el nombre: 7 ---
+  WRF_2D                                        https://thredds.meteogalicia.gal/thredds/catalogos/WRF_2D/catalog.xml
+  WRF_3D                                        https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_grib.xml
+  WRF_RAW                                       https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_raw.xml
+  WRF_HIST                                      https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/WRF/WRF_hist.xml
+  WRF_1.3km_DEPRECATED_HIST                     https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist.xml
+  WRF_1km_HIST                                  https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist_novo.xml
+  WRF_ENS_2D                                    https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_WRF_ENS_2D.xml
+
+--- WRF_2D ---
+  url: https://thredds.meteogalicia.gal/thredds/catalogos/WRF_2D/catalog.xml
+  archivo         : ERROR HTTP 404
+  ERROR: HTTP 404
+
+--- WRF_3D ---
+  url: https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_grib.xml
+  archivo         : ERROR HTTP 404
+  ERROR: HTTP 404
+
+--- WRF_RAW ---
+  url: https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_raw.xml
+  archivo         : ERROR HTTP 404
+  ERROR: HTTP 404
+
+--- WRF_HIST ---
+  url: https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/WRF/WRF_hist.xml
+  archivo         : ERROR HTTP 404
+  ERROR: HTTP 404
+
+--- WRF_1.3km_DEPRECATED_HIST ---
+  url: https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist.xml
+  archivo         : ERROR HTTP 404
+  ERROR: HTTP 404
+
+--- WRF_1km_HIST ---
+  url: https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist_novo.xml
+  archivo         : ERROR HTTP 404
+  ERROR: HTTP 404
+
+--- WRF_ENS_2D ---
+  url: https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_WRF_ENS_2D.xml
+  archivo         : ERROR HTTP 404
+  ERROR: HTTP 404
