@@ -1,4 +1,4 @@
-Exploracion del THREDDS de MeteoGalicia - 2026-07-27 20:42
+Exploracion del THREDDS de MeteoGalicia - 2026-07-27 21:27
 --- eleccion de servidor ---
   OK, 4,912 bytes          https://thredds.meteogalicia.gal/thredds
   en uso: https://thredds.meteogalicia.gal/thredds
@@ -32,16 +32,58 @@ Exploracion del THREDDS de MeteoGalicia - 2026-07-27 20:42
           sub: TVG                                    https://thredds.meteogalicia.gal/thredds/catalog/catalogos/PRIVATE/TVG/catalog_tvg.xml
           sub: EIRA                                   https://thredds.meteogalicia.gal/thredds/catalog/catalogos/PRIVATE/EIRA/catalog_eira.xml
 
+--- catalogo de un dia, en crudo ---
+  https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1KM_HIST/20260727/catalog.xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <catalog xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2">
+    <service name="services" serviceType="compound" base="">
+      <service name="dapService" serviceType="OpenDAP" base="/thredds/dodsC/" />
+      <service name="httpService" serviceType="HTTPServer" base="/thredds/fileServer/" />
+      <service name="wcsService" serviceType="WCS" base="/thredds/wcs/" />
+      <service name="ncss" serviceType="NetcdfSubset" base="/thredds/ncss/grid/" />
+      <service name="wms" serviceType="WMS" base="/thredds/wms/" />
+    </service>
+    <dataset name="20260727/">
+      <property name="DatasetScan" value="true" />
+      <metadata inherited="true">
+        <serviceName>services</serviceName>
+        <dataType>Grid</dataType>
+      </metadata>
+      <dataset name="Saída d02 (1 km), ciclo 00Z do dia 27 do 07" ID="WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d02_20260727_0000.nc4" urlPath="modelos/WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d02_20260727_0000.nc4">
+        <dataSize units="Mbytes">743.2</dataSize>
+        <date type="modified">2026-07-27T11:35:48.604Z</date>
+      </dataset>
+      <dataset name="Saída d01 (5 km), ciclo 00Z do dia 27 do 07" ID="WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d01_20260727_0000.nc4" urlPath="modelos/WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d01_20260727_0000.nc4">
+        <dataSize units="Mbytes">775.5</dataSize>
+        <date type="modified">2026-07-27T11:35:48.496Z</date>
+      </dataset>
+    </dataset>
+  </catalog>
+  servicios declarados: {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  ficheros            : ['modelos/WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d02_20260727_0000.nc4', 'modelos/WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d01_20260727_0000.nc4']
+
 --- NCSS sobre un fichero conocido ---
-  sin respuesta NCSS para WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d02_20260727_0000.nc4
-  sin respuesta NCSS para modelos/WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d02_20260727_0000.nc4
+  base NCSS declarada: https://thredds.meteogalicia.gal/thredds/ncss/grid/
+  OK  modelos/WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d02_20260727_0000.nc4
+    endpoint : https://thredds.meteogalicia.gal/thredds/ncss/grid/modelos/WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d02_20260727_0000.nc4
+    bbox     : {'west': '-10.2928', 'east': '-5.7485', 'south': '41.3483', 'north': '44.6358'}
+    ejes     : {'y': '[360]', 'x': '[360]', 'time': '[96]', 'lat': '[360, 360]', 'lon': '[360, 360]'}
+    variables (45): HGT500, HGT850, HGTlev1, HGTlev2, HGTlev3, T500, T850, cape, cfh, cfl, cfm, cft, cin, conv_prec, dir, land_use, lat, lhflx, lon, lwflx, lwm, meteograms, mod, mslp, pbl_height, prec, rh, shflx, snow_prec, snowlevel, sst, swflx, temp, topo, u, ulev1, ulev2, ulev3, v, visibility, vlev1, vlev2, vlev3, weasd, wind_gust
+
+--- OPeNDAP sobre ese mismo fichero ---
+  https://thredds.meteogalicia.gal/thredds/dodsC/modelos/WRF_ARW_1KM_HIST/20260727/wrf_arw_det_history_d02_20260727_0000.nc4
+  dimensiones: {'time': 96, 'y': 360, 'x': 360}
+  coordenadas: ['x', 'y', 'time', 'lon', 'lat']
+  variables (44): HGT500, HGT850, HGTlev1, HGTlev2, HGTlev3, Lambert_Conformal, T500, T850, cape, cfh, cfl, cfm, cft, cin, conv_prec, dir, land_use, lhflx, lwflx, lwm, meteograms, mod, mslp, pbl_height, prec, rh, shflx, snow_prec, snowlevel, sst, swflx, temp, topo, u, ulev1, ulev2, ulev3, v, visibility, vlev1, vlev2, vlev3, weasd, wind_gust
+    temp: dims=('time', 'y', 'x') unidades=K
+    rh: dims=('time', 'y', 'x') unidades=1
+  tamanio completo del fichero: ~2,140 MB (por eso no se baja entero)
 
 --- recorrido del catalogo (profundidad 4) ---
   [0] raiz: 29 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog.xml
   [0] raiz(html): 12 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog.html
+  [1] semilla:catalog: 29 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalog.xml
   [1] semilla:WRF_ARW_1KM_HIST: 1789 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1KM_HIST/catalog.xml
-  [1] semilla:modelos: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/catalog.html
-  [1] semilla:modelos: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/catalog.xml
   [1] WRF_2D: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/WRF_2D/catalog.xml
   [1] WRF_3D: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_grib.xml
   [1] WRF_RAW: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/WRF/catalog_raw.xml
@@ -83,6 +125,350 @@ Exploracion del THREDDS de MeteoGalicia - 2026-07-27 20:42
   [1] ATLAS_VENTO: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/DATOS/Atlas/atlasvento_catalog.html
   [1] GFS: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/GFS/catalog.html
   [1] Navaz: ERROR HTTP 404   <- https://thredds.meteogalicia.gal/thredds/catalogos/NAVAZ/catalog.html
+  [2] WRF_2D: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF_2D/catalog.xml
+  [2] WRF_3D: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF/catalog_grib.xml
+  [2] WRF_RAW: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF/catalog_raw.xml
+  [2] WRF_HIST: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/WRF/WRF_hist.xml
+  [2] WRF_1.3km_DEPRECATED_HIST: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist.xml
+  [2] WRF_1km_HIST: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist_novo.xml
+  [2] WRF_ENS_2D: 2 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF/catalog_WRF_ENS_2D.xml
+  [2] WW3: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WW3/catalog.xml
+  [2] WW3_HIST: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WW3/WW3_catalog_hist.xml
+  [2] SWAN: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/SWAN/swan_catalog.xml
+  [2] SWAN_HIST: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/SWAN/swan_catalog_hist.xml
+  [2] ROMS: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/ROMS/catalog.xml
+  [2] ROMS_Novo: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/ROMS/catalognovo.xml
+  [2] ROMS_RAW: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/RAW_OUTPUTS/ROMS/catalog.xml
+  [2] MOHID: 7 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/MOHID/catalog.xml
+  [2] MOHID_RAW: 7 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/RAW_OUTPUTS/MOHID/catalog.xml
+  [2] MOHID_HIST: 7 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/MOHID/catalog_hist.xml
+  [2] SWAT: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/SWAT/catalog.xml
+  [2] CHIMERE: 2 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/CHIMERE/catalog.xml
+  [2] PPI: 2 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/OBSERVACION/RADAR/catalog_radar.xml
+  [2] Boyas: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/OBSERVACION/BOYAS/catalog_boyas.xml
+  [2] BatimetriaRAIA: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/BatimetriaRAIA/batimetria_catalog_new.xml
+  [2] ATLAS_VENTO: 14 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/Atlas/atlasvento_catalog.xml
+  [2] GFS: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/GFS/catalog.xml
+  [2] Navaz: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/NAVAZ/catalog.xml
+  [2] FITOVIT: ERROR XML ilegible (mismatched tag: line 32, column 23); primeros bytes: b'<!DOCTYPE html><html lang="gl">\n\n<head>\n\n  \t<meta charset="utf-8"><title>CAS - Xunta de Galicia</title>\n  \t<meta http-eq'   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/PRIVATE/FITOVIT/catalog_fitovit.xml
+  [2] FWI: ERROR XML ilegible (mismatched tag: line 32, column 23); primeros bytes: b'<!DOCTYPE html><html lang="gl">\n\n<head>\n\n  \t<meta charset="utf-8"><title>CAS - Xunta de Galicia</title>\n  \t<meta http-eq'   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/PRIVATE/FWI/catalog_fwi.xml
+  [2] TVG: ERROR XML ilegible (mismatched tag: line 32, column 23); primeros bytes: b'<!DOCTYPE html><html lang="gl">\n\n<head>\n\n  \t<meta charset="utf-8"><title>CAS - Xunta de Galicia</title>\n  \t<meta http-eq'   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/PRIVATE/TVG/catalog_tvg.xml
+  [2] EIRA: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/catalogos/PRIVATE/EIRA/catalog_eira.xml
+  [3] WRF_2D 36km: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_36km/fmrc/catalog.xml
+  [3] WRF_2D 12km: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_12km/fmrc/catalog.xml
+  [3] WRF_2D 04km: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_04km/fmrc/catalog.xml
+  [3] WRF 4km: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/grib_04km/fmrc/files/catalog.xml
+  [3] WRF 12km: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/grib_12km/fmrc/files/catalog.xml
+  [3] WRF 36km: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/grib_36km/fmrc/files/catalog.xml
+  [3] WRF 36km: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/wrf/rawoutput/wrf_36km/catalog.xml
+  [3] WRF 12km: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/wrf/rawoutput/wrf_12km/catalog.xml
+  [3] WRF 4km: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/wrf/rawoutput/wrf_4km/catalog.xml
+  [3] Arquivos historicos WRF: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_HIST/catalog.xml
+  [3] Arquivos historicos WRF 1.3KM DEPRECATED: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1.3KM_HIST/catalog.xml
+  [3] WRF_ENS_2D 12km: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_ens_2d_12km/fmrc/catalog.xml
+  [3] WRF_ENS_2D 04km: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_ens_2d_04km/fmrc/catalog.xml
+  [3] WW3 Atlantico: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/ww3_atn/fmrc/catalog.xml
+  [3] WW3 Iberico: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/ww3_iberico/fmrc/catalog.xml
+  [3] WW3 Galicia: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/ww3_galicia/fmrc/catalog.xml
+  [3] ATN: 10 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WW3_HIST/ATN/catalog.xml
+  [3] Iberico: 10 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WW3_HIST/iberico/catalog.xml
+  [3] Galicia: 10 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WW3_HIST/galicia/catalog.xml
+  [3] Galicia: 15 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/SWAN/Galicia/catalog.xml
+  [3] Rías Baixas: 15 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/SWAN/baixas/catalog.xml
+  [3] Ártabro: 15 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/SWAN/artabro/catalog.xml
+  [3] Galicia: 12 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/SWAN_HIST/galicia/catalog.xml
+  [3] ROMS 2km: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/roms/fmrc/catalog.xml
+  [3] ROMS Novo 2km: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/romsNovo/fmrc/catalog.xml
+  [3] ROMS_RAW: 5 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/roms/rawoutput/roms_raw/catalog.xml
+  [3] MOHID_ARTABRO: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_artabro/fmrc/catalog.xml
+  [3] MOHID_RIASBAIXAS: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_Riasbaixas/fmrc/catalog.xml
+  [3] MOHID_AROUSA: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_arousa/fmrc/catalog.xml
+  [3] MOHID_VIGO: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_vigo/fmrc/catalog.xml
+  [3] MOHID_NOIAMUROS: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_noiamuros/fmrc/catalog.xml
+  [3] MOHID_PORTOCORUNA: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_portocoruna/fmrc/catalog.xml
+  [3] MOHID_PORTOLANGOSTEIRA: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_portolangosteira/fmrc/catalog.xml
+  [3] Artabro: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/rawoutput/artabro/catalog.xml
+  [3] Arousa: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/rawoutput/arousa/catalog.xml
+  [3] Vigo-Pontevedra: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/rawoutput/vigo_pontevedra/catalog.xml
+  [3] Noia-Muros: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/rawoutput/noia_muros/catalog.xml
+  [3] Rías Baixas: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/rawoutput/riasbaixas/catalog.xml
+  [3] Porto-Coruna: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/rawoutput/porto_coruna/catalog.xml
+  [3] Porto-Langosteira: 3 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/rawoutput/porto_Langosteira/catalog.xml
+  [3] Artabro: 0 subcatalogos, 5508 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/history/artabro/catalog.xml
+  [3] RiasBaixas: 0 subcatalogos, 318 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/history/RiasBaixas/catalog.xml
+  [3] Arousa: 0 subcatalogos, 5506 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/history/arousa/catalog.xml
+  [3] Vigo-Pontevedra: 0 subcatalogos, 5504 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/history/vigo_pontevedra/catalog.xml
+  [3] Noia-Muros: 0 subcatalogos, 5496 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/history/noia_muros/catalog.xml
+  [3] Porto-Coruna: 0 subcatalogos, 5312 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/history/porto_coruna/catalog.xml
+  [3] Porto-Langosteira: 0 subcatalogos, 5192 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/mohid/history/porto_Langosteira/catalog.xml
+  [3] SWAT: 15 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/SWAT/catalog.xml
+  [3] CHIMERE_2D Galicia: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/chimere_2d_gal/fmrc/catalog.xml
+  [3] CHIMERE_2D IberiaNorte: 1 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/chimere_2d_ibe/fmrc/catalog.xml
+  [3] Arquivos RADAR: 0 subcatalogos, 1286 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/observacion/RADAR/catalog.xml
+  [3] Arquivos PPI RADAR: 0 subcatalogos, 883 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/observacion/RADAR/PPI/catalog.xml
+  [3] Arquivos BOYAS: 6 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/observacion/boyas/catalog.xml
+  [3] Arquivos : 0 subcatalogos, 1 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/batimetriaRAIA/catalog.xml
+  [3] AGUARDA: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/aguarda/catalog.xml
+  [3] AROUSA: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/arousa/catalog.xml
+  [3] ARTEIXO: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/arteixo/catalog.xml
+  [3] BURELA: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/burela/catalog.xml
+  [3] CORUÑA: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/corunha/catalog.xml
+  [3] FISTERRA: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/fisterra/catalog.xml
+  [3] LAXE: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/laxe/catalog.xml
+  [3] MUROS_NOIA: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/murosnoia/catalog.xml
+  [3] MUXIA: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/muxia/catalog.xml
+  [3] ORTIGUEIRA: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/ortigueira/catalog.xml
+  [3] RIBADEO: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/ribadeo/catalog.xml
+  [3] VALDOVIÑO: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/valdovinho/catalog.xml
+  [3] VIGO_PONTEVEDRA: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/vigopon/catalog.xml
+  [3] VIVEIRO: 0 subcatalogos, 7 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/datos/atlas_vento/viveiro/catalog.xml
+  [3] GFS0p25: 5 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/gfs_0p25/fmrc/catalog.xml
+  [3] Arquivos Navaz: 14 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/catalog.xml
+  [3] Diarios: ERROR XML ilegible (mismatched tag: line 32, column 23); primeros bytes: b'<!DOCTYPE html><html lang="gl">\n\n<head>\n\n  \t<meta charset="utf-8"><title>CAS - Xunta de Galicia</title>\n  \t<meta http-eq'   <- https://thredds.meteogalicia.gal/thredds/catalog/eira/diarios/catalog.xml
+  [4] files: 0 subcatalogos, 31 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_36km/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 31 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_12km/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 31 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_04km/fmrc/files/catalog.xml
+  [4] d03: 19 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_HIST/d03/catalog.xml
+  [4] d02: 19 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_HIST/d02/catalog.xml
+  [4] d01: 19 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_HIST/d01/catalog.xml
+  [4] d06: 16 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1.3KM_HIST/d06/catalog.xml
+  [4] d05: 16 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1.3KM_HIST/d05/catalog.xml
+  [4] d04: 16 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1.3KM_HIST/d04/catalog.xml
+  [4] files: 0 subcatalogos, 4 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_ens_2d_12km/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 4 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/wrf_ens_2d_04km/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 30 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/ww3_atn/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 30 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/ww3_iberico/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 30 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/ww3_galicia/fmrc/files/catalog.xml
+  [4] STRAUSS: 2 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WW3_HIST/ATN/STRAUSS/catalog.xml
+  [4] STRAUSS: 2 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WW3_HIST/iberico/STRAUSS/catalog.xml
+  [4] STRAUSS: 2 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/WW3_HIST/galicia/STRAUSS/catalog.xml
+  [4] STRAUSS: 2 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/SWAN_HIST/galicia/STRAUSS/catalog.xml
+  [4] files: 0 subcatalogos, 6 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/roms/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 11 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/romsNovo/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 16 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_artabro/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 16 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_Riasbaixas/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 16 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_arousa/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 16 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_vigo/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 16 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_noiamuros/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 16 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_portocoruna/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 16 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/mohid_portolangosteira/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 5 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/chimere_2d_gal/fmrc/files/catalog.xml
+  [4] files: 0 subcatalogos, 5 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/chimere_2d_ibe/fmrc/files/catalog.xml
+  [4] Rande: 0 subcatalogos, 45 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/observacion/boyas/Rande/catalog.xml
+  [4] Cortegada: 0 subcatalogos, 45 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/observacion/boyas/Cortegada/catalog.xml
+  [4] BRibeira: 0 subcatalogos, 45 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/observacion/boyas/BRibeira/catalog.xml
+  [4] BMuros: 0 subcatalogos, 49 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/observacion/boyas/BMuros/catalog.xml
+  [4] BCies: 0 subcatalogos, 45 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/observacion/boyas/BCies/catalog.xml
+  [4] BAGuarda: 0 subcatalogos, 45 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/observacion/boyas/BAGuarda/catalog.xml
+  [4] Arquivos do ano 2025: 0 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2025/catalog.xml
+  [4] Arquivos do ano 2024: 0 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2024/catalog.xml
+  [4] Arquivos do ano 2023: 0 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2023/catalog.xml
+  [4] Arquivos do ano 2022: 0 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2022/catalog.xml
+  [4] Arquivos do ano 2021: 0 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2021/catalog.xml
+  [4] Arquivos do ano 2020: 0 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2020/catalog.xml
+  [4] Arquivos do ano 2019: 0 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2019/catalog.xml
+  [4] Arquivos do ano 2018: 0 subcatalogos, 0 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2018/catalog.xml
+  [4] Arquivos do ano 2017: 0 subcatalogos, 2 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2017/catalog.xml
+  [4] Arquivos do ano 2016: 0 subcatalogos, 45 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2016/catalog.xml
+  [4] Arquivos do ano 2015: 0 subcatalogos, 45 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2015/catalog.xml
+  [4] Arquivos do ano 2014: 0 subcatalogos, 38 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2014/catalog.xml
+  [4] Arquivos do ano 2013: 0 subcatalogos, 45 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2013/catalog.xml
+  [4] Arquivos do ano 2012: 0 subcatalogos, 47 ficheros   <- https://thredds.meteogalicia.gal/thredds/catalog/modelos/Navaz/diario/2012/catalog.xml
   conjuntos listados pero inalcanzables: WRF_2D, WRF_3D, WRF_RAW, WRF_HIST, WRF_1.3km_DEPRECATED_HIST, WRF_1km_HIST, WRF_ENS_2D, WRF_2D
 
---- conjuntos con 'wrf' en el nombre: 0 ---
+--- conjuntos con 'wrf' en el nombre: 32 ---
+  WRF_2D                                        https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF_2D/catalog.xml
+  WRF_3D                                        https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF/catalog_grib.xml
+  WRF_RAW                                       https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF/catalog_raw.xml
+  WRF_HIST                                      https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/WRF/WRF_hist.xml
+  WRF_1.3km_DEPRECATED_HIST                     https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist.xml
+  WRF_1km_HIST                                  https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist_novo.xml
+  WRF_ENS_2D                                    https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF/catalog_WRF_ENS_2D.xml
+  WRF_ARW_1KM_HIST                              https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1KM_HIST/catalog.xml
+  WRF_2D 36km                                   https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_36km/fmrc/catalog.xml
+  WRF_2D 12km                                   https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_12km/fmrc/catalog.xml
+  WRF_2D 04km                                   https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_04km/fmrc/catalog.xml
+  WRF 4km                                       https://thredds.meteogalicia.gal/thredds/catalog/grib_04km/fmrc/files/catalog.xml
+  WRF 12km                                      https://thredds.meteogalicia.gal/thredds/catalog/grib_12km/fmrc/files/catalog.xml
+  WRF 36km                                      https://thredds.meteogalicia.gal/thredds/catalog/grib_36km/fmrc/files/catalog.xml
+  WRF 36km                                      https://thredds.meteogalicia.gal/thredds/catalog/modelos/wrf/rawoutput/wrf_36km/catalog.xml
+  WRF 12km                                      https://thredds.meteogalicia.gal/thredds/catalog/modelos/wrf/rawoutput/wrf_12km/catalog.xml
+  WRF 4km                                       https://thredds.meteogalicia.gal/thredds/catalog/modelos/wrf/rawoutput/wrf_4km/catalog.xml
+  Arquivos historicos WRF                       https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_HIST/catalog.xml
+  Arquivos historicos WRF 1.3KM DEPRECATED      https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1.3KM_HIST/catalog.xml
+  WRF_ENS_2D 12km                               https://thredds.meteogalicia.gal/thredds/catalog/wrf_ens_2d_12km/fmrc/catalog.xml
+  WRF_ENS_2D 04km                               https://thredds.meteogalicia.gal/thredds/catalog/wrf_ens_2d_04km/fmrc/catalog.xml
+  files                                         https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_36km/fmrc/files/catalog.xml
+  files                                         https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_12km/fmrc/files/catalog.xml
+  files                                         https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_04km/fmrc/files/catalog.xml
+  d03                                           https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_HIST/d03/catalog.xml
+  d02                                           https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_HIST/d02/catalog.xml
+  d01                                           https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_HIST/d01/catalog.xml
+  d06                                           https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1.3KM_HIST/d06/catalog.xml
+  d05                                           https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1.3KM_HIST/d05/catalog.xml
+  d04                                           https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1.3KM_HIST/d04/catalog.xml
+  files                                         https://thredds.meteogalicia.gal/thredds/catalog/wrf_ens_2d_12km/fmrc/files/catalog.xml
+  files                                         https://thredds.meteogalicia.gal/thredds/catalog/wrf_ens_2d_04km/fmrc/files/catalog.xml
+
+--- WRF_2D ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF_2D/catalog.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : latest.xml
+  patron_fichero  : latest.xml
+  ejemplo         : latest.xml
+  recorrido       : ['WRF_2D 04km', 'files']
+  servicios       : {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  no se pudo describir el fichero por NCSS:
+      no es XML (0 B, b'')  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml/dataset.xml
+      HTTP 400  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml/dataset.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml
+
+--- WRF_3D ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF/catalog_grib.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : grib_36km/fmrc/files/%Y%m%d
+  patron_fichero  : wrf_arw_det_36km_%Y%m%d_1200.grib
+  ejemplo         : grib_36km/fmrc/files/20260725/wrf_arw_det_36km_20260725_1200.grib
+  recorrido       : ['WRF 36km', '20260725']
+  servicios       : {'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  endpoint NCSS   : https://thredds.meteogalicia.gal/thredds/ncss/grid/grib_36km/fmrc/files/20260725/wrf_arw_det_36km_20260725_1200.grib
+  bbox            : {'west': '-49.1509', 'east': '18.8802', 'south': '24.0410', 'north': '59.5978'}
+  ejes            : {'y': '[104]', 'x': '[118]', 'reftime': '[]', 'time': '[85]', 'time1': '[85]', 'hybrid': '[3]', 'height_above_ground': '[1]', 'isobaric': '[37]', 'height_above_ground1': '[1]'}
+  variables (57): Cloud_Ice_hybrid, Cloud_Ice_isobaric, Cloud_Mixing_Ratio_hybrid, Cloud_Mixing_Ratio_isobaric, Convective_Available_Potential_Energy_surface, Convective_inhibition_surface, Convective_precipitation_surface_Accumulation, Dew_point_temperature_height_above_ground, Dew_point_temperature_hybrid, Geopotential_height_cloud_base, Geopotential_height_cloud_tops, Geopotential_height_hybrid, Geopotential_height_isobaric, Geopotential_height_surface, Land_cover_land1_sea0_surface, Large_scale_snow_surface_Accumulation, Latent_heat_net_flux_surface, MaximumComposite_radar_reflectivity_entire_atmosphere, Planetary_boundary_layer_height_surface, Pressure_hybrid, Pressure_reduced_to_MSL_msl, Pressure_surface, Relative_humidity_height_above_ground, Relative_humidity_hybrid, Relative_humidity_isobaric, Sensible_heat_net_flux_surface, Snow_depth_surface, Snow_mixing_ratio_hybrid, Snow_mixing_ratio_isobaric, Specific_humidity_hybrid, Specific_humidity_isobaric, Surface_wind_gust_surface, Temperature_cloud_tops, Temperature_height_above_ground, Temperature_hybrid, Temperature_isobaric, Temperature_surface, Total_cloud_cover_entire_atmosphere, Total_cloud_cover_hybrid, Total_cloud_cover_isobaric, Total_precipitation_surface_Accumulation, Vegitation_type_as_in_SiB_surface, Visibility_surface, Water_Temperature_surface, Water_equiv_of_accum_snow_depth_surface_Accumulation, downward_long_wave_rad_flux_surface, downward_short_wave_rad_flux_surface, east_longitude_0-360_surface, latitude_-90_to_and90_surface, u-component_of_wind_height_above_ground, u-component_of_wind_hybrid, u-component_of_wind_isobaric, upward_long_wave_rad_flux_surface, upward_short_wave_rad_flux_surface, v-component_of_wind_height_above_ground, v-component_of_wind_hybrid, v-component_of_wind_isobaric
+
+--- WRF_RAW ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF/catalog_raw.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : modelos/wrf/rawoutput/wrf_4km/%Y%m%d
+  patron_fichero  : wrfout_d03_%Y%m%d_1200.nc
+  ejemplo         : modelos/wrf/rawoutput/wrf_4km/20260725/wrfout_d03_20260725_1200.nc
+  recorrido       : ['WRF 4km', '20260725']
+  servicios       : {'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/'}
+  endpoint NCSS   : https://thredds.meteogalicia.gal/thredds/ncss/grid/modelos/wrf/rawoutput/wrf_4km/20260725/wrfout_d03_20260725_1200.nc
+  bbox            : {'west': '-11.2919', 'east': '-5.0828', 'south': '40.4195', 'north': '45.2312'}
+  ejes            : {'Time': '[85]', 'y': '[126]', 'x_stag': '[118]', 'y_stag': '[127]', 'x': '[117]', 'soilDepth': '[5]', 'z': '[32]', 'z_stag': '[33]'}
+  variables (107): ACGRDFLX, ACHFX, ACLHF, ACSNOM, ALBBCK, ALBEDO, AREA2D, CANWAT, CLAT, CLDFRA, COSALPHA, COSZEN, DX2D, E, EMISS, F, GLW, GRAUPELNC, GRDFLX, HAILNC, HFX, HGT, ISLTYP, IVGTYP, LAI, LAKEMASK, LANDMASK, LH, LU_INDEX, MAPFAC_M, MAPFAC_MX, MAPFAC_MY, MAPFAC_U, MAPFAC_UX, MAPFAC_UY, MAPFAC_V, MAPFAC_VX, MAPFAC_VY, MF_VX_INV, MU, MUB, NEST_POS, NOAHRES, OLR, P, PB, PBLH, PC, PCB, PH, PHB, PSFC, P_HYD, Q2, QCLOUD, QFX, QGRAUP, QICE, QRAIN, QSNOW
+
+--- WRF_HIST ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/WRF/WRF_hist.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : modelos/WRF_HIST/d01/%Y/%m
+  patron_fichero  : wrf_arw_det_history_d01_%Y%m%d_0000.nc4
+  ejemplo         : modelos/WRF_HIST/d01/2008/01/wrf_arw_det_history_d01_20080131_0000.nc4
+  recorrido       : ['Arquivos historicos WRF', 'd01', '2008', '01']
+  servicios       : {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  endpoint NCSS   : https://thredds.meteogalicia.gal/thredds/ncss/grid/modelos/WRF_HIST/d01/2008/01/wrf_arw_det_history_d01_20080131_0000.nc4
+  bbox            : {'west': '-49.1825', 'east': '18.7889', 'south': '24.0379', 'north': '59.5822'}
+  ejes            : {'y': '[104]', 'x': '[118]', 'time': '[96]', 'lat': '[104, 118]', 'lon': '[104, 118]'}
+  variables (45): HGT500, HGT850, HGTlev1, HGTlev2, HGTlev3, T500, T850, cape, cfh, cfl, cfm, cft, cin, conv_prec, dir, lat, lhflx, lon, lwflx, lwm, meteograms, mod, mslp, pbl_height, prec, rh, shflx, snow_prec, snowlevel, sst, swflx, t2m, temp, topo, u, ulev1, ulev2, ulev3, v, visibility, vlev1, vlev2, vlev3, weasd, wind_gust
+
+--- WRF_1.3km_DEPRECATED_HIST ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : modelos/WRF_ARW_1.3KM_HIST/d04/%Y/%m
+  patron_fichero  : wrf_arw_det1km_history_d04_%Y%m%d_0000.nc4
+  ejemplo         : modelos/WRF_ARW_1.3KM_HIST/d04/2011/01/wrf_arw_det1km_history_d04_20110131_0000.nc4
+  recorrido       : ['Arquivos historicos WRF 1.3KM DEPRECATED', 'd04', '2011', '01']
+  servicios       : {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  endpoint NCSS   : https://thredds.meteogalicia.gal/thredds/ncss/grid/modelos/WRF_ARW_1.3KM_HIST/d04/2011/01/wrf_arw_det1km_history_d04_20110131_0000.nc4
+  bbox            : {'west': '-9.1675', 'east': '-7.7510', 'south': '43.0866', 'north': '44.0128'}
+  ejes            : {'y': '[72]', 'x': '[81]', 'time': '[72]', 'lat': '[72, 81]', 'lon': '[72, 81]'}
+  variables (44): HGT500, HGT850, HGTlev1, HGTlev2, HGTlev3, T500, T850, cape, cfh, cfl, cfm, cft, cin, conv_prec, dir, lat, lhflx, lon, lwflx, lwm, meteograms, mod, mslp, pbl_height, prec, rh, shflx, snow_prec, snowlevel, sst, swflx, temp, topo, u, ulev1, ulev2, ulev3, v, visibility, vlev1, vlev2, vlev3, weasd, wind_gust
+
+--- WRF_1km_HIST ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/catalogos/DATOS/ARCHIVE/WRF/WRF_1KM_hist_novo.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : modelos/WRF_ARW_1KM_HIST/%Y%m%d
+  patron_fichero  : wrf_arw_det_history_d02_%Y%m%d_0000.nc4
+  ejemplo         : modelos/WRF_ARW_1KM_HIST/20210903/wrf_arw_det_history_d02_20210903_0000.nc4
+  recorrido       : ['Arquivos historicos WRF 1KM', '20210903']
+  servicios       : {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  endpoint NCSS   : https://thredds.meteogalicia.gal/thredds/ncss/grid/modelos/WRF_ARW_1KM_HIST/20210903/wrf_arw_det_history_d02_20210903_0000.nc4
+  bbox            : {'west': '-10.2928', 'east': '-5.7485', 'south': '41.3483', 'north': '44.6358'}
+  ejes            : {'y': '[360]', 'x': '[360]', 'time': '[96]', 'lat': '[360, 360]', 'lon': '[360, 360]'}
+  variables (45): HGT500, HGT850, HGTlev1, HGTlev2, HGTlev3, T500, T850, cape, cfh, cfl, cfm, cft, cin, conv_prec, dir, land_use, lat, lhflx, lon, lwflx, lwm, meteograms, mod, mslp, pbl_height, prec, rh, shflx, snow_prec, snowlevel, sst, swflx, temp, topo, u, ulev1, ulev2, ulev3, v, visibility, vlev1, vlev2, vlev3, weasd, wind_gust
+
+--- WRF_ENS_2D ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/catalogos/WRF/catalog_WRF_ENS_2D.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : latest.xml
+  patron_fichero  : latest.xml
+  ejemplo         : latest.xml
+  recorrido       : ['WRF_ENS_2D 04km', 'files']
+  servicios       : {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/'}
+  no se pudo describir el fichero por NCSS:
+      no es XML (0 B, b'')  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml/dataset.xml
+      HTTP 400  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml/dataset.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml
+
+--- WRF_ARW_1KM_HIST ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1KM_HIST/catalog.xml
+  archivo         : 1789 fechas, 20210903 .. 20260727
+  anios           : 2021, 2022, 2023, 2024, 2025, 2026
+  patron_catalogo : modelos/WRF_ARW_1KM_HIST/%Y%m%d
+  patron_fichero  : wrf_arw_det_history_d02_%Y%m%d_0000.nc4
+  ejemplo         : modelos/WRF_ARW_1KM_HIST/20210903/wrf_arw_det_history_d02_20210903_0000.nc4
+  recorrido       : ['20210903']
+  servicios       : {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  endpoint NCSS   : https://thredds.meteogalicia.gal/thredds/ncss/grid/modelos/WRF_ARW_1KM_HIST/20210903/wrf_arw_det_history_d02_20210903_0000.nc4
+  bbox            : {'west': '-10.2928', 'east': '-5.7485', 'south': '41.3483', 'north': '44.6358'}
+  ejes            : {'y': '[360]', 'x': '[360]', 'time': '[96]', 'lat': '[360, 360]', 'lon': '[360, 360]'}
+  variables (45): HGT500, HGT850, HGTlev1, HGTlev2, HGTlev3, T500, T850, cape, cfh, cfl, cfm, cft, cin, conv_prec, dir, land_use, lat, lhflx, lon, lwflx, lwm, meteograms, mod, mslp, pbl_height, prec, rh, shflx, snow_prec, snowlevel, sst, swflx, temp, topo, u, ulev1, ulev2, ulev3, v, visibility, vlev1, vlev2, vlev3, weasd, wind_gust
+
+--- WRF_2D 36km ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_36km/fmrc/catalog.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : latest.xml
+  patron_fichero  : latest.xml
+  ejemplo         : latest.xml
+  recorrido       : ['files']
+  servicios       : {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  no se pudo describir el fichero por NCSS:
+      no es XML (0 B, b'')  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml/dataset.xml
+      HTTP 400  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml/dataset.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml
+
+--- WRF_2D 12km ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_12km/fmrc/catalog.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : latest.xml
+  patron_fichero  : latest.xml
+  ejemplo         : latest.xml
+  recorrido       : ['files']
+  servicios       : {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  no se pudo describir el fichero por NCSS:
+      no es XML (0 B, b'')  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml/dataset.xml
+      HTTP 400  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml/dataset.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml
+
+--- WRF_2D 04km ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/wrf_2d_04km/fmrc/catalog.xml
+  archivo         : no organizado por fechas en este nivel
+  patron_catalogo : latest.xml
+  patron_fichero  : latest.xml
+  ejemplo         : latest.xml
+  recorrido       : ['files']
+  servicios       : {'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  no se pudo describir el fichero por NCSS:
+      no es XML (0 B, b'')  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml/dataset.xml
+      HTTP 400  https://thredds.meteogalicia.gal/thredds/ncss/grid/latest.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml/dataset.xml
+      HTTP 404  https://thredds.meteogalicia.gal/thredds/ncss/latest.xml
+
+--- WRF 4km ---
+  url: https://thredds.meteogalicia.gal/thredds/catalog/grib_04km/fmrc/files/catalog.xml
+  archivo         : 3 fechas, 20260725 .. 20260727
+  anios           : 2026
+  patron_catalogo : grib_04km/fmrc/files/%Y%m%d
+  patron_fichero  : wrf_arw_det_04km_%Y%m%d_1200.grib
+  ejemplo         : grib_04km/fmrc/files/20260725/wrf_arw_det_04km_20260725_1200.grib
+  recorrido       : ['20260725']
+  servicios       : {'httpserver': 'https://thredds.meteogalicia.gal/thredds/fileServer/', 'opendap': 'https://thredds.meteogalicia.gal/thredds/dodsC/', 'wcs': 'https://thredds.meteogalicia.gal/thredds/wcs/', 'netcdfsubset': 'https://thredds.meteogalicia.gal/thredds/ncss/grid/', 'wms': 'https://thredds.meteogalicia.gal/thredds/wms/'}
+  endpoint NCSS   : https://thredds.meteogalicia.gal/thredds/ncss/grid/grib_04km/fmrc/files/20260725/wrf_arw_det_04km_20260725_1200.grib
+  bbox            : {'west': '-11.2684', 'east': '-5.1056', 'south': '40.4214', 'north': '45.2327'}
+  ejes            : {'y': '[126]', 'x': '[117]', 'reftime': '[]', 'time': '[85]', 'time1': '[85]', 'hybrid': '[3]', 'height_above_ground': '[1]', 'isobaric': '[37]', 'height_above_ground1': '[1]'}
+  variables (57): Cloud_Ice_hybrid, Cloud_Ice_isobaric, Cloud_Mixing_Ratio_hybrid, Cloud_Mixing_Ratio_isobaric, Convective_Available_Potential_Energy_surface, Convective_inhibition_surface, Convective_precipitation_surface_Accumulation, Dew_point_temperature_height_above_ground, Dew_point_temperature_hybrid, Geopotential_height_cloud_base, Geopotential_height_cloud_tops, Geopotential_height_hybrid, Geopotential_height_isobaric, Geopotential_height_surface, Land_cover_land1_sea0_surface, Large_scale_snow_surface_Accumulation, Latent_heat_net_flux_surface, MaximumComposite_radar_reflectivity_entire_atmosphere, Planetary_boundary_layer_height_surface, Pressure_hybrid, Pressure_reduced_to_MSL_msl, Pressure_surface, Relative_humidity_height_above_ground, Relative_humidity_hybrid, Relative_humidity_isobaric, Sensible_heat_net_flux_surface, Snow_depth_surface, Snow_mixing_ratio_hybrid, Snow_mixing_ratio_isobaric, Specific_humidity_hybrid, Specific_humidity_isobaric, Surface_wind_gust_surface, Temperature_cloud_tops, Temperature_height_above_ground, Temperature_hybrid, Temperature_isobaric, Temperature_surface, Total_cloud_cover_entire_atmosphere, Total_cloud_cover_hybrid, Total_cloud_cover_isobaric, Total_precipitation_surface_Accumulation, Vegitation_type_as_in_SiB_surface, Visibility_surface, Water_Temperature_surface, Water_equiv_of_accum_snow_depth_surface_Accumulation, downward_long_wave_rad_flux_surface, downward_short_wave_rad_flux_surface, east_longitude_0-360_surface, latitude_-90_to_and90_surface, u-component_of_wind_height_above_ground, u-component_of_wind_hybrid, u-component_of_wind_isobaric, upward_long_wave_rad_flux_surface, upward_short_wave_rad_flux_surface, v-component_of_wind_height_above_ground, v-component_of_wind_hybrid, v-component_of_wind_isobaric
