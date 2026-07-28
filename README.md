@@ -33,17 +33,144 @@ cada variable y en qué punto está el trabajo.
 | 2 | Agregación a diario, índices y ranking a 9 km | ⏸ espera al paso 1 |
 | 3 | Red de estaciones de MeteoGalicia | ✅ 153 estaciones, 134 con serie útil |
 | 4 | Afinado por altitud con Open-Meteo | ⏸ opcional |
-| 5 | WRF de MeteoGalicia a 1-4 km | ⛔ **servidor caído** (HTTP 502 desde el 25/07) |
+| 5 | WRF de MeteoGalicia a 1 km | ✅ **catálogo resuelto**, listo para descargar |
 | 6 | Fusión de escalas 9 km + 1 km | ⏸ depende del 5 |
 | 7 | Evolución año a año de cada estación | ✅ hecho |
 | 8 | Periodos de retorno y extremos no estacionarios | ✅ hecho sobre estaciones |
 | 9 | Proyecciones climáticas de AdapteCCa | 🔍 catálogo reconocido, falta implementar la descarga |
 
-**Lo que bloquea:** nada, salvo el tiempo de cola del Copernicus. El servidor de
-MeteoGalicia (paso 5) está caído y hay una tarea programada vigilándolo a diario.
+**Lo que bloquea:** nada, salvo el tiempo de cola del Copernicus.
+
+**El servidor de MeteoGalicia se ha movido, y su índice está roto.** El
+histórico `mandeo.meteogalicia.es` devuelve HTTP 502; el servicio vivo es
+`thredds.meteogalicia.gal`. Pero el `catalog.xml` de su raíz es una copia del
+índice del servidor viejo: los 29 títulos son correctos y **los 29 enlaces dan
+404**, porque apuntan a `/thredds/catalogos/...`, ruta que en este servidor ya no
+existe. Lo que sí existe cuelga de `/thredds/catalog/modelos/...`, y su nodo
+intermedio `modelos` tampoco es un fichero. Es decir: desde la raíz y por XML no
+se llega a ningún sitio, aunque los datos estén ahí.
+
+El kit lo resuelve por tres vías simultáneas, sin escribir rutas a mano:
+
+1. prueba los dos hosts y usa el que responda (`GAL_THREDDS=<url>` fuerza uno);
+2. si un `catalog.xml` falla o es ilegible, reintenta con el `catalog.html`
+   hermano, que lo genera el propio TDS y sí trae los enlaces vivos — y del que
+   se sacan los `urlPath` de los ficheros leyendo la query `?dataset=`;
+3. descarta los conjuntos que el índice lista pero no se pueden abrir. Esto no
+   es cosmético: uno de los muertos (`WRF_1km_HIST`) puntúa **más alto** que el
+   bueno en la elección automática, así que sin este filtro el paso 5 se iría a
+   un conjunto inexistente.
+
+### Inventario del archivo WRF, ya verificado contra el servidor
+
+| Conjunto | Malla | Cobertura | Archivo | Sirve |
+|---|---|---|---|---|
+| `modelos/WRF_ARW_1KM_HIST` (d02) | 1 km, 360×360 | 41,35-44,64 N / -10,29 a -5,75 | 1.789 días, **2021-09-03 → 2026-07-27** | ✅ **el elegido** |
+| `modelos/WRF_ARW_1KM_HIST` (d01) | 5 km | igual | igual | resolución peor |
+| `modelos/WRF_HIST` (d01) | 36 km, 104×118 | -49 a +19 / 24-60 N | desde **2008** | continental, inútil aquí |
+| `modelos/WRF_ARW_1.3KM_HIST` (d04) | 1,3 km, 72×81 | -9,17 a -7,75 / 43,09-44,01 | desde 2011 | **solo el norte**; ellos lo marcan DEPRECATED |
+| `wrf_*km/fmrc`, `latest.xml` | — | — | solo la pasada actual | no es archivo |
+
+`WRF_1km_HIST` y `WRF_ARW_1KM_HIST` son **el mismo conjunto** con dos nombres.
+
+Cada día publica **dos dominios en la misma carpeta**: `d02` (1 km) y `d01`
+(5 km). El catálogo no garantiza el orden, así que el dominio se pide por
+nombre (`--dominio d02`, que es el valor por defecto).
+
+Variables disponibles: 45, entre ellas `temp` (K), `rh`, `mod` y `dir` (viento),
+`prec`, `mslp`, `topo`, `land_use`. Eje temporal de 96 pasos horarios: la pasada
+entera. Nos quedamos con las 24 h del propio día, que además son las de menor
+alcance de predicción y por tanto las mejores.
+
+**La malla del WRF incluye el océano y los embalses, y hay que quitarlos.**
+Un tercio de los 60.690 puntos es agua. Sin separarla pasan dos cosas: la
+obvia, que los veinte «sitios más frescos de Galicia» salen siendo el Atlántico
+a la altura de Fisterra (19,6 °C de Tmax p90) y algún embalse de Ourense; y la
+que no se ve, que al promediar el entorno de 9 km de un punto de costa entra mar
+frío, con lo que **toda la franja costera aparece con una anomalía positiva que
+es un artefacto del método, no un rasgo del terreno**. Las anomalías de −8 °C
+tierra adentro eran embalses, no valles.
+
+Se resuelve con una petición más (`05_wrf_dias_calidos.py --estaticos`), que baja
+`topo` y `land_use`. La categoría de agua se deduce de los datos —es la que
+domina donde la altitud es cero— en vez de codificar el 16 de USGS o el 17 de
+MODIS, que el fichero no dice cuál usa. Después el suavizado a 9 km promedia
+solo tierra y normaliza por cuántos vecinos válidos había, que es lo correcto
+porque el término de comparación, ERA5-Land, también es solo tierra.
+
+De regalo, `topo` da la **altitud** de cada punto de 1 km, que hacía falta de
+todos modos: sin ella no se distingue «fresco porque está a 900 m» de «fresco
+porque le entra la brisa», y solo la segunda es un sitio donde vivir.
+
+**Cinco veranos, no quince — y no importa.** Del WRF solo se extrae el patrón
+espacial, no la tendencia; para eso 200-250 días cálidos sobran. La serie larga
+la pone ERA5-Land.
+
+**`rh` viene en fracción, no en porcentaje.** El fichero declara `units="1"` y
+los valores van de 0 a 1. Usarlo tal cual como porcentaje hace que
+`clip(0,62, 1, 100)` dé 1 %, con lo que el humidex se queda igual que la
+temperatura seca y **el bochorno desaparece sin producir ningún error**. Para
+34 °C con 60 % de humedad, humidex real 46,2 frente a 34,0 mal calculado: doce
+grados de diferencia, en silencio. `rh_a_porcentaje()` lo decide mirando los
+datos, no el atributo, porque el atributo también puede mentir.
+
+**Dónde estaba el enlace que faltaba.** El índice de la raíz (`/thredds/catalog.xml`)
+trae los `href` en relativo (`catalogos/WRF/...`), que resueltos contra la raíz
+dan `/thredds/catalogos/...` → 404. El **mismo** índice servido desde
+`/thredds/catalog/catalog.xml` los resuelve a `/thredds/catalog/catalogos/...`,
+que sí existe. Un prefijo de diferencia, y desbloquea el árbol entero.
+
+**Cada fichero pesa 743 MB.** Es la salida d02 de 1 km, con todas las variables
+y la pasada entera (96 h). Bajarlos enteros son 150 GB para 200 días, así que
+descartado. El recorte —dos variables, la caja de Galicia y las 24 h del propio
+día— deja eso en unos 15-25 MB por día, del orden de 4 GB en total.
+
+**El `id` de un dataset NO es su `urlPath`.** Aquí el id es
+`WRF_ARW_1KM_HIST/20260727/wrf_...nc4` y la ruta real de los servicios es
+`modelos/WRF_ARW_1KM_HIST/20260727/wrf_...nc4`. En el `catalog.xml` viene el
+`urlPath` bueno; en el `catalog.html` solo está el id, en la query `?dataset=`.
+Por eso, cuando una página HTML lista ficheros, se consulta el XML hermano y se
+usa lo que diga él. Con el id, tanto NCSS como OPeNDAP dan 404.
+
+**Hay dos vías de descarga y el paso 5 usa la que funcione** (`--via auto`, o
+`ncss` / `opendap` a mano). Las dos hacen lo mismo —pedir un trozo en lugar del
+fichero entero— pero por caminos distintos: el NCSS entiende de latitud y
+longitud y devuelve el recorte en una sola petición; OPeNDAP solo entiende de
+índices, hay que traducirle la caja a filas y columnas, y hace muchas peticiones
+pequeñas: es más lento, pero mucho más difícil de que lo rechacen por tamaño.
+
+**Y la ruta del NetcdfSubset no se adivina: se lee.** Cada catálogo declara sus
+`<service>` con su `base` — NCSS, OPeNDAP y descarga directa. TDS 4.x publica el
+NCSS en `/thredds/ncss/` y 5.x en `/thredds/ncss/grid/`, y cada instalación puede
+cambiarlo, así que probar las dos habituales es una apuesta. Además la
+descripción de un dataset está en `<endpoint>/dataset.xml`: pedir el endpoint
+pelado devuelve el **formulario HTML**, que no es un error HTTP — si el código no
+lo distingue, cree que ha descrito el fichero sin haber descrito nada. Ambas
+cosas eran fallos míos y están corregidas y cubiertas por pruebas.
+
+**Sobre el volumen del archivo WRF.** El catálogo tiene un fichero por día y por
+dominio desde que arrancó el archivo: son cientos de gigas y no se descargan.
+El paso 5 baja **solo los 40 días más cálidos de cada verano**, recortados a
+Galicia y con dos variables (`temp` y `rh`), porque para una pregunta sobre
+episodios de calor extremo los demás días no aportan información. Son unos 600
+ficheros pequeños en vez de 5.500 grandes. Y del WRF no se usa la serie temporal
+—que no es homogénea, ver §7— sino solo el **patrón espacial**, así que ni
+siquiera hace falta que su archivo cubra los 30 años: le basta con cubrir
+suficientes episodios cálidos para que ese patrón sea estable.
+
+**El paso 5 ya no espera al Copernicus.** Elegía los días cálidos a partir de
+`diarios_galicia.nc`, que no existirá hasta que acaben los pasos 1 y 2. Pero ahí
+no se está midiendo nada, solo *ordenando* los días para quedarse con los más
+calurosos, y para eso las 155 estaciones de MeteoGalicia —ya descargadas— valen
+igual: una ola de calor lo es en toda Galicia a la vez. Sobre datos simulados las
+dos fuentes eligen el 92 % de los mismos días. `--fuente auto` usa la malla si
+existe y las estaciones si no.
 
 **Lo siguiente:** que termine el paso 1, luego el paso 2, y con la malla completa
-repetir los pasos 7 y 8 sobre ella para contrastarlos con las estaciones.
+repetir los pasos 7 y 8 sobre ella para contrastarlos con las estaciones. En
+paralelo, `python 05_wrf_dias_calidos.py --explorar` contra el servidor nuevo:
+el informe dice ahora **hasta dónde llega hacia atrás cada conjunto**, que es lo
+que decide si se usa la malla de 1 km o la de 4 km.
 
 ---
 
