@@ -1,0 +1,50 @@
+Estaciones utilizables: 145 de 153 (>= 8 anios y a menos de 3 km de la malla)
+Variable contrastada: tx_p99_1km frente al tx_p99 observado
+
+--- 1. valor absoluto ---
+  sesgo medio       -2.59 C
+  error absoluto     2.71 C
+  desviacion         1.78 C
+  El campo va FRIO. Es lo esperable: una celda de reanalisis es una
+  media de area y las medias de area no alcanzan los extremos de un
+  punto. No invalida el ranking, pero estos numeros NO son lecturas
+  de termometro.
+
+  del error, lo que explica el desajuste de altitud modelo-garita:
+    pendiente -4.91 C / 1000 m (el gradiente fisico es -6.5)
+    sesgo del campo a igualdad de altitud: -2.74 C
+    error absoluto tras corregirlo: 1.37 C (antes 2.71)
+  -> correccion recomendada para leer el campo en grados reales: +2.74 C
+
+--- 2. ¿ordena bien? (que es lo que importa) ---
+  correlacion de rangos (Spearman): 0.831
+  correlacion de Pearson:           0.833
+  de las 15 estaciones mas frescas de verdad, el campo acierta 9
+  de las 15 mas calurosas de verdad, acierta 12
+
+--- 3. ¿ha servido de algo bajar a 1 km? ---
+  sobre las 133 estaciones donde ERA5-Land interpola de verdad:
+    ERA5-Land 9 km   error abs 2.90 C   corr 0.780   rangos 0.777
+    fusion 1 km      error abs 2.67 C   corr 0.856   rangos 0.838
+  -> el detalle de 1 km mejora el error en 0.23 C
+
+  ATENCION: 12 estaciones caen fuera de la nube de
+  ERA5-Land (litoral y cabos). Ahi el error absoluto es 3.24 C frente a 2.67 C dentro.
+  Es la parte mas debil del metodo, y coincide con la cabeza
+  del ranking: los cabos mas frescos son tambien los peor
+  respaldados por observaciones.
+
+--- las 12 estaciones donde mas se equivoca ---
+          concello  provincia   alt  alt_modelo  tx_p99  fusion  error
+           O ROSAL Pontevedra  47.0        43.3    34.9    27.3   -7.6
+               TUI Pontevedra 484.0       358.8    35.1    27.9   -7.2
+             LEIRO    Ourense 105.0       270.3    40.0    33.9   -6.2
+           RIBEIRA   A Coruña  30.0        79.4    32.4    26.3   -6.1
+           OURENSE    Ourense 139.0       130.1    39.2    33.3   -5.9
+          A ARNOIA    Ourense 120.0       178.0    40.0    34.1   -5.9
+           OURENSE    Ourense 143.0       230.4    39.8    34.1   -5.7
+         O PORRIÑO Pontevedra  41.0       149.7    36.5    31.0   -5.5
+              ARBO Pontevedra 187.0       121.9    37.8    32.4   -5.3
+SALVATERRA DE MIÑO Pontevedra 150.0       242.1    37.4    32.2   -5.2
+            SARRIA       Lugo 416.0       409.8    35.9    30.8   -5.1
+SALCEDA DE CASELAS Pontevedra  92.0        68.9    37.2    32.1   -5.1
