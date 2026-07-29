@@ -42,7 +42,8 @@ cada variable y en qué punto está el trabajo.
 | 9 | Proyecciones climáticas de AdapteCCa | 🔍 catálogo reconocido, falta la descarga |
 | 10 | Validación contra las 153 estaciones | ✅ hecho |
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
-| 12 | Series largas de AEMET para la tendencia | 🔄 listo, falta ejecutarlo |
+| 12 | Series largas de AEMET para la tendencia | 🔄 descargando |
+| 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | 🔄 listo, falta ejecutarlo |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
 
@@ -547,7 +548,40 @@ contra el servidor**, probando de 10 años hacia abajo hasta que uno funciona *y
 la respuesta cubre de verdad el rango pedido. Un servidor que acepta la petición
 y devuelve solo un trozo es peor que uno que falla, porque no avisa.
 
-### 4.4 Fuentes descartadas y por qué
+### 4.4 ROCIO_IBEB, la fuente que apareció tarde
+
+Rejilla de observaciones diarias de AEMET: **0,05° (~5 km), 1951-2022**, Tmax,
+Tmin y precipitación, por interpolación óptima sobre la España peninsular.
+Descarga directa por HTTP, sin clave ni cola. Es mejor que ERA5-Land en las tres
+cosas que importan aquí: más larga (72 años frente a 15), más fina (5 km frente
+a 9) y **observacional** en vez de reanálisis.
+
+No lo sustituye, sin embargo: **ROCIO no trae humedad**, así que no da humidex, y
+el humidex es el 40 % del criterio. Sirve para la tendencia y para contrastar la
+climatología de extremos, no para el ranking de confort.
+
+Detalles del formato, sacados del README del propio conjunto:
+
+- Rejilla de 280×240 en **polo rotado**, pero los ficheros incluyen `lat(rlat,rlon)`
+  y `lon(rlat,rlon)` en 2D, así que no hace falta hacer la conversión.
+- Variable `maxtemp` / `mintemp`, en grados Celsius, ausencias como **-9999**.
+- Un fichero por año, unos **99 MB**. Los 72 años de las dos variables son ~14 GB;
+  el paso 13 recorta a Galicia y borra el original, y quedan unos 300 MB.
+- **Trampa:** los ficheros de tmax y de tmin **se llaman igual**
+  (`sfcanYYYY0101aYYYY1231_rot_mask.nc`) y solo los distingue la carpeta de la que
+  cuelgan. Extraerlos al mismo sitio deja mínimas etiquetadas como máximas sin
+  ningún aviso. El paso 13 comprueba la variable de dentro, no el nombre.
+
+**Y una advertencia sobre la homogeneidad que corrige lo que se dijo antes.** El
+cribado por «homogeneidad y completitud» que menciona la web es de la rejilla de
+**precipitación**. El README de temperatura dice lo contrario con todas las
+letras: se generó *«using all available observations at AEMET Banco Nacional de
+Datos, not only a selected group as in precipitation version 1»*. Es decir, en
+temperatura **no hubo cribado**. La red que alimenta la interpolación cambia con
+los años, y un cambio de densidad puede meter una tendencia que no es clima. Hay
+que medirlo, no suponerlo.
+
+### 4.5 Fuentes descartadas y por qué
 
 - **`derived-utci-historical`** (ERA5-HEAT, el UTCI ya calculado): llega a hoy,
   pero está a **0,25° (~28 km)**. Galicia entera son diez píxeles y los costeros se
@@ -874,6 +908,7 @@ celdas_galicia.csv              las 368 celdas ERA5-Land de Galicia
 11_mapa_estaciones.py           mapa interactivo de las 147 estaciones
 plantilla_est.html              plantilla del mapa (la usa el paso 11)
 12_aemet.py                     series largas de AEMET y sesgo de ventana corta
+13_rocio.py                     rejilla ROCIO_IBEB de 5 km, 1951-2022
 
 test_indices.py                 índices térmicos y de extremos
 test_malla.py                   paso 2 de extremo a extremo
@@ -881,6 +916,7 @@ test_wrf.py                     catálogo THREDDS y fusión de escalas
 test_evolucion.py               pendiente de Sen y Mann-Kendall
 test_retorno.py                 Gumbel, bulbo húmedo y no estacionariedad
 test_aemet.py                   formato de AEMET y sesgo de ventana corta
+test_rocio.py                   recorte de la rejilla y tendencia larga
 ```
 
 Las pruebas trabajan en un directorio temporal propio (variable `GAL_BASE`), así
@@ -898,6 +934,7 @@ que **nunca borran descargas reales**.
 | Tras el paso 10 | `validacion_estaciones.csv`, `resumen_validacion.txt` |
 | Tras el paso 11 | `estaciones_galicia.html` |
 | Tras el paso 12 | `aemet_series.csv`, `resumen_aemet.txt`, `aemet_exploracion.txt` |
+| Tras el paso 13 | `resumen_rocio.txt` |
 | Reconocimientos | `wrf_exploracion.txt`, `adaptecca_exploracion.txt`, `wrf_fallos.txt` |
 
 **Nunca**: las carpetas `descargas/`, `wrf/` y `aemet/` (datos brutos, regenerables)
