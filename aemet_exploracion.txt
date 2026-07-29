@@ -1,4 +1,4 @@
-AEMET OpenData - reconocimiento 2026-07-29 21:29
+AEMET OpenData - reconocimiento 2026-07-29 22:15
 clave: ...5qF438Og6mdk   caduca 2026-11-06  (100 dias)
 
 Esto tarda entre cinco y diez minutos: la API admite 40 peticiones por
@@ -71,29 +71,88 @@ minuto y hay que esperar entre una y otra. Va imprimiendo segun avanza.
   estacion de prueba: 1387
   24 meses: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
   -> el propio servidor dice el limite: 6 meses
-  -> se usaran bloques de 6 anio(s)
+  -> se usaran bloques de 6 MESES
 
 --- hasta donde llega hacia atras cada serie ---
-  20 estaciones x 5 sondeos = hasta 100 peticiones,
-  unos 5 minutos. Se pide una decena de dias
-  por sondeo, no un anio entero: solo interesa si HAY datos, no cuales.
-  [1/20] 1387    A Coruña                       datos ya en 1940
-  [2/20] 1387E   A Coruña Aeropuerto            datos ya en 1980
-  [3/20] 1387D   A Coruña Bens                  datos ya en 2015
-  [4/20] 1363X   As Pontes                      datos ya en 2015
-  [5/20] 1442U   Boiro                          datos ya en 2000
-  [6/20] 1393    Cabo Vilán                     datos ya en 2000
-  [7/20] 1390X   Carballo, Depuradora           datos ya en 2015
-  [8/20] 1351    Estaca De Bares                datos ya en 2000
-  [9/20] 1354C   Ferrol                         datos ya en 2015
-  [10/20] 1400    Fisterra                       datos ya en 1960
-  [11/20] 1406X   Mazaricos                      datos ya en 2015
-  [12/20] 1437O   Monte Iroite                   datos ya en 2000
-  [13/20] 1435C   Noia                           datos ya en 2015
-  [14/20] 1473A   Padrón                         datos ya en 2000
-  [15/20] 1476R   Rois, Casas Do Porto           datos ya en 2000
-  [16/20] 1475X   Santiago De Compostela         datos ya en 2000
-  [17/20] 1428    Santiago De Compostela Aeropue datos ya en 1960
-  [18/20] 1410X   Sobrado                        datos ya en 2015
-  [19/20] 1399    Vimianzo                       datos ya en 1980
-  [20/20] 1521X   Becerreá                       datos ya en 2015
+  58 estaciones, 0 ya sondeadas antes, 58 por sondear
+  hasta 290 peticiones, unos 15 minutos. Se pide una decena
+  de dias por sondeo, no un anio entero: solo interesa si HAY datos.
+  [1/58] 1387    A Coruña                       datos ya en 1940
+  [2/58] 1387E   A Coruña Aeropuerto            datos ya en 1980
+  [3/58] 1387D   A Coruña Bens                  datos ya en 2015
+  [4/58] 1363X   As Pontes                      datos ya en 2015
+  [5/58] 1442U   Boiro                          datos ya en 2000
+  [6/58] 1393    Cabo Vilán                     datos ya en 2000
+  [7/58] 1390X   Carballo, Depuradora           datos ya en 2015
+  [8/58] 1351    Estaca De Bares                datos ya en 2000
+  [9/58] 1354C   Ferrol                         datos ya en 2015
+  [10/58] 1400    Fisterra                       datos ya en 1960
+  [11/58] 1406X   Mazaricos                      datos ya en 2015
+  [12/58] 1437O   Monte Iroite                   datos ya en 2000
+  [13/58] 1435C   Noia                           datos ya en 2015
+  [14/58] 1473A   Padrón                         datos ya en 2000
+  [15/58] 1476R   Rois, Casas Do Porto           datos ya en 2000
+  [16/58] 1475X   Santiago De Compostela         datos ya en 2000
+  [17/58] 1428    Santiago De Compostela Aeropue datos ya en 1960
+  [18/58] 1410X   Sobrado                        datos ya en 2015
+  [19/58] 1399    Vimianzo                       datos ya en 1980
+  [20/58] 1521X   Becerreá                       datos ya en 2015
+  [21/58] 1347T   Burela                         datos ya en 2000
+  [22/58] 1297E   Cervantes                      datos ya en 2015
+  [23/58] 1658    Folgoso Do Courel              datos ya en 1980
+  [24/58] 1518A   Lugo                           datos ya en 1980
+  [25/58] 1505    Lugo Aeropuerto                datos ya en 2000
+  [26/58] 1344X   Mondoñedo                      datos ya en 2015
+  [27/58] 1679A   Monforte De Lemos              datos ya en 1960
+  [28/58] 1446X   Monterroso                     datos ya en 2015
+  [29/58] 1521I   O Páramo                       datos ya en 1980
+  [30/58] 1342X   Ribadeo                        datos ya en 2015
+  [31/58] 2969U   A Gudiña                       datos ya en 2000
+  [32/58] 1631E   A Pobra De Trives              datos ya en 2000
+  [33/58] 1706A   Allariz                        datos ya en 2000
+  [34/58] 1696O   Beariz                         datos ya en 1940
+  [35/58] 1639X   Chandrexa De Queixa            datos ya en 2015
+  [36/58] 1738U   Muiños                         datos ya en 2000
+  [37/58] 1583X   O Barco De Valdeorras          datos ya en 2015
+  [38/58] 1700X   O Carballiño                   datos ya en 2000
+  [39/58] 1690A   Ourense                        datos ya en 1980
+  [40/58] 1690B   Ourense,Instituto              datos ya en 1960
+  [41/58] 1701X   Ribadavia                      datos ya en 2015
+  [42/58] 2978X   Verín                          datos ya en 2015
+  [43/58] 1735X   Xinzo De Limia                 datos ya en 2015
+  [44/58] 1719    A Cañiza                       datos ya en 1960
+  [45/58] 1468X   A Estrada                      datos ya en 2015
+  [46/58] 1489A   A Lama                         datos ya en 2015
+  [47/58] 1486E   Escuela Naval De Marín         datos ya en 1980
+  [48/58] 1465U   Lalin-Cristimil                datos ya en 2015
+  [49/58] 1730E   O Rosal                        datos ya en 2000
+  [50/58] 1723X   Ponteareas, Canedo             datos ya en 2015
+  [51/58] 1484C   Pontevedra                     datos ya en 2000
+  [52/58] 1484    Pontevedra, Instituto          datos ya en 1980
+  [53/58] 1455I   Rodeiro-Vilamaior              datos ya en 2015
+  [54/58] 1466A   Silleda                        datos ya en 2015
+  [55/58] 1496X   Vigo                           datos ya en 2015
+  [56/58] 1495    Vigo Aeropuerto                datos ya en 1960
+  [57/58] 1477U   Vilagarcia De Arousa           datos ya en 2000
+  [58/58] 1477V   Vilagarcía De Arousa           datos ya en 2015
+
+--- las que sirven para la tendencia (serie de 45 anios o mas) ---
+  1387    A Coruña                       desde 1940  ~86 anios  (172 peticiones, 9 min)
+  1696O   Beariz                         desde 1940  ~86 anios  (172 peticiones, 9 min)
+  1400    Fisterra                       desde 1960  ~66 anios  (132 peticiones, 7 min)
+  1428    Santiago De Compostela Aeropue desde 1960  ~66 anios  (132 peticiones, 7 min)
+  1679A   Monforte De Lemos              desde 1960  ~66 anios  (132 peticiones, 7 min)
+  1690B   Ourense,Instituto              desde 1960  ~66 anios  (132 peticiones, 7 min)
+  1719    A Cañiza                       desde 1960  ~66 anios  (132 peticiones, 7 min)
+  1495    Vigo Aeropuerto                desde 1960  ~66 anios  (132 peticiones, 7 min)
+  1387E   A Coruña Aeropuerto            desde 1980  ~46 anios  (92 peticiones, 5 min)
+  1399    Vimianzo                       desde 1980  ~46 anios  (92 peticiones, 5 min)
+  1658    Folgoso Do Courel              desde 1980  ~46 anios  (92 peticiones, 5 min)
+  1518A   Lugo                           desde 1980  ~46 anios  (92 peticiones, 5 min)
+  1521I   O Páramo                       desde 1980  ~46 anios  (92 peticiones, 5 min)
+  1690A   Ourense                        desde 1980  ~46 anios  (92 peticiones, 5 min)
+  1486E   Escuela Naval De Marín         desde 1980  ~46 anios  (92 peticiones, 5 min)
+  1484    Pontevedra, Instituto          desde 1980  ~46 anios  (92 peticiones, 5 min)
+
+  Para descargarlas:
+    python 12_aemet.py --descargar --desde 1940 --estaciones 1387,1696O,1400,1428,1679A,1690B,1719,1495,1387E,1399,1658,1518A,1521I,1690A,1486E,1484
