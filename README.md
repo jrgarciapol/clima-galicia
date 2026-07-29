@@ -43,7 +43,7 @@ cada variable y en qué punto está el trabajo.
 | 10 | Validación contra las 153 estaciones | ✅ hecho |
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | 🔄 descargando |
-| 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | 🔄 listo, falta ejecutarlo |
+| 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | ✅ hecho |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
 
@@ -829,16 +829,68 @@ Contrastado contra 145 estaciones con al menos 8 años:
   esos. Restringiendo el ranking a puntos con base interpolada sobreviven **4 de
   los 30 primeros**. La zona no cambia; el orden dentro de ella, sí.
 
-### 8.5 Tendencias — el número que no hay que citar
+### 8.5 Tendencias: lo que dicen 72 años de observación
 
-`resumen.txt` da **+1,31 °C/década** en la máxima de verano, positiva en las 328
-celdas. Y las estaciones dan cifras del mismo orden.
+`resumen.txt`, con 15 años de ERA5-Land, daba **+1,31 °C/década** en la máxima
+de verano. La rejilla ROCIO_IBEB de AEMET, con **72 años (1951-2022)** y 1.174
+celdas de Galicia, dice esto:
 
-**No es un ritmo de calentamiento.** Son 15 años que empiezan en 2011 y terminan
-con los veranos de 2022 en adelante; la pendiente de Sen recoge a la vez cambio
-climático y variabilidad decenal, y con esta longitud de serie no hay forma de
-separarlos. Sirve para comparar estaciones entre sí. Para cuantificar el
-calentamiento hace falta serie larga, y ahí es donde entra AEMET (§4.3).
+| | tendencia 1951-2022 |
+|---|---|
+| máxima **media** de verano | **+0,200 °C/década** |
+| **percentil 99** de la máxima | **+0,336 °C/década** |
+| días por encima de 30 °C | +0,86 días/década |
+| días por encima de 32 °C | +0,26 días/década |
+
+Nuestro +1,31 era **seis veces** el ritmo largo.
+
+**Pero la explicación no es la que se dio al principio.** La hipótesis era que
+una ventana de 15 años exagera *por ser corta*. Los datos la refutan: la mediana
+de las 58 ventanas móviles de 15 años es **+0,219**, contra +0,200 de la serie
+completa. Una ventana corta **no está sesgada**; solo es imprecisa, con un rango
+de −0,84 a +1,44.
+
+Lo que ocurre es distinto y más relevante: **todas las ventanas recientes están
+altas**, y de forma creciente.
+
+| ventana | tx_verano | tx_p99 |
+|---|---|---|
+| 2002-2016 | +0,46 | +0,53 |
+| 2005-2019 | +0,33 | +0,83 |
+| 2008-2022 | **+0,85** | **+1,61** |
+
+Eso no es ruido: es **aceleración real**. La serie de 72 años promedia unos años
+cincuenta y sesenta planos con cuatro décadas rápidas, y esa media diluye el
+ritmo actual. Ni el +0,20 ni el +1,31 son «la respuesta»: el primero es el
+promedio histórico y el segundo describe un periodo concreto que no se puede
+extrapolar cuarenta años.
+
+**La cola se calienta un 68 % más rápido que la media** (+0,336 frente a +0,200).
+Como el criterio pesa los extremos al 60 %, el problema crece más deprisa que el
+verano medio.
+
+#### La brecha se abre, poco pero de forma consistente
+
+Correlación entre lo caluroso que es un sitio y lo rápido que se calienta:
+**+0,792**. No es sutil.
+
+| | climatología | tendencia |
+|---|---|---|
+| cuarto más fresco de Galicia | 21,3 °C | **+0,124 °C/década** |
+| cuarto más caluroso | 26,1 °C | **+0,263 °C/década** |
+
+Los sitios calurosos se calientan **el doble de rápido**. En cuarenta años son
+**0,56 °C más de diferencia**: sobre los 4,8 °C que separan hoy a los dos
+cuartos, un 12 % más de brecha.
+
+Coincide con lo que predice la física —el mar amortigua la costa por su inercia
+térmica, y el suelo seco del interior deja de evaporar en verano y se calienta
+más— así que no parece un artefacto de la interpolación.
+
+**Para la decisión, refuerza el resultado por partida doble:** los sitios frescos
+no solo son más frescos hoy, sino que además se están calentando más despacio. El
+orden entre sitios debería aguantar, y la ventaja de la costa noroeste crece con
+el tiempo en vez de encogerse.
 
 ### 8.6 Errores propios que conviene no repetir
 
@@ -864,8 +916,8 @@ cualquiera habría envenenado el resultado:
   Por eso el paso 3 no es opcional: es el único contraste independiente.
 - **Las estaciones no son una malla.** Cubren donde MeteoGalicia decidió medir, y
   su emplazamiento importa (algunas son agrometeorológicas, en campo abierto).
-- **Nadie aquí tiene serie larga.** 17 años las estaciones, 15 ERA5-Land tal como
-  se descargó. Basta para ordenar sitios; no para medir un ritmo de calentamiento.
+- **La serie larga ya está, y cambió la conclusión sobre la tendencia** (§8.5).
+  Lo que sigue sin estar es el futuro: todo esto describe el pasado. Ver §9 bis.
   Las estaciones además tienen inhomogeneidades —cambios de sensor,
   reubicaciones— que pueden inventar tendencias; ERA5-Land no, por construcción.
 - **El campo fusionado va 2,74 °C frío** y su error absoluto es de 1,37 °C tras
@@ -934,7 +986,7 @@ que **nunca borran descargas reales**.
 | Tras el paso 10 | `validacion_estaciones.csv`, `resumen_validacion.txt` |
 | Tras el paso 11 | `estaciones_galicia.html` |
 | Tras el paso 12 | `aemet_series.csv`, `resumen_aemet.txt`, `aemet_exploracion.txt` |
-| Tras el paso 13 | `resumen_rocio.txt` |
+| Tras el paso 13 | `resumen_rocio.txt`, `rocio_tendencias.csv` |
 | Reconocimientos | `wrf_exploracion.txt`, `adaptecca_exploracion.txt`, `wrf_fallos.txt` |
 
 **Nunca**: las carpetas `descargas/`, `wrf/` y `aemet/` (datos brutos, regenerables)
