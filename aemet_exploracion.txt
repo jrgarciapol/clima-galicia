@@ -1,5 +1,8 @@
-AEMET OpenData - reconocimiento 2026-07-29 21:06
+AEMET OpenData - reconocimiento 2026-07-29 21:29
 clave: ...5qF438Og6mdk   caduca 2026-11-06  (100 dias)
+
+Esto tarda entre cinco y diez minutos: la API admite 40 peticiones por
+minuto y hay que esperar entre una y otra. Va imprimiendo segun avanza.
 
 --- observatorios en Galicia ---
   58 estaciones
@@ -66,32 +69,31 @@ clave: ...5qF438Og6mdk   caduca 2026-11-06  (100 dias)
 --- rango maximo por peticion, medido contra el servidor ---
   (la documentacion no lo fija y las fuentes de terceros discrepan)
   estacion de prueba: 1387
-  10 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
-   5 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
-   3 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
-   2 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
-   1 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
-  -> se usaran bloques de 1 anio(s)
+  24 meses: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
+  -> el propio servidor dice el limite: 6 meses
+  -> se usaran bloques de 6 anio(s)
 
 --- hasta donde llega hacia atras cada serie ---
-  (una peticion por estacion; solo se mira si hay datos en la decada)
-  1387    A Coruña                       sin datos antes de 2010
-  1387E   A Coruña Aeropuerto            sin datos antes de 2010
-  1387D   A Coruña Bens                  sin datos antes de 2010
-  1363X   As Pontes                      sin datos antes de 2010
-  1442U   Boiro                          sin datos antes de 2010
-  1393    Cabo Vilán                     sin datos antes de 2010
-  1390X   Carballo, Depuradora           sin datos antes de 2010
-  1351    Estaca De Bares                sin datos antes de 2010
-  1354C   Ferrol                         sin datos antes de 2010
-  1400    Fisterra                       sin datos antes de 2010
-  1406X   Mazaricos                      sin datos antes de 2010
-  1437O   Monte Iroite                   sin datos antes de 2010
-  1435C   Noia                           sin datos antes de 2010
-  1473A   Padrón                         sin datos antes de 2010
-  1476R   Rois, Casas Do Porto           sin datos antes de 2010
-  1475X   Santiago De Compostela         sin datos antes de 2010
-  1428    Santiago De Compostela Aeropue sin datos antes de 2010
-  1410X   Sobrado                        sin datos antes de 2010
-  1399    Vimianzo                       sin datos antes de 2010
-  1521X   Becerreá                       sin datos antes de 2010
+  20 estaciones x 5 sondeos = hasta 100 peticiones,
+  unos 5 minutos. Se pide una decena de dias
+  por sondeo, no un anio entero: solo interesa si HAY datos, no cuales.
+  [1/20] 1387    A Coruña                       datos ya en 1940
+  [2/20] 1387E   A Coruña Aeropuerto            datos ya en 1980
+  [3/20] 1387D   A Coruña Bens                  datos ya en 2015
+  [4/20] 1363X   As Pontes                      datos ya en 2015
+  [5/20] 1442U   Boiro                          datos ya en 2000
+  [6/20] 1393    Cabo Vilán                     datos ya en 2000
+  [7/20] 1390X   Carballo, Depuradora           datos ya en 2015
+  [8/20] 1351    Estaca De Bares                datos ya en 2000
+  [9/20] 1354C   Ferrol                         datos ya en 2015
+  [10/20] 1400    Fisterra                       datos ya en 1960
+  [11/20] 1406X   Mazaricos                      datos ya en 2015
+  [12/20] 1437O   Monte Iroite                   datos ya en 2000
+  [13/20] 1435C   Noia                           datos ya en 2015
+  [14/20] 1473A   Padrón                         datos ya en 2000
+  [15/20] 1476R   Rois, Casas Do Porto           datos ya en 2000
+  [16/20] 1475X   Santiago De Compostela         datos ya en 2000
+  [17/20] 1428    Santiago De Compostela Aeropue datos ya en 1960
+  [18/20] 1410X   Sobrado                        datos ya en 2015
+  [19/20] 1399    Vimianzo                       datos ya en 1980
+  [20/20] 1521X   Becerreá                       datos ya en 2015
