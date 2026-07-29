@@ -57,4 +57,15 @@ Extension: 41.75-43.74 N, -9.28--6.54 E
     2006-2020: +2.000   (+1.744 respecto a la larga)
     2007-2021: +2.000   (+1.744 respecto a la larga)
     2008-2022: +2.857   (+2.601 respecto a la larga)
+
+--- ¿se abre la brecha entre los sitios frescos y los calurosos? ---
+  correlacion entre lo caluroso que es un sitio y lo deprisa que se
+  calienta: +0.792
+  el cuarto mas fresco  (clim 21.3 C): +0.124 C/decada
+  el cuarto mas caluroso (clim 26.1 C): +0.263 C/decada
+  diferencia: +0.139 C/decada
+  -> los sitios calurosos se calientan mas deprisa. En 40 anios eso
+     son 0.6 C mas de brecha, asi que la diferencia de hoy
+     SUBESTIMA la de cuando vivas alli.
+  (detalle celda a celda en rocio_tendencias.csv)
 Datos: AEMET, rejilla ROCIO_IBEB
