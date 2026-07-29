@@ -1,0 +1,97 @@
+AEMET OpenData - reconocimiento 2026-07-29 21:06
+clave: ...5qF438Og6mdk   caduca 2026-11-06  (100 dias)
+
+--- observatorios en Galicia ---
+  58 estaciones
+  idema   nombre                           prov          alt       lat       lon
+  1387    A Coruña                         A Coruña     57.0  43.36583  -8.42139
+  1387E   A Coruña Aeropuerto              A Coruña     98.0  43.30694  -8.37194
+  1387D   A Coruña Bens                    A Coruña    132.0  43.36333  -8.44194
+  1363X   As Pontes                        A Coruña    343.0  43.44583  -7.86139
+  1442U   Boiro                            A Coruña     10.0  42.64389  -8.89222
+  1393    Cabo Vilán                       A Coruña     50.0  43.16056  -9.21083
+  1390X   Carballo, Depuradora             A Coruña     98.0  43.20361  -8.71111
+  1351    Estaca De Bares                  A Coruña     90.0  43.78611    -7.685
+  1354C   Ferrol                           A Coruña      4.0  43.47639  -8.26222
+  1400    Fisterra                         A Coruña    230.0  42.92472  -9.29139
+  1406X   Mazaricos                        A Coruña    340.0  42.93528  -8.99361
+  1437O   Monte Iroite                     A Coruña    685.0  42.72056  -8.92333
+  1435C   Noia                             A Coruña    128.0  42.80028  -8.87611
+  1473A   Padrón                           A Coruña    100.0  42.73833  -8.62722
+  1476R   Rois, Casas Do Porto             A Coruña    210.0  42.74972  -8.71472
+  1475X   Santiago De Compostela           A Coruña    240.0  42.87611  -8.55583
+  1428    Santiago De Compostela Aeropuert A Coruña    370.0  42.88806  -8.41056
+  1410X   Sobrado                          A Coruña    500.0  43.03778  -8.02222
+  1399    Vimianzo                         A Coruña    287.0   43.0575  -9.04694
+  1521X   Becerreá                         Lugo        1080.0  42.86389  -7.18528
+  1347T   Burela                           Lugo         80.0  43.65111  -7.35722
+  1297E   Cervantes                        Lugo        1020.0  42.76861   -7.0175
+  1658    Folgoso Do Courel                Lugo        612.0  42.58861  -7.19167
+  1518A   Lugo                             Lugo        442.0  42.99833   -7.5525
+  1505    Lugo Aeropuerto                  Lugo        442.0  43.11111   -7.4575
+  1344X   Mondoñedo                        Lugo        125.0  43.43139  -7.36167
+  1679A   Monforte De Lemos                Lugo        291.0  42.53167  -7.51083
+  1446X   Monterroso                       Lugo        680.0  42.80972  -7.76833
+  1521I   O Páramo                         Lugo        403.0  42.84528  -7.49944
+  1342X   Ribadeo                          Lugo         43.0  43.54056  -7.08306
+  2969U   A Gudiña                         Ourense     910.0  42.02722  -7.18306
+  1631E   A Pobra De Trives                Ourense     840.0  42.33944   -7.2825
+  1706A   Allariz                          Ourense     492.0  42.18278  -7.79611
+  1696O   Beariz                           Ourense     610.0  42.46806  -8.27806
+  1639X   Chandrexa De Queixa              Ourense     990.0  42.26028  -7.38361
+  1738U   Muiños                           Ourense     730.0  41.93417  -7.98889
+  1583X   O Barco De Valdeorras            Ourense     315.0  42.41556  -6.99306
+  1700X   O Carballiño                     Ourense     400.0  42.42139   -8.0925
+  1690A   Ourense                          Ourense     146.0  42.32528  -7.85972
+  1690B   Ourense,Instituto                Ourense     148.0  42.33222  -7.86444
+  1701X   Ribadavia                        Ourense     112.0      42.3  -8.12917
+  2978X   Verín                            Ourense     380.0  41.92667  -7.42194
+  1735X   Xinzo De Limia                   Ourense     616.0  42.07917  -7.73361
+  1719    A Cañiza                         Pontevedra  560.0  42.21806  -8.28111
+  1468X   A Estrada                        Pontevedra  269.0  42.69361  -8.50194
+  1489A   A Lama                           Pontevedra  395.0  42.40694  -8.45111
+  1486E   Escuela Naval De Marín           Pontevedra   20.0  42.39472  -8.70667
+  1465U   Lalin-Cristimil                  Pontevedra  463.0  42.66556   -8.1925
+  1730E   O Rosal                          Pontevedra   55.0  41.94389   -8.8475
+  1723X   Ponteareas, Canedo               Pontevedra   90.0  42.18222  -8.49278
+  1484C   Pontevedra                       Pontevedra  113.0  42.43833  -8.61583
+  1484    Pontevedra, Instituto            Pontevedra   19.0  42.43056  -8.64722
+  1455I   Rodeiro-Vilamaior                Pontevedra  645.0  42.71111  -7.95389
+  1466A   Silleda                          Pontevedra  435.0  42.70083  -8.25778
+  1496X   Vigo                             Pontevedra  120.0  42.23056  -8.72417
+  1495    Vigo Aeropuerto                  Pontevedra  255.0  42.23861  -8.62389
+  1477U   Vilagarcia De Arousa             Pontevedra   36.0  42.58222  -8.76972
+  1477V   Vilagarcía De Arousa             Pontevedra   32.0  42.58472  -8.77472
+
+--- rango maximo por peticion, medido contra el servidor ---
+  (la documentacion no lo fija y las fuentes de terceros discrepan)
+  estacion de prueba: 1387
+  10 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
+   5 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
+   3 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
+   2 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
+   1 anios: RECHAZADO (sin datos: El rango de fechas no puede ser superior a 6 meses)
+  -> se usaran bloques de 1 anio(s)
+
+--- hasta donde llega hacia atras cada serie ---
+  (una peticion por estacion; solo se mira si hay datos en la decada)
+  1387    A Coruña                       sin datos antes de 2010
+  1387E   A Coruña Aeropuerto            sin datos antes de 2010
+  1387D   A Coruña Bens                  sin datos antes de 2010
+  1363X   As Pontes                      sin datos antes de 2010
+  1442U   Boiro                          sin datos antes de 2010
+  1393    Cabo Vilán                     sin datos antes de 2010
+  1390X   Carballo, Depuradora           sin datos antes de 2010
+  1351    Estaca De Bares                sin datos antes de 2010
+  1354C   Ferrol                         sin datos antes de 2010
+  1400    Fisterra                       sin datos antes de 2010
+  1406X   Mazaricos                      sin datos antes de 2010
+  1437O   Monte Iroite                   sin datos antes de 2010
+  1435C   Noia                           sin datos antes de 2010
+  1473A   Padrón                         sin datos antes de 2010
+  1476R   Rois, Casas Do Porto           sin datos antes de 2010
+  1475X   Santiago De Compostela         sin datos antes de 2010
+  1428    Santiago De Compostela Aeropue sin datos antes de 2010
+  1410X   Sobrado                        sin datos antes de 2010
+  1399    Vimianzo                       sin datos antes de 2010
+  1521X   Becerreá                       sin datos antes de 2010
