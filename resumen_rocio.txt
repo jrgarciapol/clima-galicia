@@ -1,0 +1,60 @@
+ROCIO_IBEB: 72 anios completos, 1951-2022
+Rejilla de Galicia: 45x45 celdas, 1174 con serie completa
+Extension: 41.75-43.74 N, -9.28--6.54 E
+
+--- tx_verano ---
+  tendencia 1951-2022: mediana +0.200 C/decada   (p10 +0.105, p90 +0.282)
+  58 ventanas de 15 anios: mediana +0.219, de -0.844 a +1.435
+  el 52% de las ventanas exagera respecto a la serie completa
+  exageracion mediana: +0.019 C/decada
+  las ventanas recientes, comparables a nuestro 2011-2025:
+    2002-2016: +0.464   (+0.264 respecto a la larga)
+    2003-2017: +0.329   (+0.129 respecto a la larga)
+    2004-2018: +0.461   (+0.261 respecto a la larga)
+    2005-2019: +0.330   (+0.130 respecto a la larga)
+    2006-2020: +0.784   (+0.584 respecto a la larga)
+    2007-2021: +0.865   (+0.665 respecto a la larga)
+    2008-2022: +0.845   (+0.645 respecto a la larga)
+
+--- tx_p99 ---
+  tendencia 1951-2022: mediana +0.336 C/decada   (p10 +0.131, p90 +0.428)
+  58 ventanas de 15 anios: mediana +0.308, de -1.049 a +1.627
+  el 48% de las ventanas exagera respecto a la serie completa
+  exageracion mediana: -0.028 C/decada
+  las ventanas recientes, comparables a nuestro 2011-2025:
+    2002-2016: +0.534   (+0.198 respecto a la larga)
+    2003-2017: +0.411   (+0.075 respecto a la larga)
+    2004-2018: +1.454   (+1.118 respecto a la larga)
+    2005-2019: +0.833   (+0.498 respecto a la larga)
+    2006-2020: +1.345   (+1.010 respecto a la larga)
+    2007-2021: +1.393   (+1.057 respecto a la larga)
+    2008-2022: +1.607   (+1.272 respecto a la larga)
+
+--- d_tx30 ---
+  tendencia 1951-2022: mediana +0.856 dias/decada   (p10 +0.000, p90 +2.926)
+  58 ventanas de 15 anios: mediana +0.179, de -2.000 a +5.833
+  el 48% de las ventanas exagera respecto a la serie completa
+  exageracion mediana: -0.677 dias/decada
+  las ventanas recientes, comparables a nuestro 2011-2025:
+    2002-2016: +2.000   (+1.144 respecto a la larga)
+    2003-2017: +0.000   (-0.856 respecto a la larga)
+    2004-2018: +3.333   (+2.478 respecto a la larga)
+    2005-2019: +1.250   (+0.394 respecto a la larga)
+    2006-2020: +4.083   (+3.228 respecto a la larga)
+    2007-2021: +4.000   (+3.144 respecto a la larga)
+    2008-2022: +5.000   (+4.144 respecto a la larga)
+
+--- d_tx32 ---
+  tendencia 1951-2022: mediana +0.256 dias/decada   (p10 +0.000, p90 +1.667)
+  58 ventanas de 15 anios: mediana +0.000, de +0.000 a +2.857
+  el 19% de las ventanas exagera respecto a la serie completa
+  exageracion mediana: -0.256 dias/decada
+  las ventanas recientes, comparables a nuestro 2011-2025:
+    2002-2016: +0.000   (-0.256 respecto a la larga)
+    2003-2017: +0.000   (-0.256 respecto a la larga)
+    2004-2018: +2.000   (+1.744 respecto a la larga)
+    2005-2019: +0.769   (+0.513 respecto a la larga)
+    2006-2020: +2.000   (+1.744 respecto a la larga)
+    2007-2021: +2.000   (+1.744 respecto a la larga)
+    2008-2022: +2.857   (+2.601 respecto a la larga)
+Datos: AEMET, rejilla ROCIO_IBEB
