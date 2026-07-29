@@ -15,10 +15,12 @@ cada variable y en qué punto está el trabajo.
 2. [La pregunta y cómo se traduce en números](#2-la-pregunta-y-cómo-se-traduce-en-números)
 3. [Glosario: qué significa cada índice](#3-glosario-qué-significa-cada-índice)
 4. [Las fuentes de datos y el papel de cada una](#4-las-fuentes-de-datos-y-el-papel-de-cada-una)
+   · [4.3 AEMET OpenData](#43-aemet-opendata-qué-añadiría-y-qué-no)
 5. [Puesta en marcha](#5-puesta-en-marcha)
 6. [Ejecución paso a paso](#6-ejecución-paso-a-paso)
 7. [Métodos estadísticos](#7-métodos-estadísticos)
 8. [Hallazgos hasta la fecha](#8-hallazgos-hasta-la-fecha)
+   · [8.6 Errores propios](#86-errores-propios-que-conviene-no-repetir)
 9. [Límites honestos](#9-límites-honestos)
 10. [Ficheros del kit](#10-ficheros-del-kit)
 
@@ -29,17 +31,27 @@ cada variable y en qué punto está el trabajo.
 | Paso | Qué hace | Estado |
 |---|---|---|
 | 0 | Comprobación del entorno y credenciales | ✅ hecho |
-| 1 | Descarga ERA5-Land horario 1996-2025 | 🔄 **en curso** (camino crítico) |
-| 2 | Agregación a diario, índices y ranking a 9 km | ⏸ espera al paso 1 |
+| 1 | Descarga ERA5-Land horario **2011-2025** | ✅ hecho (90 peticiones) |
+| 2 | Agregación a diario, índices y ranking a 9 km | ✅ 328 celdas |
 | 3 | Red de estaciones de MeteoGalicia | ✅ 153 estaciones, 134 con serie útil |
 | 4 | Afinado por altitud con Open-Meteo | ⏸ opcional |
-| 5 | WRF de MeteoGalicia a 1 km | ✅ **catálogo resuelto**, listo para descargar |
-| 6 | Fusión de escalas 9 km + 1 km | ⏸ depende del 5 |
+| 5 | WRF de MeteoGalicia a 1 km | ✅ 251 días descargados |
+| 6 | Fusión de escalas 9 km + 1 km | ✅ 60.690 puntos |
 | 7 | Evolución año a año de cada estación | ✅ hecho |
 | 8 | Periodos de retorno y extremos no estacionarios | ✅ hecho sobre estaciones |
-| 9 | Proyecciones climáticas de AdapteCCa | 🔍 catálogo reconocido, falta implementar la descarga |
+| 9 | Proyecciones climáticas de AdapteCCa | 🔍 catálogo reconocido, falta la descarga |
+| 10 | Validación contra las 153 estaciones | ✅ hecho |
+| 11 | Mapa interactivo de estaciones | ✅ hecho |
+| 12 | Series largas de AEMET para la tendencia | 🔄 listo, falta ejecutarlo |
 
-**Lo que bloquea:** nada, salvo el tiempo de cola del Copernicus.
+**Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
+
+**Corrección importante sobre el periodo.** Durante buena parte del proyecto la
+documentación decía «30 años». Es falso: la descarga se lanzó con
+`--desde 2011 --hasta 2025`, o sea **15 años (2011-2025)**, que son las 90
+peticiones del paso 1. Para *ordenar* sitios entre sí quince años sobran; para
+*cuantificar una tendencia* se quedan cortos (ver §8). Extenderla a 1996-2010
+son otras 90 peticiones y dos o tres días de cola.
 
 **El servidor de MeteoGalicia se ha movido, y su índice está roto.** El
 histórico `mandeo.meteogalicia.es` devuelve HTTP 502; el servicio vivo es
@@ -155,7 +167,7 @@ Galicia y con dos variables (`temp` y `rh`), porque para una pregunta sobre
 episodios de calor extremo los demás días no aportan información. Son unos 600
 ficheros pequeños en vez de 5.500 grandes. Y del WRF no se usa la serie temporal
 —que no es homogénea, ver §7— sino solo el **patrón espacial**, así que ni
-siquiera hace falta que su archivo cubra los 30 años: le basta con cubrir
+siquiera hace falta que su archivo cubra la serie entera: le basta con cubrir
 suficientes episodios cálidos para que ese patrón sea estable.
 
 **El paso 5 ya no espera al Copernicus.** Elegía los días cálidos a partir de
@@ -166,11 +178,14 @@ igual: una ola de calor lo es en toda Galicia a la vez. Sobre datos simulados la
 dos fuentes eligen el 92 % de los mismos días. `--fuente auto` usa la malla si
 existe y las estaciones si no.
 
-**Lo siguiente:** que termine el paso 1, luego el paso 2, y con la malla completa
-repetir los pasos 7 y 8 sobre ella para contrastarlos con las estaciones. En
-paralelo, `python 05_wrf_dias_calidos.py --explorar` contra el servidor nuevo:
-el informe dice ahora **hasta dónde llega hacia atrás cada conjunto**, que es lo
-que decide si se usa la malla de 1 km o la de 4 km.
+**Lo siguiente**, por orden de valor:
+
+1. **Serie larga para la tendencia.** Es el único hueco real. Dos caminos, y son
+   complementarios: ampliar ERA5-Land a 1996-2010, o traer las estaciones
+   históricas de AEMET, que llegan mucho más atrás (§4.3).
+2. Implementar la descarga de las proyecciones de AdapteCCa (paso 9).
+3. Superponer al mapa de estaciones los puntos del modelo de 1 km, para ver
+   medida y modelo a la vez.
 
 ---
 
@@ -368,14 +383,14 @@ absolutos», significa «lo más fresco que hay aquí».
 
 | Fuente | Resolución | Periodo | Papel | Clave |
 |---|---|---|---|---|
-| **ERA5-Land horario** (Copernicus CDS) | 9 km, 1 h | 1996-2025 | climatología y tendencia | cuenta gratuita |
+| **ERA5-Land horario** (Copernicus CDS) | 9 km, 1 h | **2011-2025 descargado** (disponible desde 1950) | climatología y tendencia | cuenta gratuita |
 | **Red de MeteoGalicia** | ~150 puntos | 2010-2026 | observación real, validación | no |
 | **WRF de MeteoGalicia** | 1-4 km | días cálidos | patrón espacial fino | no |
 | **AdapteCCa** (AEMET / MITECO) | 5 km | 1971-2100 | proyecciones futuras | no |
-| **Open-Meteo** | ERA5-Land + MDT 90 m | 1996-2025 | afinado por altitud | no |
+| **Open-Meteo** | ERA5-Land + MDT 90 m | desde 1950 | afinado por altitud | no |
 
 **El reparto no es arbitrario.** ERA5-Land es un reanálisis homogéneo: la misma
-versión del modelo durante 30 años, así que sus tendencias son creíbles. El WRF de
+versión del modelo durante toda la serie, así que sus tendencias son creíbles. El WRF de
 MeteoGalicia es un archivo *operativo* de predicción cuya configuración ha cambiado
 varias veces, de modo que su serie temporal **no** es homogénea y usarla para
 tendencias mezclaría cambio climático con cambios de versión del modelo — pero a
@@ -445,7 +460,94 @@ fichero probado era de estaciones, cuya estructura suele atragantar al cliente.
 Hay que reintentarlo sobre uno de rejilla antes de descartarlo; y si no funciona,
 los ficheros anuales de índices no son grandes y pueden bajarse enteros.
 
-### 4.3 Fuentes descartadas y por qué
+### 4.3 AEMET OpenData: qué añadiría y qué no
+
+Investigado en julio de 2026. Conclusión corta: **sirve, pero no para lo que
+parece.** No aporta densidad espacial; aporta la única cosa que aquí falta, que
+es **serie larga**.
+
+**Qué es.** El portal de datos abiertos de la Agencia Estatal de Meteorología.
+Clave de API gratuita, se pide por correo desde `opendata.aemet.es`, se confirma
+por un enlace que caduca a los 5 días y luego **no expira**. Límite de **40
+peticiones por minuto**. La licencia obliga a citar a AEMET como autor.
+
+**Cómo funciona.** Dos saltos, no uno: la petición no devuelve los datos sino un
+JSON con dos URL, `datos` y `metadatos`, que hay que descargar aparte. Los
+endpoints relevantes:
+
+```
+/api/valores/climatologicos/inventarioestaciones/todasestaciones/
+/api/valores/climatologicos/diarios/datos/fechaini/{ini}/fechafin/{fin}/estacion/{idema}/
+```
+
+**Ventajas reales:**
+
+- **Series de décadas.** Es lo que no tenemos. MeteoGalicia da 17 años y
+  ERA5-Land, tal como se descargó, 15. Los observatorios principales de AEMET en
+  Galicia —A Coruña, Santiago Aeropuerto, Vigo Aeropuerto, Ourense, Lugo— tienen
+  series diarias que arrancan entre los años cuarenta y los setenta. Con eso la
+  tendencia de §8.5 deja de ser una cota superior y pasa a ser un número
+  defendible.
+- **Datos validados**, no la salida cruda de la red automática.
+- **Tercera opinión independiente** sobre el orden de los sitios.
+
+**Limitaciones, y son serias:**
+
+- **Muy pocas estaciones en Galicia** con serie larga: del orden de diez o
+  quince, frente a las 147 de MeteoGalicia. Para el mapa no aporta nada.
+- **Están en aeropuertos y ciudades.** Un aeropuerto tiene su propio microclima
+  (pista, campo abierto) y un observatorio urbano arrastra isla de calor. No son
+  representativos de «un sitio donde vivir».
+- **Sin humedad garantizada.** El registro diario trae `tmax`, `tmin`, `tmed`,
+  precipitación, viento medio, racha, insolación y presión. La humedad relativa
+  no está en todas las estaciones ni en todos los periodos, así que **el humidex
+  puede no ser calculable**, y el humidex es el 40 % del criterio.
+- **Inhomogeneidad.** Ochenta años dan para varios traslados y cambios de
+  instrumento, y cada uno mete un salto artificial en la serie. Un trabajo
+  climatológico serio homogeneiza antes de calcular tendencias; nosotros no
+  vamos a hacerlo, así que hay que mirar las series a ojo antes de fiarse.
+- **Los números vienen con coma decimal** en cadenas de texto (`"23,4"`). Es la
+  clase de detalle que rompe una carga silenciosamente.
+
+**Sobre el límite de fechas por petición hay contradicción**: la documentación no
+lo fija, y las fuentes de terceros dan cifras distintas —10 días para
+`todasestaciones`, bastante más para una estación suelta—. Es exactamente lo que
+pasó con el límite de coste del CDS, donde la documentación decía 12.000 campos y
+el servidor real rechazaba a partir de ~6.000. **El plan es el mismo: medirlo
+contra el servidor en vez de creérselo**, empezando por un rango amplio y
+partiéndolo cuando lo rechace.
+
+**Recomendación, ya implementada como paso 12.** Objetivo acotado: traer las
+series largas de Galicia y usarlas **solo para la pregunta de la tendencia**, no
+para el ranking de sitios.
+
+Y con un giro que hace el paso mucho más útil de lo que parecía: en vez de
+limitarse a dar «la tendencia buena», **mide cuánto miente una ventana corta**.
+Para cada serie larga calcula la pendiente sobre el periodo completo y sobre
+*todas* las ventanas móviles de 15 años, y compara. Si las ventanas cortas se
+reparten simétricamente alrededor de la larga, nuestra ventana no tiene por qué
+estar sesgada; si están sistemáticamente por encima, el +1,31 °C/década es un
+artefacto de haber empezado a mirar en 2011. Eso convierte una advertencia
+cualitativa en un número que se puede restar.
+
+```
+python 12_aemet.py --explorar      # clave, estaciones y límite real de la API
+python 12_aemet.py --descargar --desde 1950
+python 12_aemet.py --analizar
+```
+
+La clave **no se escribe en ningún fichero del proyecto**: sale de la variable de
+entorno `AEMET_API_KEY` o de `~/.aemetrc`, igual que `.cdsapirc`. Las dos están en
+`.gitignore`, y la carpeta `aemet/` también.
+
+Dos detalles que el propio código comprueba: la clave es un **JWT y lleva dentro
+su fecha de caducidad** —las que emite el portal duran 100 días, no son
+indefinidas como dicen las FAQ—, y el **límite de rango por petición se mide
+contra el servidor**, probando de 10 años hacia abajo hasta que uno funciona *y*
+la respuesta cubre de verdad el rango pedido. Un servidor que acepta la petición
+y devuelve solo un trozo es peor que uno que falla, porque no avisa.
+
+### 4.4 Fuentes descartadas y por qué
 
 - **`derived-utci-historical`** (ERA5-HEAT, el UTCI ya calculado): llega a hoy,
   pero está a **0,25° (~28 km)**. Galicia entera son diez píxeles y los costeros se
@@ -621,45 +723,102 @@ individuales solo como indicación de si un sitio se desvía del conjunto.
 
 ## 8. Hallazgos hasta la fecha
 
-Con las 134 estaciones de MeteoGalicia con serie útil (2010-2026):
+### 8.1 La respuesta, en una línea
 
-**El gradiente es enorme.** De **0,06 a 57 días al año por encima de 32 °C**:
-Camariñas frente a Leiro, separados por 150 km. Las máximas absolutas van de 29 a
-44 °C.
+**El noroeste costero, de Camariñas a Ferrol.** Lo dicen por separado el modelo
+de 1 km y los termómetros, que es lo más sólido que ha producido este trabajo.
 
-**Hay dos maneras de ser fresco y solo una es suave.** La costa atlántica noroeste
-(Camariñas, Arteixo, Malpica, A Coruña) tiene cero o casi cero días por encima de
-32 °C **y cero heladas**. Manzaneda y A Veiga, a 1.760 m, tienen los mismos cero
-días de calor y **109 días de helada**.
+### 8.2 Lo que dicen los termómetros (17 años, sin modelo)
 
-**La humedad parte la costa en dos.** Arteixo y Camariñas tienen 1 y 3 días al año
-de humidex por encima de 35; Pontevedra, a la misma distancia del mar, tiene 75.
+Sobre las 30 estaciones a menos de 8 km del **océano** y por debajo de 300 m:
 
-**Las noches tropicales son cosa de las Rías Baixas, no de Ourense.** Vigo registra
-11,4 noches al año por encima de 20 °C y Ourense capital 5,1. El mar impide que la
-noche refresque; el interior seco se desploma de madrugada.
+| | altitud | Tmax p99 | días > 30 °C/año | humidex p99 | días humidex > 30 |
+|---|---|---|---|---|---|
+| **Arteixo** | 5 m | **24,7** | **0,4** | **32,3** | **9** |
+| **Camariñas** | 5 m | 26,0 | 0,3 | 34,5 | 14 |
+| **A Coruña** | 5 m | 26,5 | 0,5 | 35,5 | 25 |
+| **Malpica** | 161 m | 26,8 | 0,7 | 36,5 | 28 |
+| Ribadeo | 51 m | 27,7 | 1,2 | 38,2 | 49 |
+| Viveiro | 59 m | 28,8 | 1,6 | 40,3 | 70 |
+| Vigo | 25 m | 30,7 | 5,4 | 40,2 | 52 |
+| Pontevedra | 52 m | 34,1 | 19,5 | 47,4 | 113 |
+| **Leiro** (Ourense) | 105 m | **40,0** | **79,8** | **59,3** | **153** |
 
-**Dentro de un mismo concello hay diferencias enormes.** Chantada tiene una
-estación a 391 m con índice 71 y otra a 842 m con índice 30. Vigo va de 30 a 53.
-Esto es exactamente lo que una malla de 9 km no puede ver, y la razón de ser del
-paso 5.
+**Arteixo tiene 0,4 días al año por encima de 30 °C; Leiro tiene 80.**
 
-**Un caso interesante:** ladera costera elevada. Burela tiene una estación a 421 m
-a 3,7 km del mar con **0,4 días de helada al año**: se lleva el enfriamiento de la
-altitud sin pagar el invierno, porque el mar sostiene las noches.
+Dos matices que rompen la simplificación «la costa es fresca»:
 
-**Tendencias (2010-2026).** Temperatura media **+0,83 °C/década**, significativa en
-el 83 % de las estaciones. Días con humidex > 35: **+8,6 al año por década**. Días
-de helada: −3,4 por década. Tendencia regional de las máximas anuales:
-**+1,0 °C/década (IC 95 %: +0,83 a +1,20)**, significativa por estación solo en el
-19 % de los casos, tal como predijo el análisis de potencia.
+- **Las Rías Baixas no están en el grupo bueno.** Vigo 5,4 días, Pontevedra 19,5,
+  O Rosal 24. Se parecen más a Ourense que a A Coruña.
+- **La costa cantábrica es fresca pero bochornosa.** Ribadeo y Viveiro tienen una
+  Tmax parecida a la de Camariñas y **49 y 70 días** de humidex sobre 30, frente
+  a 14. Si el criterio pesa el confort, quedan fuera.
 
-> ⚠️ Ese +1,0 °C/década conviene tomarlo como **cota superior**. Son 16 años que
-> empiezan en 2010 (fresco) y terminan en años cálidos, y una ventana corta infla
-> las pendientes. Es aproximadamente el doble del ritmo europeo típico. Los 30 años
-> de ERA5-Land lo contrastarán.
+### 8.3 Lo que aporta bajar a 1 km
 
----
+Dentro de **una sola celda de ERA5-Land** de 9 km hay **3,9 °C** entre el
+percentil 1 y el 99 del detalle fino. Más que el calentamiento acumulado de
+varias décadas: elegir con la malla gruesa habría sido elegir a ciegas.
+
+Y ese detalle es física, no ruido. Ajustando la anomalía térmica contra la
+anomalía topográfica sale un gradiente de **−6,46 °C por cada 1.000 m**, cuando
+el gradiente vertical del aire libre es −6,5. Nadie metió ese número: sale de
+restar el WRF consigo mismo suavizado. El relieve explica el **34 %** de la
+variación fina (correlación −0,583); el **0,47 °C** restante es brisa, inversión
+de valle y cercanía al mar a igualdad de altura, que es justo lo que ERA5-Land
+no puede ver.
+
+### 8.4 Qué tal se porta el campo fusionado (paso 10)
+
+Contrastado contra 145 estaciones con al menos 8 años:
+
+| | error absoluto | correlación | rangos |
+|---|---|---|---|
+| ERA5-Land 9 km | 2,90 °C | 0,780 | 0,777 |
+| **Fusión 1 km** | **2,67 °C** | **0,856** | **0,838** |
+
+- **Sesgo frío de −2,74 °C** a igualdad de altitud. Es lo esperable: una celda de
+  reanálisis es una media de área y las medias no alcanzan los extremos de un
+  punto. Los valores del campo **no son lecturas de termómetro**; con la
+  corrección y descontando el desajuste de altitud modelo-garita, el error
+  absoluto baja a **1,37 °C**.
+- De las 15 estaciones realmente más frescas, el campo acierta 9; de las 15 más
+  calurosas, 12.
+- **El sesgo es mayor donde más aprieta**: los doce peores errores están todos en
+  sitios calurosos (O Rosal −7,6, Tui −7,2, Leiro −6,2, Ourense −5,9). La
+  diferencia real entre la costa y el valle del Miño es **mayor** que la que
+  sale en el mapa, no menor.
+- **Y el punto débil coincide con la cabeza del ranking.** ERA5-Land solo tiene
+  celdas sobre tierra, y a 9 km los cabos son casi todo mar: allí la
+  climatología no se interpola, se toma prestada de la celda de tierra más
+  cercana. El error sube de 2,67 a 3,24 °C, y **13 de los 15 primeros** son de
+  esos. Restringiendo el ranking a puntos con base interpolada sobreviven **4 de
+  los 30 primeros**. La zona no cambia; el orden dentro de ella, sí.
+
+### 8.5 Tendencias — el número que no hay que citar
+
+`resumen.txt` da **+1,31 °C/década** en la máxima de verano, positiva en las 328
+celdas. Y las estaciones dan cifras del mismo orden.
+
+**No es un ritmo de calentamiento.** Son 15 años que empiezan en 2011 y terminan
+con los veranos de 2022 en adelante; la pendiente de Sen recoge a la vez cambio
+climático y variabilidad decenal, y con esta longitud de serie no hay forma de
+separarlos. Sirve para comparar estaciones entre sí. Para cuantificar el
+calentamiento hace falta serie larga, y ahí es donde entra AEMET (§4.3).
+
+### 8.6 Errores propios que conviene no repetir
+
+Van aquí porque todos eran silenciosos —ninguno producía una excepción— y
+cualquiera habría envenenado el resultado:
+
+| Qué pasaba | Cómo se detectó |
+|---|---|
+| `rh` en fracción tratada como porcentaje: el humidex se quedaba igual que la temperatura seca | mirando las unidades del fichero, `units="1"` |
+| El océano y los embalses en el ranking, y el mar contaminando la media de 9 km de toda la costa | los 20 «sitios más frescos» estaban a −9,45 de longitud |
+| Píxeles 8 °C más fríos que su entorno sin relieve que lo explique | la prueba topográfica: 271 puntos, el 0,68 % |
+| «Distancia a la costa» medida a cualquier agua: Castrelo de Miño, en un embalse a 59 km del mar, contaba como estación costera | un ranking de litoral lleno de estaciones de Ourense |
+| El `id` de un dataset usado como `urlPath` | 404 en todas las peticiones |
+| Afirmar que unas coordenadas eran embalses sin comprobarlo | Rafa las miró en un mapa |
 
 ## 9. Límites honestos
 
@@ -671,9 +830,20 @@ de helada: −3,4 por década. Tendencia regional de las máximas anuales:
   Por eso el paso 3 no es opcional: es el único contraste independiente.
 - **Las estaciones no son una malla.** Cubren donde MeteoGalicia decidió medir, y
   su emplazamiento importa (algunas son agrometeorológicas, en campo abierto).
-- **Series de 16 años en las estaciones**, frente a los 30 de ERA5-Land. Y tienen
-  inhomogeneidades —cambios de sensor, reubicaciones— que pueden inventar
-  tendencias. ERA5-Land no las tiene por construcción.
+- **Nadie aquí tiene serie larga.** 17 años las estaciones, 15 ERA5-Land tal como
+  se descargó. Basta para ordenar sitios; no para medir un ritmo de calentamiento.
+  Las estaciones además tienen inhomogeneidades —cambios de sensor,
+  reubicaciones— que pueden inventar tendencias; ERA5-Land no, por construcción.
+- **El campo fusionado va 2,74 °C frío** y su error absoluto es de 1,37 °C tras
+  corregirlo. Ordena mucho mejor de lo que acierta el valor: correlación de
+  rangos 0,83 frente a un sesgo de casi tres grados.
+- **Los cabos son extrapolación.** Donde ERA5-Land no tiene tierra alrededor, la
+  climatología se toma prestada de la celda más cercana. Es el 26 % de los puntos
+  de tierra y el 41 % de los 400 mejores del ranking. La zona ganadora no
+  depende de eso; el orden dentro de la zona, sí.
+- **El WRF aporta cinco veranos, no quince.** Suficiente para un patrón espacial,
+  que es lo único que se le pide, pero su archivo de 1 km empieza en septiembre
+  de 2021 y no hay forma de alargarlo hacia atrás.
 - **El `indice_calor` es relativo a Galicia**, no una escala absoluta.
 - **Hora local fija (UTC+1)**, sin horario de verano. Irrelevante para máximas y
   mínimas; desplaza una hora el corte de la noche en verano.
@@ -691,21 +861,26 @@ comun.py                        índices térmicos y de extremos
 thredds.py                      cliente de servidores THREDDS
 celdas_galicia.csv              las 368 celdas ERA5-Land de Galicia
 
-01_descarga_cds.py              ERA5-Land horario 1996-2025
+01_descarga_cds.py              ERA5-Land horario (se descargó 2011-2025)
 02_indices.py                   agregación horaria a diaria, índices y ranking
 03_estaciones_meteogalicia.py   red de observación real
 04_afina_openmeteo.py           altitud MDT 90 m + afinado de la lista corta
-05_wrf_dias_calidos.py          WRF 1-4 km, solo los días cálidos
+05_wrf_dias_calidos.py          WRF 1 km, solo los días cálidos (+ --estaticos)
 06_alta_resolucion.py           fusión de escalas
 07_evolucion_estaciones.py      evolución año a año y tendencias
 08_periodos_retorno.py          Gumbel, periodos de retorno, no estacionariedad
 09_proyecciones.py              proyecciones de AdapteCCa (reconocimiento)
+10_validacion.py                contraste del campo contra las estaciones reales
+11_mapa_estaciones.py           mapa interactivo de las 147 estaciones
+plantilla_est.html              plantilla del mapa (la usa el paso 11)
+12_aemet.py                     series largas de AEMET y sesgo de ventana corta
 
 test_indices.py                 índices térmicos y de extremos
 test_malla.py                   paso 2 de extremo a extremo
 test_wrf.py                     catálogo THREDDS y fusión de escalas
 test_evolucion.py               pendiente de Sen y Mann-Kendall
 test_retorno.py                 Gumbel, bulbo húmedo y no estacionariedad
+test_aemet.py                   formato de AEMET y sesgo de ventana corta
 ```
 
 Las pruebas trabajan en un directorio temporal propio (variable `GAL_BASE`), así
@@ -719,9 +894,12 @@ que **nunca borran descargas reales**.
 | Tras el paso 3 | `indices_estaciones.csv`, `estaciones_lista.csv` |
 | Tras el paso 7 | `evolucion_estaciones.csv`, `tendencias_estaciones.csv`, `resumen_evolucion.txt` |
 | Tras el paso 8 | `retorno_estaciones.csv`, `resumen_retorno.txt` |
-| Tras el paso 6 | `alta_resolucion.csv.gz`, `resumen_alta_resolucion.txt` |
-| Reconocimientos | `wrf_exploracion.txt`, `adaptecca_exploracion.txt` |
+| Tras el paso 6 | `alta_resolucion.csv.gz`, `resumen_alta_resolucion.txt`, `ranking_60_40.csv` |
+| Tras el paso 10 | `validacion_estaciones.csv`, `resumen_validacion.txt` |
+| Tras el paso 11 | `estaciones_galicia.html` |
+| Tras el paso 12 | `aemet_series.csv`, `resumen_aemet.txt`, `aemet_exploracion.txt` |
+| Reconocimientos | `wrf_exploracion.txt`, `adaptecca_exploracion.txt`, `wrf_fallos.txt` |
 
-**Nunca**: las carpetas `descargas/` y `wrf/` (gigas de datos brutos, regenerables)
-ni el fichero `.cdsapirc`. El límite de subida por el navegador de GitHub es de
+**Nunca**: las carpetas `descargas/`, `wrf/` y `aemet/` (datos brutos, regenerables)
+ni los ficheros `.cdsapirc` y `.aemetrc`. El límite de subida por el navegador de GitHub es de
 **25 MiB por fichero**.
