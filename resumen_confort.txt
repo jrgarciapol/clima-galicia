@@ -1,0 +1,41 @@
+Confort de verano en las estaciones - 2026-08-15 23:07
+
+147 estaciones con 8+ anios de serie diaria.
+
+=== HOY, medido ===
+  percentil 99 de la maxima             24.7 a    40.0  (mediana   33.0)
+  percentil 99 del humidex              28.2 a    60.6  (mediana   45.1)
+  dias con humidex > 35                  0.0 a   116.2  (mediana   36.8)
+  grados-dia de refrigeracion           27.7 a   520.7  (mediana  166.6)
+  ola de calor mas larga (dias)          4.0 a    13.0  (mediana    7.0)
+  noches tropicales al anio              0.0 a    12.8  (mediana    0.7)
+
+  los cinco mas llevaderos por humidex p99:
+    MANZANEDA              hx  28.2  dias>35    0.0  cdd     29
+    A VEIGA                hx  29.2  dias>35    0.0  cdd     40
+    CARBALLEDA DE VALDEORR hx  31.8  dias>35    0.1  cdd     59
+    ARTEIXO                hx  32.3  dias>35    1.1  cdd     62
+    CERVANTES              hx  34.2  dias>35    2.4  cdd     93
+  los cinco peores:
+    A ARNOIA               hx  60.6  dias>35  115.5  cdd    342
+    LEIRO                  hx  59.3  dias>35  116.2  cdd    384
+    PANTÓN                 hx  57.6  dias>35   93.3  cdd    305
+    CASTRELO DE MIÑO       hx  56.1  dias>35   92.2  cdd    366
+    MONFORTE DE LEMOS      hx  56.0  dias>35   96.2  cdd    324
+
+=== 2041-2070, SSP2-4.5: las dos hipotesis de humedad ===
+La temperatura sube lo que dicen los modelos. La humedad no se
+proyecta: se mantiene, y 'mantener' admite dos lecturas.
+
+  A) punto de rocio constante (cota inferior)
+    humidex p99 sube  +1.47 a +3.88 (mediana +2.80)
+    dias con humidex > 35 pasan de 37 a 55 al anio (mediana), +20
+
+  B) humedad relativa constante (cota superior)
+    humidex p99 sube  +2.83 a +9.10 (mediana +5.82)
+    dias con humidex > 35 pasan de 37 a 74 al anio (mediana), +38
+
+  Entre las dos hipotesis hay 3.0 C de humidex de diferencia.
+  Esa horquilla NO es incertidumbre de los modelos: es lo que
+  no sabemos sobre la humedad, y es mayor que la diferencia
+  entre el escenario mas optimista y el mas pesimista.
