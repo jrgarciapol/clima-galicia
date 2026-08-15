@@ -66,10 +66,21 @@ ok += 1; print("  ok   la orientacion norte-sur es correcta")
 print("\n=== los extremos que se pintan en los mapas pequenios ===")
 ex = d["extremos"]
 for lado in ("frescos", "calidos"):
-    n_sitios = len({q["cerca"] for q in ex[lado]})
-    print("  " + lado + ": " + ", ".join(f"{q['cerca']} ({q['tx']})" for q in ex[lado]))
-    assert n_sitios == 4, f"los cuatro tienen que ser sitios distintos, hay {n_sitios}"
+    print("  " + lado + ": " + ", ".join(f"{q['cerca']} ({q['tx']})"
+                                          for q in ex[lado][:6]) + " ...")
+    # Se comprueba la separacion GEOGRAFICA, no que el nombre sea distinto: el
+    # nombre es el de la estacion mas cercana y puede repetirse legitimamente
+    # (dos puntos a 12 km uno de otro pueden tener la misma estacion al lado).
+    kk = np.cos(np.radians(43.0))
+    for i in range(len(ex[lado])):
+        for j in range(i + 1, len(ex[lado])):
+            a_, b_ = ex[lado][i], ex[lado][j]
+            sep = np.hypot(a_["lat"] - b_["lat"], (a_["lon"] - b_["lon"]) * kk) * 111
+            assert sep > 11.5, (f"{a_['cerca']} y {b_['cerca']} estan a {sep:.1f} km: "
+                                "se taparian en el mapa")
     ok += 1
+    print(f"  ok   los {len(ex[lado])} estan separados mas de 12 km entre si")
+
 # ninguno puede caer fuera de Galicia: el fallo real fue tener Caminha entre los
 # cuatro sitios mas frescos "de Galicia"
 for q in ex["frescos"] + ex["calidos"]:
@@ -89,6 +100,46 @@ if faltan: fallos.append(f"terminos sin definicion: {faltan}")
 else: ok += 1; print(f"  ok   {len(marcados)} terminos marcados, todos definidos")
 sobran = definidos - marcados
 if sobran: print(f"  aviso: definidos y no usados en el texto: {sobran}")
+
+print("\n=== el peso 60/40, que es la afirmacion mas fragil del informe ===")
+import pandas as _pd
+from scipy.spatial import ConvexHull as _CH
+from matplotlib.path import Path as _P
+_est = _pd.read_csv(f"{R}/estaciones_lista.csv")
+_gal = _P(_est[["lon", "lat"]].values[_CH(_est[["lon", "lat"]].values).vertices])
+_a = _pd.read_csv(f"{R}/alta_resolucion.csv.gz")
+_a = _a[(_a.tierra == 1) & (_a.altitud < 400)].dropna(subset=["tx_p99_1km", "hx_p99_1km"])
+# la misma mascara de Galicia que usa el informe: si no, no es el mismo conjunto
+_a = _a[_gal.contains_points(_a[["lon", "lat"]].values, radius=0.08)]
+assert abs(len(_a) - 11794) < 5, f"el informe dice 11.794 puntos y hay {len(_a)}"
+print(f"  ok   11.794 puntos: {len(_a)}")
+_z = lambda x: (x - x.mean()) / x.std()
+_a = _a.assign(zt=_z(_a.tx_p99_1km), zh=_z(_a.hx_p99_1km))
+_corr = float(np.corrcoef(_a.tx_p99_1km, _a.hx_p99_1km)[0, 1])
+comprueba("correlacion entre las dos mitades", 0.95, _corr, 0.01)
+_top = lambda w: set(map(tuple, _a.assign(n=w*_a.zt + (1-w)*_a.zh)
+                         .nsmallest(12, "n")[["lat", "lon"]].round(4).values))
+_b = _top(0.6)
+for _w, _min in ((0.8, 11), (0.5, 11), (0.4, 10)):
+    _c = len(_top(_w) & _b)
+    assert _c >= _min, f"con peso {_w}, solo {_c}/12 coinciden y el texto promete {_min}"
+    print(f"  ok   peso {_w:.0%}/{1-_w:.0%}: {_c}/12 de los mejores coinciden")
+ok += 3
+
+print("\n=== referencias cruzadas ===")
+_anclas = set(re.findall(r'id="([a-z]+)"', html))
+_refs = set(re.findall(r'class="ref" href="#([a-z]+)"', html) +
+            re.findall(r'href="#([a-z]+)" class="ref"', html))
+_rotas = _refs - _anclas
+if _rotas: fallos.append(f"referencias a secciones que no existen: {_rotas}")
+else: ok += 1; print(f"  ok   {len(_refs)} destinos referenciados, todos existen")
+
+print("\n=== nada de tuteo: lo lee cualquiera, no solo quien lo encargo ===")
+_cuerpo = html[html.index('<section id="intro">'):html.index('<div id="pista"')]
+_mal = re.findall(r'\b(tenías razón|te dije|tu comentario|pincha|verás|pruébala|contigo)\b',
+                  _cuerpo, re.I)
+if _mal: fallos.append(f"quedan formas de segunda persona: {set(_mal)}")
+else: ok += 1; print("  ok   el cuerpo del informe no interpela al lector")
 
 print("\n=== textos que prometen algo ===")
 for frase, cond in [("40.050", "40.050 puntos" in html), ("1.657 celdas", "1.657" in html),

@@ -47,7 +47,7 @@ def titulo(n):
     ps = str(n).lower().split()
     return " ".join(w if (i and w in menores) else w.capitalize() for i, w in enumerate(ps))
 
-def extremos(col, n=4, arriba=True, separacion=25.0):
+def extremos(col, n=4, arriba=True, separacion=12.0):
     """Los n extremos, obligando a que esten en sitios DISTINTOS.
 
     Sin la separacion salian cuatro puntos del mismo kilometro cuadrado: tres de
@@ -64,8 +64,27 @@ def extremos(col, n=4, arriba=True, separacion=25.0):
              "alt": round(float(r.altitud)), "tx": round(float(r.tx), 1),
              "d32": int(r.wrf_n_ge32), "cerca": titulo(r.cerca), "km": float(r.km)}
             for r in sel]
-O["extremos"] = {"frescos": extremos("tx", 4, False), "calidos": extremos("tx", 4, True)}
+O["extremos"] = {"frescos": extremos("tx", 15, False), "calidos": extremos("tx", 15, True)}
+# Donde esta la frontera: los cuartiles del propio territorio. Sin esto, decir
+# "de los mas frescos" no significa nada -- no se sabe respecto a que.
+_v = al.loc[al.gal & (al.altitud < 400), "tx"].dropna().values
+O["reparto"] = {"n": int(_v.size),
+                "p": {str(q): round(float(np.percentile(_v, q)), 1)
+                      for q in (1, 5, 10, 25, 50, 75, 90, 95, 99)},
+                "hist": np.histogram(_v, bins=28, range=(26, 40))[0].tolist(),
+                "hlo": 26.0, "hhi": 40.0}
 O["mascara"] = {"dentro": int(al.gal.sum()), "total": int(len(al))}
+# Los 20 peores, para poder pintarlos en el mapa junto a los 20 mejores. Misma
+# regla que el ranking: solo Galicia y por debajo de 400 m, para comparar peras
+# con peras (un punto a 1.500 m es fresco por otra razon).
+_bajo = al[al.gal & (al.altitud < 400)].dropna(subset=["tx"])
+O["peores"] = [{"puesto": i + 1, "lat": round(float(r.lat), 3), "lon": round(float(r.lon), 3),
+                "altitud": round(float(r.altitud)), "cerca": titulo(r.cerca),
+                "km": float(r.km), "tx_p99_1km": round(float(r.tx_p99_1km), 2),
+                "hx_p99_1km": round(float(r.hx_p99_1km), 2),
+                "wrf_n_ge32": int(r.wrf_n_ge32)}
+               for i, (_, r) in enumerate(_bajo.nlargest(20, "tx").iterrows())]
+print(f"peores: {O['peores'][0]['cerca']} ({O['peores'][0]['tx_p99_1km'] + 2.74:.1f} C)")
 print(f"extremos: {O['extremos']['frescos'][0]['cerca']} ... {O['extremos']['calidos'][0]['cerca']}")
 
 # ---- concellos con coordenadas: para decir donde esta el raton en el mapa ---
