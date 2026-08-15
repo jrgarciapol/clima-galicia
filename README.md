@@ -45,6 +45,7 @@ cada variable y en qué punto está el trabajo.
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
 | 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | ✅ hecho |
 | 14 | Informe interactivo en un solo HTML | ✅ 6 capas, glosario, 44 comprobaciones |
+| 15 | **Confort proyectado**: humidex futuro sobre las estaciones | 🔄 escrito, falta ejecutarlo |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
 
@@ -695,6 +696,7 @@ python 09_proyecciones.py --describe       # etiquetas de los ejes (1 min)
 python 09_proyecciones.py --descargar      # 28 recortes de Galicia (~15 min)
 python 09_proyecciones.py --analizar       # 1 min, sin red
 
+python 15_confort.py                       # 2 min, sin red; necesita el paso 3 y el 9
 python 14_informe.py                       # monta informe_galicia.html
 ```
 
@@ -1112,6 +1114,7 @@ celdas_galicia.csv              las 368 celdas ERA5-Land de Galicia
 plantilla_est.html              plantilla del mapa (la usa el paso 11)
 12_aemet.py                     series largas de AEMET y sesgo de ventana corta
 13_rocio.py                     rejilla ROCIO_IBEB de 5 km, 1951-2022
+15_confort.py                   humidex proyectado con la humedad de hoy
 14_informe.py                   monta el informe interactivo (llama a informe/)
 informe/prep.py                 rasteriza el campo de 1 km y los deltas de 5 km
 informe/prep2.py                puntos, estaciones, series de AEMET y escenarios
@@ -1131,6 +1134,7 @@ test_evolucion.py               pendiente de Sen y Mann-Kendall
 test_retorno.py                 Gumbel, bulbo húmedo y no estacionariedad
 test_aemet.py                   formato de AEMET y sesgo de ventana corta
 test_rocio.py                   recorte de la rejilla y tendencia larga
+test_confort.py                 las dos hipotesis de humedad y los grados-día
 test_sincroniza.py              que aborta antes de subir datos o credenciales
 test_proyecciones.py            seleccion de ejes de AdapteCCa y brecha
 ```
@@ -1152,6 +1156,7 @@ que **nunca borran descargas reales**.
 | Tras el paso 12 | `aemet_series.csv`, `resumen_aemet.txt`, `aemet_exploracion.txt` |
 | Tras el paso 13 | `resumen_rocio.txt`, `rocio_tendencias.csv` |
 | Tras el paso 9 | `resumen_proyecciones.txt`, `proyecciones_galicia.csv.gz`, `ranking_con_proyeccion.csv` |
+| Tras el paso 15 | `confort_estaciones.csv`, `resumen_confort.txt` |
 | Tras el paso 14 | `informe/informe_galicia.html` (0,9 MB, autocontenido) |
 | Reconocimientos | `wrf_exploracion.txt`, `adaptecca_exploracion.txt`, `wrf_fallos.txt` |
 
