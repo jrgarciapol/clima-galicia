@@ -63,9 +63,45 @@ NORTE, SUR, OESTE, ESTE = 43.95, 41.70, -9.45, -6.60
 INTERES = ("tasmax", "tasmin", "tas", "tx", "tn", "txx", "tnn", "su", "tr",
            "wsdi", "hwd", "hwn", "cdd", "hdd", "temperatura")
 
+# Ramas que no pintan nada aqui. El catalogo cuelga Canarias y Andorra del mismo
+# nivel que la Peninsula, y recorrerlas se come el presupuesto de peticiones.
+FUERA = ("canarias", "andorra")
+
+
+def prioridad(titulo, url):
+    """Orden en que se visita cada rama. Menor numero, antes.
+
+    El primer reconocimiento se hizo por anchura y a profundidad 5, y agoto las
+    250 peticiones dentro de las ramas de observaciones sin llegar a tocar una
+    sola de proyecciones: los 117 ficheros del inventario son TODOS
+    observacionales. El catalogo es demasiado ancho para recorrerlo entero, asi
+    que hay que decirle por donde empezar.
+    """
+    t = (titulo + " " + url).lower()
+    if any(x in t for x in FUERA):
+        return None                       # ni se encola
+    p = 0
+    if "proyecc" in t:
+        p -= 40                           # es lo unico que falta por inventariar
+    if "observaciones" in t:
+        p += 20                           # ya lo tenemos del primer sondeo
+    if "rejilla" in t:
+        p -= 8                            # rejilla > estaciones: queremos el mapa
+    if "cmip6" in t:
+        p -= 4                            # mas moderno que CMIP5
+    if "dato_diario" in t:
+        p += 6                            # pesado; los indices anuales bastan
+    if any(k in t for k in INTERES):
+        p -= 3
+    return p
+
 
 def url_dods(url_path):
     return f"{RAIZ}/dodsC/{url_path}"
+
+
+def url_http(url_path):
+    return f"{RAIZ}/fileServer/{url_path}"
 
 
 def explorar(destino, prof=5, max_peticiones=250):
@@ -82,14 +118,18 @@ def explorar(destino, prof=5, max_peticiones=250):
     L.append("")
 
     # Se reutiliza el rastreador del paso 5, que ya sabe que la jerarquia de URL
-    # no tiene por que coincidir con la del catalogo.
-    L.append(f"--- recorrido del catalogo (profundidad {prof}) ---")
+    # no tiene por que coincidir con la del catalogo. Lo que cambia respecto al
+    # primer sondeo es el ORDEN: por prioridad, no por anchura (ver prioridad()).
+    L.append(f"--- recorrido del catalogo (profundidad {prof}, tope {max_peticiones}) ---")
+    print(f"Recorriendo el catalogo. Hasta {max_peticiones} peticiones, "
+          f"unos {max_peticiones * 1.5 / 60:.0f} min como mucho.", flush=True)
     traza, encontrados, vistos = [], [], set()
-    pendientes = [(CATALOGO, "raiz", 0)]
-    peticiones = 0
+    monton = [(0, 0, CATALOGO, "raiz", 0)]
+    orden, peticiones, saltadas = 0, 0, 0
     ficheros_por_rama = {}
-    while pendientes and peticiones < max_peticiones:
-        url, titulo, p = pendientes.pop(0)
+    while monton and peticiones < max_peticiones:
+        monton.sort()
+        _, _, url, titulo, p = monton.pop(0)
         if url in vistos:
             continue
         vistos.add(url)
@@ -103,12 +143,36 @@ def explorar(destino, prof=5, max_peticiones=250):
         if fich:
             ficheros_por_rama[titulo] = fich[:8]
             encontrados.extend(fich)
+        # Sin esto el recorrido parece colgado: son cientos de peticiones y
+        # antes solo se veia la salida al final.
+        print(f"  [{peticiones:3d}/{max_peticiones}] n{p} {titulo[:48]:48s} "
+              f"{len(subs):3d} sub {len(fich):4d} fich  (total {len(encontrados)})",
+              flush=True)
         for tit, sub in subs:
-            if p < prof:
-                pendientes.append((sub, tit, p + 1))
+            if p >= prof:
+                continue
+            pr = prioridad(tit, sub)
+            if pr is None:
+                saltadas += 1
+                continue
+            orden += 1
+            monton.append((pr, orden, sub, tit, p + 1))
     L.extend(traza)
+    if saltadas:
+        L.append(f"  ({saltadas} ramas de {'/'.join(FUERA)} no visitadas a proposito)")
     if peticiones >= max_peticiones:
-        L.append(f"  (tope de {max_peticiones} peticiones alcanzado)")
+        L.append(f"  (tope de {max_peticiones} peticiones alcanzado; "
+                 f"quedaban {len(monton)} ramas por abrir)")
+        L.append("  Si faltan proyecciones, repetir con --tope mas alto.")
+    L.append("")
+
+    # Resumen por rama, que es lo que de verdad hay que leer del fichero
+    ramas = {}
+    for _, up in encontrados:
+        ramas["/".join(up.split("/")[:3])] = ramas.get("/".join(up.split("/")[:3]), 0) + 1
+    L.append("--- ficheros por rama ---")
+    for k in sorted(ramas):
+        L.append(f"  {ramas[k]:5d}  {k}")
     L.append("")
 
     L.append(f"--- ficheros encontrados: {len(encontrados)} ---")
@@ -126,6 +190,17 @@ def explorar(destino, prof=5, max_peticiones=250):
     for n, _ in cand[:40]:
         L.append(f"  {n}")
     L.append("")
+
+    # Se prueba sobre una PROYECCION, no sobre lo primero que salga. En el
+    # sondeo anterior el candidato elegido fue un fichero de observaciones y su
+    # fallo de OPeNDAP no decia nada sobre lo que nos interesa bajar.
+    proy = [(n, u) for n, u in cand if "proyecc" in u.lower()]
+    if proy:
+        cand = proy
+        L.append(f"--- de ellos, {len(proy)} son proyecciones ---")
+        for n, _ in proy[:40]:
+            L.append(f"  {n}")
+        L.append("")
 
     if cand:
         L.append("--- prueba de OPeNDAP sobre el primer candidato ---")
@@ -148,7 +223,23 @@ def explorar(destino, prof=5, max_peticiones=250):
             L.append("  -> OPeNDAP funciona: se puede recortar sin bajar el fichero entero")
         except Exception as e:  # noqa: BLE001
             L.append(f"  ERROR abriendo por OPeNDAP: {e.__class__.__name__}: {e}")
-            L.append("  (si falla, habra que bajar por HTTPServer el fichero completo)")
+            L.append("")
+            # Plan B: si OPeNDAP no sirve hay que bajar el fichero entero, y
+            # entonces lo primero que hace falta saber es cuanto pesa.
+            L.append("--- plan B: el fichero entero por HTTPServer ---")
+            uh = url_http(up)
+            L.append(f"  {uh}")
+            try:
+                import urllib.request
+
+                pet = urllib.request.Request(uh, method="HEAD")
+                with urllib.request.urlopen(pet, timeout=60) as r:
+                    n = int(r.headers.get("Content-Length", 0))
+                L.append(f"  responde: {n / 1e6:,.1f} MB por fichero")
+                L.append(f"  -> los {len(cand)} candidatos serian "
+                         f"{n * len(cand) / 1e9:,.1f} GB. Habra que elegir cuales.")
+            except Exception as e2:  # noqa: BLE001
+                L.append(f"  tampoco responde: {e2.__class__.__name__}: {e2}")
     L.append("")
 
     texto = "\n".join(L)
@@ -165,11 +256,14 @@ def explorar(destino, prof=5, max_peticiones=250):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--explorar", action="store_true")
-    ap.add_argument("--prof", type=int, default=5)
+    ap.add_argument("--prof", type=int, default=8)
+    ap.add_argument("--tope", type=int, default=600,
+                    help="maximo de peticiones al catalogo")
     args = ap.parse_args()
 
     if args.explorar:
-        explorar(os.path.join(BASE, "adaptecca_exploracion.txt"), prof=args.prof)
+        explorar(os.path.join(BASE, "adaptecca_exploracion.txt"),
+                 prof=args.prof, max_peticiones=args.tope)
         return
 
     sys.exit("Por ahora solo esta implementado --explorar.\n"

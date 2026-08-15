@@ -39,7 +39,7 @@ cada variable y en qué punto está el trabajo.
 | 6 | Fusión de escalas 9 km + 1 km | ✅ 60.690 puntos |
 | 7 | Evolución año a año de cada estación | ✅ hecho |
 | 8 | Periodos de retorno y extremos no estacionarios | ✅ hecho sobre estaciones |
-| 9 | Proyecciones climáticas de AdapteCCa | 🔍 catálogo reconocido, falta la descarga |
+| 9 | Proyecciones climáticas de AdapteCCa | 🔄 hay que repetir el sondeo: el primero no llegó a las proyecciones |
 | 10 | Validación contra las 153 estaciones | ✅ hecho |
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
@@ -456,10 +456,19 @@ anomalía de cada índice respecto a 1971-2000, por celda de 5 km y escenario—
 sumarla a nuestra climatología observada actual. Es el mismo método delta que se
 usa con el WRF, aplicado en el tiempo en vez de en el espacio.
 
-**Nota técnica:** el reconocimiento del catálogo dio error de OPeNDAP, pero el
-fichero probado era de estaciones, cuya estructura suele atragantar al cliente.
-Hay que reintentarlo sobre uno de rejilla antes de descartarlo; y si no funciona,
-los ficheros anuales de índices no son grandes y pueden bajarse enteros.
+**El primer sondeo no sirvió, y conviene entender por qué.** Recorrió el catálogo
+por anchura hasta profundidad 5, agotó su tope de 250 peticiones dentro de las
+ramas de observaciones y **no llegó a abrir ni una sola de proyecciones**. Los
+117 ficheros del inventario son todos observacionales. El fichero que probó por
+OPeNDAP —y que falló— también lo era, así que ese error no dice nada sobre lo que
+de verdad queremos bajar.
+
+El catálogo es demasiado ancho para recorrerlo entero, así que ahora se recorre
+**por prioridad en vez de por anchura**: las ramas de proyecciones primero,
+rejilla antes que estaciones, CMIP6 antes que CMIP5, y Canarias y Andorra ni se
+visitan. Con `--prof 8 --tope 600`, y avisando por pantalla de cada petición para
+que no parezca colgado. Si OPeNDAP vuelve a fallar, mide el fichero por
+HTTPServer para saber cuánto costaría bajarlo entero.
 
 ### 4.3 AEMET OpenData: qué añadiría y qué no
 
