@@ -39,7 +39,7 @@ cada variable y en qué punto está el trabajo.
 | 6 | Fusión de escalas 9 km + 1 km | ✅ 60.690 puntos |
 | 7 | Evolución año a año de cada estación | ✅ hecho |
 | 8 | Periodos de retorno y extremos no estacionarios | ✅ hecho sobre estaciones |
-| 9 | Proyecciones climáticas de AdapteCCa | 🔄 hay que repetir el sondeo: el primero no llegó a las proyecciones |
+| 9 | Proyecciones climáticas de AdapteCCa | 🔄 inventariado: 2.439 ficheros y OPeNDAP funciona |
 | 10 | Validación contra las 153 estaciones | ✅ hecho |
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
@@ -467,8 +467,34 @@ El catálogo es demasiado ancho para recorrerlo entero, así que ahora se recorr
 **por prioridad en vez de por anchura**: las ramas de proyecciones primero,
 rejilla antes que estaciones, CMIP6 antes que CMIP5, y Canarias y Andorra ni se
 visitan. Con `--prof 8 --tope 600`, y avisando por pantalla de cada petición para
-que no parezca colgado. Si OPeNDAP vuelve a fallar, mide el fichero por
-HTTPServer para saber cuánto costaría bajarlo entero.
+que no parezca colgado.
+
+**El segundo sondeo sí funcionó:** 2.585 ficheros, **2.439 de proyecciones**, y
+**OPeNDAP responde**, así que se recorta a Galicia sin bajar España entera.
+
+Lo aprovechable está en `Proyecciones_CMIP6_en_rejilla/Climatologia`, y su
+estructura es mejor de lo esperado: **cada fichero trae dentro los cuatro
+periodos y los doce modelos**, no hay que bajar uno por periodo. Un fichero
+`climatology_CMIP6_ESD-RegBA_<variable>_<escenario>.nc` tiene dimensiones
+`member=12, time_filter=17, period=4, lat=251, lon=400`, y **tres variables
+dentro: el valor absoluto, la anomalía y la anomalía relativa** — o sea, la
+señal de cambio ya calculada, que es exactamente lo que pide el método delta.
+
+Las siete que responden a nuestra pregunta, todas bajo `Temperatura/`:
+
+| variable | qué es | para qué |
+|---|---|---|
+| `tasmaxp99` | percentil 99 de la máxima | **es literalmente nuestro `tx_p99`** |
+| `tasmaxmax` | máxima absoluta | el pico |
+| `tasmaxhwdmax` | duración máxima de ola de calor | persistencia |
+| `tasmax` | máxima media | confort medio |
+| `tasminNa20` | noches por encima de 20 °C | noches tropicales, **absolutas** |
+| `cdd` | grados-día de refrigeración | cuánto aire acondicionado |
+| `tmean` | media | contraste con la climatología observada |
+
+Son absolutas, no relativas al percentil del propio lugar: se libra así el
+problema del punto 1 de más arriba, que era el que amenazaba con hacer inútil
+toda esta fuente. Siete variables × cuatro escenarios = **28 ficheros**.
 
 ### 4.3 AEMET OpenData: qué añadiría y qué no
 

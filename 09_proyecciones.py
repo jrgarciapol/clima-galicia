@@ -49,6 +49,8 @@ import os
 import sys
 from datetime import datetime
 
+import numpy as np
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import thredds  # noqa: E402
 
@@ -253,9 +255,113 @@ def explorar(destino, prof=5, max_peticiones=250):
     print(f"Inventario completo en adaptecca_ficheros.json ({len(encontrados)} entradas)")
 
 
+# ---------------------------------------------------------------------------
+# Descripcion fina de un fichero de climatologia
+# ---------------------------------------------------------------------------
+# Ruta regular, confirmada sobre el inventario del sondeo:
+#   Climatologia/Temperatura/<var>/climatology_CMIP6_ESD-RegBA_<var>_<esc>.nc
+RAMA_CLIM = ("peninsula/Proyecciones_CMIP6_en_rejilla/Climatologia/Temperatura/"
+             "{v}/climatology_CMIP6_ESD-RegBA_{v}_{e}.nc")
+ESCENARIOS = ("ssp126", "ssp245", "ssp370", "ssp585")
+
+# Lo que de verdad responde a la pregunta del proyecto, y por que:
+NUESTRAS = {
+    "tasmaxp99":     "percentil 99 de la maxima: es literalmente nuestro tx_p99",
+    "tasmaxmax":     "maxima absoluta del periodo",
+    "tasmaxhwdmax":  "duracion maxima de ola de calor",
+    "tasmax":        "maxima media, para el confort medio",
+    "tasminNa20":    "noches por encima de 20 C: noches tropicales, absolutas",
+    "cdd":           "grados-dia de refrigeracion: cuanto aire acondicionado",
+    "tmean":         "media, para comparar con la climatologia observada",
+}
+
+
+def describe(destino, variables=None, escenario="ssp585"):
+    """Abre un fichero por OPeNDAP y vuelca TODAS las etiquetas de sus ejes.
+
+    Hace falta antes de escribir la descarga. El sondeo solo imprimio las tres
+    primeras etiquetas de cada eje ('far_future', 'medium_future'...), y con eso
+    no se puede seleccionar el verano ni el periodo de referencia sin adivinar.
+    Adivinar nombres ya salio caro una vez, con el limite de 6 meses de AEMET.
+    """
+    import xarray as xr
+
+    variables = variables or ["tasmaxp99"]
+    L = [f"Descripcion de AdapteCCa - {datetime.now():%Y-%m-%d %H:%M}", ""]
+
+    for v in variables:
+        up = RAMA_CLIM.format(v=v, e=escenario)
+        u = url_dods(up)
+        L.append(f"=== {v} / {escenario} ===")
+        L.append(f"  {u}")
+        print(f"Abriendo {v}...", flush=True)
+        try:
+            ds = xr.open_dataset(u, decode_timedelta=False)
+        except Exception as e:  # noqa: BLE001
+            L.append(f"  ERROR: {e.__class__.__name__}: {e}")
+            L.append("")
+            continue
+
+        for nv in ds.data_vars:
+            a = ds[nv].attrs
+            L.append(f"  variable {nv}: dims {ds[nv].dims}  "
+                     f"units={a.get('units', '?')}  {a.get('long_name', '')}")
+        L.append(f"  dimensiones: {dict(ds.sizes)}")
+
+        for c in ds.coords:
+            val = ds[c].values
+            if val.dtype.kind in "SU" or val.size <= 24:
+                etiquetas = [x.decode() if isinstance(x, bytes) else str(x)
+                             for x in np.atleast_1d(val)]
+                L.append(f"  {c} (n={val.size}): {etiquetas}")
+            else:
+                paso = float(np.diff(val).mean()) if val.size > 1 else 0.0
+                L.append(f"  {c} (n={val.size}): {val.min():.3f} .. {val.max():.3f}"
+                         f"  paso {paso:.4f}")
+
+        # Cuanto costaria el recorte a Galicia, que es lo que decide si esto
+        # se puede bajar entero o hay que elegir variables
+        if "lat" in ds.coords and "lon" in ds.coords:
+            la, lo = ds.lat.values, ds.lon.values
+            nla = int(((la >= SUR) & (la <= NORTE)).sum())
+            nlo = int(((lo >= OESTE) & (lo <= ESTE)).sum())
+            otras = 1
+            for d, n in ds.sizes.items():
+                if d not in ("lat", "lon"):
+                    otras *= n
+            mb = nla * nlo * otras * len(ds.data_vars) * 4 / 1e6
+            L.append(f"  recorte a Galicia: {nla} x {nlo} = {nla * nlo} celdas "
+                     f"de {la.size * lo.size}  ({nla * nlo / (la.size * lo.size):.1%})")
+            L.append(f"  -> {mb:,.1f} MB por fichero; "
+                     f"{mb * len(NUESTRAS) * len(ESCENARIOS) / 1000:,.2f} GB "
+                     f"si bajamos {len(NUESTRAS)} variables x {len(ESCENARIOS)} escenarios")
+
+        # Un valor real, para confirmar unidades: si tasmaxp99 sale en kelvin
+        # o el anomalo sale en absoluto, mejor enterarse ahora
+        try:
+            prin = list(ds.data_vars)[0]
+            sub = ds[prin].sel(lat=slice(SUR, NORTE), lon=slice(OESTE, ESTE))
+            m = float(np.nanmean(np.asarray(sub.values, dtype=float)))
+            L.append(f"  media de {prin} sobre Galicia (todos los ejes): {m:,.2f}")
+        except Exception as e:  # noqa: BLE001
+            L.append(f"  no se pudo leer un valor: {e.__class__.__name__}: {e}")
+        L.append("")
+        ds.close()
+
+    texto = "\n".join(L)
+    with open(destino, "w", encoding="utf-8") as fh:
+        fh.write(texto)
+    print("\n" + texto)
+    print(f"Escrito {destino}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--explorar", action="store_true")
+    ap.add_argument("--describe", action="store_true",
+                    help="volcar los ejes de un fichero de climatologia")
+    ap.add_argument("--var", default="tasmaxp99,tasminNa20,tasmaxhwdmax",
+                    help="variables a describir, separadas por comas")
     ap.add_argument("--prof", type=int, default=8)
     ap.add_argument("--tope", type=int, default=600,
                     help="maximo de peticiones al catalogo")
@@ -264,6 +370,11 @@ def main():
     if args.explorar:
         explorar(os.path.join(BASE, "adaptecca_exploracion.txt"),
                  prof=args.prof, max_peticiones=args.tope)
+        return
+
+    if args.describe:
+        describe(os.path.join(BASE, "adaptecca_ejes.txt"),
+                 variables=[v.strip() for v in args.var.split(",") if v.strip()])
         return
 
     sys.exit("Por ahora solo esta implementado --explorar.\n"
