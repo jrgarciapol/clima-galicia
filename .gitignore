@@ -36,5 +36,9 @@ aemet/
 rocio/
 *.tar.gz
 
+# Recortes por fichero del paso 9: unos 80 MB en 28 CSV. Lo que se sube es el
+# fundido proyecciones_galicia.csv.gz y el resumen.
+proyecciones/
+
 # Excepciones: estos SI van al repositorio (son pequenios y son el resultado)
 !celdas_galicia.csv

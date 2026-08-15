@@ -47,6 +47,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from datetime import datetime
 
 import numpy as np
@@ -355,13 +356,377 @@ def describe(destino, variables=None, escenario="ssp585"):
     print(f"Escrito {destino}")
 
 
+# ---------------------------------------------------------------------------
+# Descarga
+# ---------------------------------------------------------------------------
+# Etiquetas confirmadas con --describe, no supuestas:
+#   time_filter: Jan..Dec, DJF, JJA, MAM, SON, year
+#   period:      reference, near_future, medium_future, far_future
+#   member:      'average' + 11 modelos
+FILTROS = ("JJA", "year")
+PERIODOS = {"reference": "1971-2000", "near_future": "2011-2040",
+            "medium_future": "2041-2070", "far_future": "2071-2100"}
+DIR = os.path.join(BASE, "proyecciones")
+
+
+def _txt(v):
+    """Las etiquetas vienen como bytes en un array de numpy."""
+    return [x.decode() if isinstance(x, bytes) else str(x) for x in np.atleast_1d(v)]
+
+
+def _indices(etiquetas, quiero, eje):
+    """Posiciones de 'quiero' dentro de 'etiquetas'. Aborta si falta alguna.
+
+    Se aborta a proposito en vez de seguir con lo que haya: un eje que se
+    selecciona mal no da error, da numeros. Es justo el tipo de fallo silencioso
+    que ya nos ha costado un informe entero.
+    """
+    faltan = [q for q in quiero if q not in etiquetas]
+    if faltan:
+        raise SystemExit(
+            f"El eje '{eje}' no tiene {faltan}. Lo que hay es: {etiquetas}\n"
+            f"Vuelve a lanzar --describe: la estructura del fichero ha cambiado.")
+    return [etiquetas.index(q) for q in quiero]
+
+
+def baja_uno(var, esc, destino, intentos=4):
+    """Un fichero: recorta a Galicia, resume los 11 modelos y escribe un CSV."""
+    import pandas as pd
+    import xarray as xr
+
+    u = url_dods(RAMA_CLIM.format(v=var, e=esc))
+    ds = None
+    for i in range(intentos):
+        try:
+            ds = xr.open_dataset(u, decode_timedelta=False)
+            break
+        except Exception as e:  # noqa: BLE001
+            espera = 5 * 2 ** i
+            if i == intentos - 1:
+                raise RuntimeError(f"{e.__class__.__name__}: {e}") from e
+            print(f"    fallo ({e.__class__.__name__}), reintento en {espera} s",
+                  flush=True)
+            time.sleep(espera)
+
+    tf = _txt(ds.time_filter.values)
+    pe = _txt(ds.period.values)
+    mi = _txt(ds.member.values)
+    i_tf = _indices(tf, FILTROS, "time_filter")
+    i_pe = _indices(pe, list(PERIODOS), "period")
+    i_med = mi.index("average") if "average" in mi else 0
+    i_mod = [k for k in range(len(mi)) if k != i_med]     # los 11 modelos
+
+    sub = ds.isel(time_filter=i_tf, period=i_pe).sel(
+        lat=slice(SUR, NORTE), lon=slice(OESTE, ESTE))
+
+    filas = []
+    lat, lon = sub.lat.values, sub.lon.values
+    for sufijo in ("", "_anom"):
+        nombre = var + sufijo
+        if nombre not in sub.data_vars:
+            continue
+        a = np.asarray(sub[nombre].values, dtype=float)   # member,tf,period,lat,lon
+        med = a[i_med]
+        p10 = np.nanpercentile(a[i_mod], 10, axis=0)
+        p90 = np.nanpercentile(a[i_mod], 90, axis=0)
+        for j, f in enumerate(FILTROS):
+            for k, p in enumerate(PERIODOS):
+                for ii in range(lat.size):
+                    for jj in range(lon.size):
+                        v = med[j, k, ii, jj]
+                        if not np.isfinite(v):
+                            continue        # mar y fuera de mascara
+                        filas.append((round(float(lat[ii]), 3),
+                                      round(float(lon[jj]), 3), f, p,
+                                      "abs" if sufijo == "" else "anom",
+                                      round(float(v), 3),
+                                      round(float(p10[j, k, ii, jj]), 3),
+                                      round(float(p90[j, k, ii, jj]), 3)))
+    ds.close()
+
+    t = pd.DataFrame(filas, columns=["lat", "lon", "filtro", "periodo", "tipo",
+                                     "valor", "p10", "p90"])
+    t.insert(0, "escenario", esc)
+    t.insert(0, "variable", var)
+    t.to_csv(destino, index=False)
+    return len(t)
+
+
+def descargar(variables=None, escenarios=None):
+    variables = variables or list(NUESTRAS)
+    escenarios = escenarios or list(ESCENARIOS)
+    os.makedirs(DIR, exist_ok=True)
+
+    tareas = [(v, e) for v in variables for e in escenarios]
+    print(f"{len(tareas)} ficheros: {len(variables)} variables x "
+          f"{len(escenarios)} escenarios.")
+    print("Cada uno se recorta a Galicia por OPeNDAP: viaja el 2,6 % del fichero.\n")
+
+    fallos = []
+    for n, (v, e) in enumerate(tareas, 1):
+        destino = os.path.join(DIR, f"{v}_{e}.csv")
+        if os.path.exists(destino) and os.path.getsize(destino) > 0:
+            print(f"[{n:2d}/{len(tareas)}] {v:14s} {e}  ya estaba", flush=True)
+            continue
+        print(f"[{n:2d}/{len(tareas)}] {v:14s} {e}  ...", end=" ", flush=True)
+        t0 = time.time()
+        try:
+            filas = baja_uno(v, e, destino)
+            print(f"{filas:,} filas en {time.time() - t0:.0f} s", flush=True)
+        except SystemExit:
+            raise
+        except Exception as ex:  # noqa: BLE001
+            print(f"FALLO: {ex}", flush=True)
+            fallos.append((v, e, str(ex)))
+            if os.path.exists(destino):
+                os.remove(destino)     # nunca dejar un fichero a medias
+
+    print(f"\nHecho. {len(tareas) - len(fallos)} de {len(tareas)}.")
+    if fallos:
+        print("Fallaron, se pueden reintentar volviendo a lanzar el comando:")
+        for v, e, m in fallos:
+            print(f"  {v} {e}: {m[:90]}")
+    else:
+        print("Ahora: python 09_proyecciones.py --analizar")
+
+
+# ---------------------------------------------------------------------------
+# Analisis
+# ---------------------------------------------------------------------------
+def _rho(a, b):
+    """Correlacion de rangos (Spearman), sin depender de scipy."""
+    import pandas as pd
+
+    m = np.isfinite(a) & np.isfinite(b)
+    if m.sum() < 5:
+        return float("nan")
+    ra = pd.Series(a[m]).rank().values
+    rb = pd.Series(b[m]).rank().values
+    # Si una de las dos series es constante la correlacion no existe. Sin este
+    # guardia numpy divide por cero, avisa por pantalla y devuelve nan igual.
+    if ra.std() == 0 or rb.std() == 0:
+        return float("nan")
+    return float(np.corrcoef(ra, rb)[0, 1])
+
+
+def analizar():
+    import pandas as pd
+
+    if not os.path.isdir(DIR):
+        sys.exit(f"No hay nada en {DIR}. Lanza primero --descargar.")
+    trozos = [pd.read_csv(os.path.join(DIR, f))
+              for f in sorted(os.listdir(DIR)) if f.endswith(".csv")]
+    if not trozos:
+        sys.exit(f"No hay CSV en {DIR}. Lanza primero --descargar.")
+    d = pd.concat(trozos, ignore_index=True)
+
+    salida = os.path.join(BASE, "proyecciones_galicia.csv.gz")
+    d.to_csv(salida, index=False, compression="gzip")
+
+    L = [f"Proyecciones AdapteCCa para Galicia - {datetime.now():%Y-%m-%d %H:%M}",
+         "",
+         f"{len(d):,} filas | {d.variable.nunique()} variables | "
+         f"{d.escenario.nunique()} escenarios | "
+         f"{d[['lat', 'lon']].drop_duplicates().shape[0]} celdas de 5 km",
+         "Referencia 1971-2000. Horquilla p10-p90 sobre los 11 modelos.",
+         ""]
+
+    ab = d[d.tipo == "abs"]
+    an = d[d.tipo == "anom"]
+
+    # --- coherencia interna: la anomalia tiene que ser futuro - referencia ---
+    L.append("=== comprobacion: anomalia == futuro - referencia ===")
+    clave = ["variable", "escenario", "filtro", "lat", "lon"]
+    ref = ab[ab.periodo == "reference"].set_index(clave).valor
+    peor = 0.0
+    for p in ("near_future", "medium_future", "far_future"):
+        fa = ab[ab.periodo == p].set_index(clave).valor
+        aa = an[an.periodo == p].set_index(clave).valor
+        j = pd.concat({"fut": fa, "ref": ref, "anom": aa}, axis=1).dropna()
+        if j.empty:
+            continue
+        err = (j.fut - j.ref - j.anom).abs()
+        peor = max(peor, float(err.max()))
+        L.append(f"  {p:15s} error maximo {err.max():.4f}  "
+                 f"(mediana {err.median():.4f})")
+    L.append("  ok: los dos caminos dan lo mismo" if peor < 0.05 else
+             "  OJO: no cuadran; algo se esta seleccionando mal")
+    L.append("")
+
+    # --- cuanto sube cada indice ---
+    L.append("=== cuanto cambia cada indice en verano (JJA) ===")
+    L.append("mediana sobre las celdas de Galicia; entre parentesis, p10-p90 entre modelos")
+    jja = an[an.filtro == "JJA"]
+    for v in sorted(jja.variable.unique()):
+        L.append(f"\n  {v}  ({NUESTRAS.get(v, '')})")
+        L.append(f"    {'escenario':10s} {'2011-2040':>22s} {'2041-2070':>22s} "
+                 f"{'2071-2100':>22s}")
+        for e in sorted(jja.escenario.unique()):
+            cel = []
+            for p in ("near_future", "medium_future", "far_future"):
+                g = jja[(jja.variable == v) & (jja.escenario == e)
+                        & (jja.periodo == p)]
+                if g.empty:
+                    cel.append(f"{'-':>22s}")
+                    continue
+                cel.append(f"{g.valor.median():+7.2f} "
+                           f"({g.p10.median():+.2f} a {g.p90.median():+.2f})".rjust(22))
+            L.append(f"    {e:10s} " + " ".join(cel))
+    L.append("")
+
+    # --- ritmo implicito frente a lo observado ---
+    L.append("=== el ritmo que proyectan, frente al que medimos ===")
+    L.append("near_future (2011-2040, centro 2025) menos reference (1971-2000,")
+    L.append("centro 1985) son 40 anios, asi que la anomalia dividida por 4 es")
+    L.append("C/decada y se puede comparar con nuestras cifras.")
+    g = jja[(jja.variable == "tasmax") & (jja.periodo == "near_future")]
+    if not g.empty:
+        for e in sorted(g.escenario.unique()):
+            h = g[g.escenario == e]
+            L.append(f"  {e}: {h.valor.median() / 4:+.2f} C/decada")
+    L.append("  observado: ROCIO 1951-2022 +0,20 | AEMET 2011-2025 +1,13 | "
+             "ERA5-Land 2011-2025 +1,31")
+    L.append("")
+
+    # --- aguanta el orden entre sitios? ---
+    L.append("=== LA pregunta: aguanta el orden entre sitios? ===")
+    L.append("correlacion de rangos entre el mapa de hoy y el de cada futuro.")
+    L.append("1,00 seria 'el orden no cambia en absoluto'.")
+    for v in ("tasmaxp99", "tasmax"):
+        L.append(f"\n  {v}:")
+        for e in sorted(ab.escenario.unique()):
+            base = ab[(ab.variable == v) & (ab.escenario == e)
+                      & (ab.filtro == "JJA") & (ab.periodo == "reference")]
+            if base.empty:
+                continue
+            base = base.set_index(["lat", "lon"]).valor
+            linea = []
+            for p in ("near_future", "medium_future", "far_future"):
+                fut = ab[(ab.variable == v) & (ab.escenario == e)
+                         & (ab.filtro == "JJA") & (ab.periodo == p)]
+                if fut.empty:
+                    continue
+                fut = fut.set_index(["lat", "lon"]).valor
+                j = pd.concat({"a": base, "b": fut}, axis=1).dropna()
+                linea.append(f"{p.split('_')[0]:7s} {_rho(j.a.values, j.b.values):.3f}")
+            L.append(f"    {e:10s} " + "   ".join(linea))
+    L.append("")
+
+    # --- se abre la brecha? ---
+    L.append("=== se abre la brecha entre sitios frescos y calurosos? ===")
+    L.append("correlacion entre lo caluroso que es un sitio hoy y cuanto se")
+    L.append("calienta. Positiva = los calurosos se calientan mas.")
+    for e in sorted(ab.escenario.unique()):
+        base = ab[(ab.variable == "tasmaxp99") & (ab.escenario == e)
+                  & (ab.filtro == "JJA") & (ab.periodo == "reference")]
+        anm = an[(an.variable == "tasmaxp99") & (an.escenario == e)
+                 & (an.filtro == "JJA") & (an.periodo == "medium_future")]
+        if base.empty or anm.empty:
+            continue
+        j = pd.concat({"clim": base.set_index(["lat", "lon"]).valor,
+                       "delta": anm.set_index(["lat", "lon"]).valor},
+                      axis=1).dropna()
+        if j.empty:
+            continue
+        q = j.clim.quantile([0.25, 0.75])
+        fresco = j[j.clim <= q.iloc[0]]
+        calido = j[j.clim >= q.iloc[1]]
+        L.append(f"  {e}: rho {_rho(j.clim.values, j.delta.values):+.3f} | "
+                 f"cuarto fresco {fresco.clim.mean():.1f}C {fresco.delta.mean():+.2f} | "
+                 f"cuarto calido {calido.clim.mean():.1f}C {calido.delta.mean():+.2f}")
+    L.append("")
+
+    # --- el sitio concreto ---
+    L.append("=== los extremos de Galicia, hoy y en 2041-2070 ===")
+    for e in ("ssp245", "ssp585"):
+        base = ab[(ab.variable == "tasmaxp99") & (ab.escenario == e)
+                  & (ab.filtro == "JJA") & (ab.periodo == "reference")]
+        fut = ab[(ab.variable == "tasmaxp99") & (ab.escenario == e)
+                 & (ab.filtro == "JJA") & (ab.periodo == "medium_future")]
+        if base.empty or fut.empty:
+            continue
+        j = pd.concat({"hoy": base.set_index(["lat", "lon"]).valor,
+                       "fut": fut.set_index(["lat", "lon"]).valor},
+                      axis=1).dropna().reset_index()
+        j["salto"] = j.fut - j.hoy
+        L.append(f"\n  {e} -- las 5 celdas mas frescas de hoy:")
+        for _, r in j.nsmallest(5, "hoy").iterrows():
+            L.append(f"    {r.lat:.2f} {r.lon:.2f}   hoy {r.hoy:5.1f}  "
+                     f"2041-2070 {r.fut:5.1f}  ({r.salto:+.1f})")
+        L.append(f"  {e} -- las 5 mas calurosas de hoy:")
+        for _, r in j.nlargest(5, "hoy").iterrows():
+            L.append(f"    {r.lat:.2f} {r.lon:.2f}   hoy {r.hoy:5.1f}  "
+                     f"2041-2070 {r.fut:5.1f}  ({r.salto:+.1f})")
+        L.append(f"  rango entre la mas fresca y la mas calurosa: "
+                 f"hoy {j.hoy.max() - j.hoy.min():.1f} C, "
+                 f"en 2041-2070 {j.fut.max() - j.fut.min():.1f} C")
+    L.append("")
+
+    # --- aplicar el delta a nuestro ranking de 1 km ---
+    ruta_rank = os.path.join(BASE, "ranking_60_40.csv")
+    if os.path.exists(ruta_rank):
+        L.append("=== nuestro ranking de 1 km, con el delta encima ===")
+        r = pd.read_csv(ruta_rank)
+        for e in sorted(ab.escenario.unique()):
+            anm = an[(an.variable == "tasmaxp99") & (an.escenario == e)
+                     & (an.filtro == "JJA") & (an.periodo == "medium_future")]
+            if anm.empty:
+                continue
+            # vecino mas proximo: la rejilla es de 0,05 grados, asi que basta
+            # con redondear a la celda, sin arbol de busqueda
+            cl = anm.groupby([anm.lat.round(3), anm.lon.round(3)]).valor.mean()
+            latg = np.array(sorted({k[0] for k in cl.index}))
+            long_ = np.array(sorted({k[1] for k in cl.index}))
+            ila = np.abs(r.lat.values[:, None] - latg[None]).argmin(1)
+            ilo = np.abs(r.lon.values[:, None] - long_[None]).argmin(1)
+            delta = np.array([cl.get((latg[a], long_[b]), np.nan)
+                              for a, b in zip(ila, ilo)])
+            r[f"d_{e}"] = delta
+            r[f"tx_p99_{e}"] = r.tx_p99_1km + delta
+        cols = [c for c in r.columns if c.startswith("tx_p99_ssp")]
+        if cols:
+            hoy = r.nsmallest(20, "tx_p99_1km")
+            L.append(f"  top 20 de hoy: {hoy.tx_p99_1km.min():.1f} a "
+                     f"{hoy.tx_p99_1km.max():.1f} C")
+            for c in cols:
+                fut = r.nsmallest(20, c)
+                comunes = len(set(map(tuple, hoy[["lat", "lon"]].values))
+                              & set(map(tuple, fut[["lat", "lon"]].values)))
+                L.append(f"  {c[7:]}: {comunes} de los 20 mejores de hoy siguen "
+                         f"en el top 20; rho global "
+                         f"{_rho(r.tx_p99_1km.values, r[c].values):.3f}")
+            r.to_csv(os.path.join(BASE, "ranking_con_proyeccion.csv"), index=False)
+            L.append("  escrito ranking_con_proyeccion.csv")
+    else:
+        L.append("(no esta ranking_60_40.csv, se salta el cruce con el 1 km)")
+    L.append("")
+
+    L.append("=== limite que no se puede saltar ===")
+    L.append("AdapteCCa no publica ningun indice de confort con humedad: ni")
+    L.append("humidex, ni temperatura aparente, ni bulbo humedo. El 40 % del")
+    L.append("criterio no tiene proyeccion, solo observacion. Lo que hay aqui")
+    L.append("proyecta el 60 % de picos extremos, que es la parte que pesa mas,")
+    L.append("pero conviene no presentarlo como si cubriera el criterio entero.")
+
+    texto = "\n".join(L)
+    with open(os.path.join(BASE, "resumen_proyecciones.txt"), "w",
+              encoding="utf-8") as fh:
+        fh.write(texto)
+    print(texto)
+    print(f"\nEscritos resumen_proyecciones.txt y {os.path.basename(salida)}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--explorar", action="store_true")
+    ap.add_argument("--descargar", action="store_true")
     ap.add_argument("--describe", action="store_true",
                     help="volcar los ejes de un fichero de climatologia")
-    ap.add_argument("--var", default="tasmaxp99,tasminNa20,tasmaxhwdmax",
-                    help="variables a describir, separadas por comas")
+    ap.add_argument("--analizar", action="store_true")
+    ap.add_argument("--var", default=None,
+                    help="variables separadas por comas (por defecto, las 7)")
+    ap.add_argument("--esc", default=",".join(ESCENARIOS),
+                    help="escenarios separados por comas")
     ap.add_argument("--prof", type=int, default=8)
     ap.add_argument("--tope", type=int, default=600,
                     help="maximo de peticiones al catalogo")
@@ -372,15 +737,28 @@ def main():
                  prof=args.prof, max_peticiones=args.tope)
         return
 
+    pedidas = ([v.strip() for v in args.var.split(",") if v.strip()]
+               if args.var else None)
+
     if args.describe:
         describe(os.path.join(BASE, "adaptecca_ejes.txt"),
-                 variables=[v.strip() for v in args.var.split(",") if v.strip()])
+                 variables=pedidas or ["tasmaxp99", "tasminNa20", "tasmaxhwdmax"])
         return
 
-    sys.exit("Por ahora solo esta implementado --explorar.\n"
-             "Lanza:  python 09_proyecciones.py --explorar\n"
-             "y comparte adaptecca_exploracion.txt: con el inventario real se\n"
-             "concreta que escenarios e indices bajar, sin adivinar nombres.")
+    if args.descargar:
+        descargar(variables=pedidas,
+                  escenarios=[x.strip() for x in args.esc.split(",") if x.strip()])
+        return
+
+    if args.analizar:
+        analizar()
+        return
+
+    sys.exit("Elige un modo:\n"
+             "  --explorar    recorrer el catalogo (ya hecho)\n"
+             "  --describe    ver los ejes de un fichero (ya hecho)\n"
+             "  --descargar   bajar los 28 recortes de Galicia\n"
+             "  --analizar    responder si el ranking aguanta")
 
 
 if __name__ == "__main__":

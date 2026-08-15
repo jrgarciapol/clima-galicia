@@ -39,7 +39,7 @@ cada variable y en qué punto está el trabajo.
 | 6 | Fusión de escalas 9 km + 1 km | ✅ 60.690 puntos |
 | 7 | Evolución año a año de cada estación | ✅ hecho |
 | 8 | Periodos de retorno y extremos no estacionarios | ✅ hecho sobre estaciones |
-| 9 | Proyecciones climáticas de AdapteCCa | 🔄 inventariado: 2.439 ficheros y OPeNDAP funciona |
+| 9 | Proyecciones climáticas de AdapteCCa | 🔄 descarga escrita, falta ejecutarla |
 | 10 | Validación contra las 153 estaciones | ✅ hecho |
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
@@ -688,10 +688,14 @@ python 03_estaciones_meteogalicia.py --desde 2010   # 30-60 min
 python 07_evolucion_estaciones.py    # 2 min, reutiliza lo del paso 3
 python 08_periodos_retorno.py        # 5 min
 python 05_wrf_dias_calidos.py --explorar   # reconocimiento, no descarga nada
-python 09_proyecciones.py --explorar       # ídem para AdapteCCa
+
+python 09_proyecciones.py --explorar       # catálogo de AdapteCCa (~15 min)
+python 09_proyecciones.py --describe       # etiquetas de los ejes (1 min)
+python 09_proyecciones.py --descargar      # 28 recortes de Galicia (~15 min)
+python 09_proyecciones.py --analizar       # 1 min, sin red
 ```
 
-Los pasos 1 y 5 son **reanudables**. Cada fichero se baja a un temporal y se
+Los pasos 1, 5 y 9 son **reanudables**. Cada fichero se baja a un temporal y se
 renombra al final, así que una interrupción nunca deja un `.nc` a medias; y se
 comprueba la firma NetCDF de cada uno, de modo que un fichero truncado por un corte
 de luz se detecta y se vuelve a pedir.
@@ -1032,7 +1036,7 @@ celdas_galicia.csv              las 368 celdas ERA5-Land de Galicia
 06_alta_resolucion.py           fusión de escalas
 07_evolucion_estaciones.py      evolución año a año y tendencias
 08_periodos_retorno.py          Gumbel, periodos de retorno, no estacionariedad
-09_proyecciones.py              proyecciones de AdapteCCa (reconocimiento)
+09_proyecciones.py              proyecciones de AdapteCCa (CMIP6 a 5 km)
 10_validacion.py                contraste del campo contra las estaciones reales
 11_mapa_estaciones.py           mapa interactivo de las 147 estaciones
 plantilla_est.html              plantilla del mapa (la usa el paso 11)
@@ -1050,6 +1054,7 @@ test_retorno.py                 Gumbel, bulbo húmedo y no estacionariedad
 test_aemet.py                   formato de AEMET y sesgo de ventana corta
 test_rocio.py                   recorte de la rejilla y tendencia larga
 test_sincroniza.py              que aborta antes de subir datos o credenciales
+test_proyecciones.py            seleccion de ejes de AdapteCCa y brecha
 ```
 
 Las pruebas trabajan en un directorio temporal propio (variable `GAL_BASE`), así
@@ -1068,6 +1073,7 @@ que **nunca borran descargas reales**.
 | Tras el paso 11 | `estaciones_galicia.html` |
 | Tras el paso 12 | `aemet_series.csv`, `resumen_aemet.txt`, `aemet_exploracion.txt` |
 | Tras el paso 13 | `resumen_rocio.txt`, `rocio_tendencias.csv` |
+| Tras el paso 9 | `resumen_proyecciones.txt`, `proyecciones_galicia.csv.gz`, `ranking_con_proyeccion.csv` |
 | Reconocimientos | `wrf_exploracion.txt`, `adaptecca_exploracion.txt`, `wrf_fallos.txt` |
 
 **Nunca**: las carpetas `descargas/`, `wrf/`, `aemet/` y `rocio/` (datos brutos,
