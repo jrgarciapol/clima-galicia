@@ -1,82 +1,83 @@
-Exploracion de AdapteCCa - 2026-07-26 22:06
+Exploracion de AdapteCCa - 2026-08-15 12:43
 raiz: https://escenarios.adaptecca.es/thredds/catalog/catalog.xml
 
 --- alcanzabilidad ---
   OK        2,079 bytes  https://escenarios.adaptecca.es/thredds/catalog/catalog.xml
   OK        4,726 bytes  https://escenarios.adaptecca.es/thredds/catalog/catalog.html
 
---- recorrido del catalogo (profundidad 5) ---
+--- recorrido del catalogo (profundidad 8, tope 600) ---
   [0] raiz: 3 subcatalogos, 0 ficheros
   [1] Peninsula, Baleares, Ceuta y Melilla: 5 subcatalogos, 0 ficheros
-  [1] Canarias: 4 subcatalogos, 0 ficheros
-  [1] Andorra: 2 subcatalogos, 0 ficheros
-  [2] Observaciones_en_estaciones: 2 subcatalogos, 0 ficheros
-  [2] Observaciones_en_rejilla: 3 subcatalogos, 0 ficheros
-  [2] Proyecciones_CMIP5_en_rejilla: 3 subcatalogos, 0 ficheros
-  [2] Proyecciones_CMIP6_en_estaciones: 3 subcatalogos, 0 ficheros
   [2] Proyecciones_CMIP6_en_rejilla: 3 subcatalogos, 0 ficheros
-  [2] Observaciones_en_estaciones: 2 subcatalogos, 0 ficheros
-  [2] Observaciones_en_rejilla: 2 subcatalogos, 0 ficheros
-  [2] Proyecciones_CMIP6_en_estaciones: 3 subcatalogos, 0 ficheros
-  [2] Proyecciones_CMIP6_en_rejilla: 3 subcatalogos, 0 ficheros
-  [2] Observaciones_en_estaciones: 2 subcatalogos, 0 ficheros
-  [2] Proyecciones_CMIP6_en_estaciones: 3 subcatalogos, 0 ficheros
-  [3] Climatologia: 3 subcatalogos, 0 ficheros
-  [3] Dato_anual: 15 subcatalogos, 0 ficheros
   [3] Climatologia: 3 subcatalogos, 0 ficheros
   [3] Dato_anual: 3 subcatalogos, 0 ficheros
-  [3] Dato_diario: 3 subcatalogos, 0 ficheros
+  [4] Otras: 1 subcatalogos, 0 ficheros
+  [4] Precipitacion: 8 subcatalogos, 0 ficheros
+  [4] Temperatura: 20 subcatalogos, 0 ficheros
+  [4] Otras: 1 subcatalogos, 0 ficheros
+  [4] Precipitacion: 8 subcatalogos, 0 ficheros
+  [4] Temperatura: 20 subcatalogos, 0 ficheros
+  [5] PET: 0 subcatalogos, 4 ficheros
+  [5] pr: 0 subcatalogos, 4 ficheros
+  [5] prNa1: 0 subcatalogos, 4 ficheros
+  [5] prNb1: 0 subcatalogos, 4 ficheros
+  [5] prmax24: 0 subcatalogos, 4 ficheros
+  [5] prmax5days: 0 subcatalogos, 4 ficheros
+  [5] prp95: 0 subcatalogos, 4 ficheros
+  [5] prspella1: 0 subcatalogos, 4 ficheros
+  [5] prspellb1: 0 subcatalogos, 4 ficheros
+  [5] cdd: 0 subcatalogos, 4 ficheros
+  [5] hdd: 0 subcatalogos, 4 ficheros
+  [5] tasdr: 0 subcatalogos, 4 ficheros
+  [5] tasdrp99: 0 subcatalogos, 4 ficheros
+  [5] tasmax: 0 subcatalogos, 4 ficheros
+  [5] tasmaxNap90: 0 subcatalogos, 4 ficheros
+  [5] tasmaxhwdmax: 0 subcatalogos, 4 ficheros
+  [5] tasmaxmax: 0 subcatalogos, 4 ficheros
+  [5] tasmaxp5: 0 subcatalogos, 4 ficheros
+  [5] tasmaxp95: 0 subcatalogos, 4 ficheros
+  [5] tasmaxp99: 0 subcatalogos, 4 ficheros
+  [5] tasmin: 0 subcatalogos, 4 ficheros
+  [5] tasminNa20: 0 subcatalogos, 4 ficheros
+  [5] tasminNap90: 0 subcatalogos, 4 ficheros
+  [5] tasminNb0: 0 subcatalogos, 4 ficheros
+  [5] tasminmin: 0 subcatalogos, 4 ficheros
+  [5] tasminp1: 0 subcatalogos, 4 ficheros
+  [5] tasminp5: 0 subcatalogos, 4 ficheros
+  [5] tasminp95: 0 subcatalogos, 4 ficheros
+  [5] tmean: 0 subcatalogos, 4 ficheros
+  [5] PET: 0 subcatalogos, 5 ficheros
+  [5] pr: 0 subcatalogos, 5 ficheros
+  [5] prNa1: 0 subcatalogos, 5 ficheros
+  [5] prNb1: 0 subcatalogos, 5 ficheros
+  [5] prmax24: 0 subcatalogos, 5 ficheros
+  [5] prmax5days: 0 subcatalogos, 5 ficheros
+  [5] prp95: 0 subcatalogos, 5 ficheros
+  [5] prspella1: 0 subcatalogos, 5 ficheros
+  [5] prspellb1: 0 subcatalogos, 5 ficheros
+  [5] cdd: 0 subcatalogos, 5 ficheros
+  [5] hdd: 0 subcatalogos, 5 ficheros
+  [5] tasdr: 0 subcatalogos, 5 ficheros
+  [5] tasdrp99: 0 subcatalogos, 5 ficheros
+  [5] tasmax: 0 subcatalogos, 5 ficheros
+  [5] tasmaxNap90: 0 subcatalogos, 5 ficheros
+  [5] tasmaxhwdmax: 0 subcatalogos, 5 ficheros
+  [5] tasmaxmax: 0 subcatalogos, 5 ficheros
+  [5] tasmaxp5: 0 subcatalogos, 5 ficheros
+  [5] tasmaxp95: 0 subcatalogos, 5 ficheros
+  [5] tasmaxp99: 0 subcatalogos, 5 ficheros
+  [5] tasmin: 0 subcatalogos, 5 ficheros
+  [5] tasminNa20: 0 subcatalogos, 5 ficheros
+  [5] tasminNap90: 0 subcatalogos, 5 ficheros
+  [5] tasminNb0: 0 subcatalogos, 5 ficheros
+  [5] tasminmin: 0 subcatalogos, 5 ficheros
+  [5] tasminp1: 0 subcatalogos, 5 ficheros
+  [5] tasminp5: 0 subcatalogos, 5 ficheros
+  [5] tasminp95: 0 subcatalogos, 5 ficheros
+  [5] tmean: 0 subcatalogos, 5 ficheros
+  [2] Proyecciones_CMIP5_en_rejilla: 3 subcatalogos, 0 ficheros
   [3] Climatologia: 4 subcatalogos, 0 ficheros
   [3] Dato_anual: 4 subcatalogos, 0 ficheros
-  [3] Dato_diario: 3 subcatalogos, 0 ficheros
-  [3] Climatologia: 3 subcatalogos, 0 ficheros
-  [3] Dato_anual: 3 subcatalogos, 0 ficheros
-  [3] Dato_diario: 3 subcatalogos, 0 ficheros
-  [3] Climatologia: 3 subcatalogos, 0 ficheros
-  [3] Dato_anual: 3 subcatalogos, 0 ficheros
-  [3] Dato_diario: 3 subcatalogos, 0 ficheros
-  [3] Climatologia: 3 subcatalogos, 0 ficheros
-  [3] Dato_anual: 15 subcatalogos, 0 ficheros
-  [3] Climatologia: 3 subcatalogos, 0 ficheros
-  [3] Dato_anual: 3 subcatalogos, 0 ficheros
-  [3] Climatologia: 3 subcatalogos, 0 ficheros
-  [3] Dato_anual: 3 subcatalogos, 0 ficheros
-  [3] Dato_diario: 3 subcatalogos, 0 ficheros
-  [3] Climatologia: 3 subcatalogos, 0 ficheros
-  [3] Dato_anual: 3 subcatalogos, 0 ficheros
-  [3] Dato_diario: 3 subcatalogos, 0 ficheros
-  [3] Climatologia: 3 subcatalogos, 0 ficheros
-  [3] Dato_anual: 15 subcatalogos, 0 ficheros
-  [3] Climatologia: 3 subcatalogos, 0 ficheros
-  [3] Dato_anual: 3 subcatalogos, 0 ficheros
-  [3] Dato_diario: 3 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 9 subcatalogos, 0 ficheros
-  [4] Temperatura: 33 subcatalogos, 0 ficheros
-  [4] cd: 0 subcatalogos, 1 ficheros
-  [4] dtr: 0 subcatalogos, 1 ficheros
-  [4] dtrp99: 0 subcatalogos, 1 ficheros
-  [4] fd: 0 subcatalogos, 1 ficheros
-  [4] hd: 0 subcatalogos, 1 ficheros
-  [4] hwd: 0 subcatalogos, 1 ficheros
-  [4] mcwd: 0 subcatalogos, 1 ficheros
-  [4] r01lmm: 0 subcatalogos, 1 ficheros
-  [4] r01mm: 0 subcatalogos, 1 ficheros
-  [4] rp95: 0 subcatalogos, 1 ficheros
-  [4] rx1day: 0 subcatalogos, 1 ficheros
-  [4] rx5day: 0 subcatalogos, 1 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 1 subcatalogos, 0 ficheros
-  [4] Temperatura: 5 subcatalogos, 0 ficheros
   [4] Otras: 1 subcatalogos, 0 ficheros
   [4] Precipitacion: 8 subcatalogos, 0 ficheros
   [4] Temperatura: 20 subcatalogos, 0 ficheros
@@ -85,27 +86,246 @@ raiz: https://escenarios.adaptecca.es/thredds/catalog/catalog.xml
   [4] Precipitacion: 8 subcatalogos, 0 ficheros
   [4] Temperatura: 21 subcatalogos, 0 ficheros
   [4] Variables_sin_ajustar: 4 subcatalogos, 0 ficheros
+  [5] PET: 0 subcatalogos, 2 ficheros
+  [5] pr: 0 subcatalogos, 2 ficheros
+  [5] prNa1: 0 subcatalogos, 2 ficheros
+  [5] prNb1: 0 subcatalogos, 2 ficheros
+  [5] prmax24: 0 subcatalogos, 2 ficheros
+  [5] prmax5days: 0 subcatalogos, 2 ficheros
+  [5] prp95: 0 subcatalogos, 2 ficheros
+  [5] prspella1: 0 subcatalogos, 2 ficheros
+  [5] prspellb1: 0 subcatalogos, 2 ficheros
+  [5] cdd: 0 subcatalogos, 2 ficheros
+  [5] hdd: 0 subcatalogos, 2 ficheros
+  [5] tasdr: 0 subcatalogos, 2 ficheros
+  [5] tasdrp99: 0 subcatalogos, 2 ficheros
+  [5] tasmax: 0 subcatalogos, 2 ficheros
+  [5] tasmaxNap90: 0 subcatalogos, 2 ficheros
+  [5] tasmaxhwdmax: 0 subcatalogos, 2 ficheros
+  [5] tasmaxmax: 0 subcatalogos, 2 ficheros
+  [5] tasmaxp5: 0 subcatalogos, 2 ficheros
+  [5] tasmaxp95: 0 subcatalogos, 2 ficheros
+  [5] tasmaxp99: 0 subcatalogos, 2 ficheros
+  [5] tasmin: 0 subcatalogos, 2 ficheros
+  [5] tasminNa20: 0 subcatalogos, 2 ficheros
+  [5] tasminNap90: 0 subcatalogos, 2 ficheros
+  [5] tasminNb0: 0 subcatalogos, 2 ficheros
+  [5] tasminmin: 0 subcatalogos, 2 ficheros
+  [5] tasminp1: 0 subcatalogos, 2 ficheros
+  [5] tasminp5: 0 subcatalogos, 2 ficheros
+  [5] tasminp95: 0 subcatalogos, 2 ficheros
+  [5] tmean: 0 subcatalogos, 2 ficheros
+  [5] hurs: 0 subcatalogos, 2 ficheros
+  [5] rlds: 0 subcatalogos, 2 ficheros
+  [5] rsds: 0 subcatalogos, 2 ficheros
+  [5] sfcwind: 0 subcatalogos, 2 ficheros
+  [5] PET: 0 subcatalogos, 3 ficheros
+  [5] pr: 0 subcatalogos, 3 ficheros
+  [5] prNa1: 0 subcatalogos, 3 ficheros
+  [5] prNb1: 0 subcatalogos, 3 ficheros
+  [5] prmax24: 0 subcatalogos, 3 ficheros
+  [5] prmax5days: 0 subcatalogos, 3 ficheros
+  [5] prp95: 0 subcatalogos, 3 ficheros
+  [5] prspella1: 0 subcatalogos, 3 ficheros
+  [5] prspellb1: 0 subcatalogos, 3 ficheros
+  [5] cdd: 0 subcatalogos, 3 ficheros
+  [5] hdd: 0 subcatalogos, 3 ficheros
+  [5] tas: 0 subcatalogos, 0 ficheros
+  [5] tasdr: 0 subcatalogos, 3 ficheros
+  [5] tasdrp99: 0 subcatalogos, 3 ficheros
+  [5] tasmax: 0 subcatalogos, 3 ficheros
+  [5] tasmaxNap90: 0 subcatalogos, 3 ficheros
+  [5] tasmaxhwdmax: 0 subcatalogos, 3 ficheros
+  [5] tasmaxmax: 0 subcatalogos, 3 ficheros
+  [5] tasmaxp5: 0 subcatalogos, 3 ficheros
+  [5] tasmaxp95: 0 subcatalogos, 3 ficheros
+  [5] tasmaxp99: 0 subcatalogos, 3 ficheros
+  [5] tasmin: 0 subcatalogos, 3 ficheros
+  [5] tasminNa20: 0 subcatalogos, 3 ficheros
+  [5] tasminNap90: 0 subcatalogos, 3 ficheros
+  [5] tasminNb0: 0 subcatalogos, 3 ficheros
+  [5] tasminmin: 0 subcatalogos, 3 ficheros
+  [5] tasminp1: 0 subcatalogos, 3 ficheros
+  [5] tasminp5: 0 subcatalogos, 3 ficheros
+  [5] tasminp95: 0 subcatalogos, 3 ficheros
+  [5] tmean: 0 subcatalogos, 3 ficheros
+  [5] hurs: 0 subcatalogos, 3 ficheros
+  [5] rlds: 0 subcatalogos, 3 ficheros
+  [5] rsds: 0 subcatalogos, 3 ficheros
+  [5] sfcwind: 0 subcatalogos, 3 ficheros
+  [3] Dato_diario: 3 subcatalogos, 0 ficheros
   [4] Otras: 1 subcatalogos, 0 ficheros
   [4] Precipitacion: 1 subcatalogos, 0 ficheros
   [4] Temperatura: 6 subcatalogos, 0 ficheros
+  [5] PET: 0 subcatalogos, 55 ficheros
+  [5] pr: 0 subcatalogos, 55 ficheros
+  [5] cdd: 0 subcatalogos, 55 ficheros
+  [5] hdd: 0 subcatalogos, 55 ficheros
+  [5] tasdr: 0 subcatalogos, 55 ficheros
+  [5] tasmax: 0 subcatalogos, 55 ficheros
+  [5] tasmin: 0 subcatalogos, 55 ficheros
+  [5] tmean: 0 subcatalogos, 55 ficheros
+  [2] Proyecciones_CMIP6_en_estaciones: 3 subcatalogos, 0 ficheros
+  [3] Climatologia: 3 subcatalogos, 0 ficheros
+  [3] Dato_anual: 3 subcatalogos, 0 ficheros
   [4] Otras: 1 subcatalogos, 0 ficheros
   [4] Precipitacion: 8 subcatalogos, 0 ficheros
   [4] Temperatura: 20 subcatalogos, 0 ficheros
   [4] Otras: 1 subcatalogos, 0 ficheros
   [4] Precipitacion: 8 subcatalogos, 0 ficheros
   [4] Temperatura: 20 subcatalogos, 0 ficheros
+  [5] PET: 0 subcatalogos, 4 ficheros
+  [5] pr: 0 subcatalogos, 4 ficheros
+  [5] prNa1: 0 subcatalogos, 4 ficheros
+  [5] prNb1: 0 subcatalogos, 4 ficheros
+  [5] prmax24: 0 subcatalogos, 4 ficheros
+  [5] prmax5days: 0 subcatalogos, 4 ficheros
+  [5] prp95: 0 subcatalogos, 4 ficheros
+  [5] prspella1: 0 subcatalogos, 4 ficheros
+  [5] prspellb1: 0 subcatalogos, 4 ficheros
+  [5] cdd: 0 subcatalogos, 4 ficheros
+  [5] hdd: 0 subcatalogos, 4 ficheros
+  [5] tasdr: 0 subcatalogos, 4 ficheros
+  [5] tasdrp99: 0 subcatalogos, 4 ficheros
+  [5] tasmax: 0 subcatalogos, 4 ficheros
+  [5] tasmaxNap90: 0 subcatalogos, 4 ficheros
+  [5] tasmaxhwdmax: 0 subcatalogos, 4 ficheros
+  [5] tasmaxmax: 0 subcatalogos, 4 ficheros
+  [5] tasmaxp5: 0 subcatalogos, 4 ficheros
+  [5] tasmaxp95: 0 subcatalogos, 4 ficheros
+  [5] tasmaxp99: 0 subcatalogos, 4 ficheros
+  [5] tasmin: 0 subcatalogos, 4 ficheros
+  [5] tasminNa20: 0 subcatalogos, 4 ficheros
+  [5] tasminNap90: 0 subcatalogos, 4 ficheros
+  [5] tasminNb0: 0 subcatalogos, 4 ficheros
+  [5] tasminmin: 0 subcatalogos, 4 ficheros
+  [5] tasminp1: 0 subcatalogos, 4 ficheros
+  [5] tasminp5: 0 subcatalogos, 4 ficheros
+  [5] tasminp95: 0 subcatalogos, 4 ficheros
+  [5] tmean: 0 subcatalogos, 4 ficheros
+  [5] PET: 0 subcatalogos, 5 ficheros
+  [5] pr: 0 subcatalogos, 5 ficheros
+  [5] prNa1: 0 subcatalogos, 5 ficheros
+  [5] prNb1: 0 subcatalogos, 5 ficheros
+  [5] prmax24: 0 subcatalogos, 5 ficheros
+  [5] prmax5days: 0 subcatalogos, 5 ficheros
+  [5] prp95: 0 subcatalogos, 5 ficheros
+  [5] prspella1: 0 subcatalogos, 5 ficheros
+  [5] prspellb1: 0 subcatalogos, 5 ficheros
+  [5] cdd: 0 subcatalogos, 5 ficheros
+  [5] hdd: 0 subcatalogos, 5 ficheros
+  [5] tasdr: 0 subcatalogos, 5 ficheros
+  [5] tasdrp99: 0 subcatalogos, 5 ficheros
+  [5] tasmax: 0 subcatalogos, 5 ficheros
+  [5] tasmaxNap90: 0 subcatalogos, 5 ficheros
+  [5] tasmaxhwdmax: 0 subcatalogos, 5 ficheros
+  [5] tasmaxmax: 0 subcatalogos, 5 ficheros
+  [5] tasmaxp5: 0 subcatalogos, 5 ficheros
+  [5] tasmaxp95: 0 subcatalogos, 5 ficheros
+  [5] tasmaxp99: 0 subcatalogos, 5 ficheros
+  [5] tasmin: 0 subcatalogos, 5 ficheros
+  [5] tasminNa20: 0 subcatalogos, 5 ficheros
+  [5] tasminNap90: 0 subcatalogos, 5 ficheros
+  [5] tasminNb0: 0 subcatalogos, 5 ficheros
+  [5] tasminmin: 0 subcatalogos, 5 ficheros
+  [5] tasminp1: 0 subcatalogos, 5 ficheros
+  [5] tasminp5: 0 subcatalogos, 5 ficheros
+  [5] tasminp95: 0 subcatalogos, 5 ficheros
+  [5] tmean: 0 subcatalogos, 5 ficheros
+  [3] Dato_diario: 3 subcatalogos, 0 ficheros
   [4] Otras: 1 subcatalogos, 0 ficheros
   [4] Precipitacion: 1 subcatalogos, 0 ficheros
   [4] Temperatura: 6 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
+  [5] PET: 0 subcatalogos, 109 ficheros
+  [5] pr: 0 subcatalogos, 109 ficheros
+  [5] cdd: 0 subcatalogos, 109 ficheros
+  [5] hdd: 0 subcatalogos, 109 ficheros
+  [5] tasdr: 0 subcatalogos, 109 ficheros
+  [5] tasmax: 0 subcatalogos, 109 ficheros
+  [5] tasmin: 0 subcatalogos, 109 ficheros
+  [5] tmean: 0 subcatalogos, 109 ficheros
+  [3] Dato_diario: 3 subcatalogos, 0 ficheros
   [4] Otras: 1 subcatalogos, 0 ficheros
   [4] Precipitacion: 1 subcatalogos, 0 ficheros
   [4] Temperatura: 6 subcatalogos, 0 ficheros
+  [5] PET: 0 subcatalogos, 55 ficheros
+  [5] pr: 0 subcatalogos, 55 ficheros
+  [5] cdd: 0 subcatalogos, 55 ficheros
+  [5] hdd: 0 subcatalogos, 55 ficheros
+  [5] tasdr: 0 subcatalogos, 55 ficheros
+  [5] tasmax: 0 subcatalogos, 55 ficheros
+  [5] tasmin: 0 subcatalogos, 55 ficheros
+  [5] tmean: 0 subcatalogos, 55 ficheros
+  [2] Observaciones_en_rejilla: 2 subcatalogos, 0 ficheros
+  [3] Climatologia: 3 subcatalogos, 0 ficheros
+  [3] Dato_anual: 3 subcatalogos, 0 ficheros
+  [4] Otras: 1 subcatalogos, 0 ficheros
+  [4] Precipitacion: 8 subcatalogos, 0 ficheros
+  [4] Temperatura: 20 subcatalogos, 0 ficheros
+  [4] Otras: 1 subcatalogos, 0 ficheros
+  [4] Precipitacion: 8 subcatalogos, 0 ficheros
+  [4] Temperatura: 20 subcatalogos, 0 ficheros
+  [5] PET: 0 subcatalogos, 1 ficheros
+  [5] pr: 0 subcatalogos, 1 ficheros
+  [5] prNa1: 0 subcatalogos, 1 ficheros
+  [5] prNb1: 0 subcatalogos, 1 ficheros
+  [5] prmax24: 0 subcatalogos, 1 ficheros
+  [5] prmax5days: 0 subcatalogos, 1 ficheros
+  [5] prp95: 0 subcatalogos, 1 ficheros
+  [5] prspella1: 0 subcatalogos, 1 ficheros
+  [5] prspellb1: 0 subcatalogos, 1 ficheros
+  [5] cdd: 0 subcatalogos, 1 ficheros
+  [5] hdd: 0 subcatalogos, 1 ficheros
+  [5] tasdr: 0 subcatalogos, 1 ficheros
+  [5] tasdrp99: 0 subcatalogos, 1 ficheros
+  [5] tasmax: 0 subcatalogos, 2 ficheros
+  [5] tasmaxNap90: 0 subcatalogos, 2 ficheros
+  [5] tasmaxhwdmax: 0 subcatalogos, 1 ficheros
+  [5] tasmaxmax: 0 subcatalogos, 1 ficheros
+  [5] tasmaxp5: 0 subcatalogos, 1 ficheros
+  [5] tasmaxp95: 0 subcatalogos, 1 ficheros
+  [5] tasmaxp99: 0 subcatalogos, 1 ficheros
+  [5] tasmin: 0 subcatalogos, 1 ficheros
+  [5] tasminNa20: 0 subcatalogos, 1 ficheros
+  [5] tasminNap90: 0 subcatalogos, 2 ficheros
+  [5] tasminNb0: 0 subcatalogos, 1 ficheros
+  [5] tasminmin: 0 subcatalogos, 1 ficheros
+  [5] tasminp1: 0 subcatalogos, 1 ficheros
+  [5] tasminp5: 0 subcatalogos, 1 ficheros
+  [5] tasminp95: 0 subcatalogos, 1 ficheros
+  [5] tmean: 0 subcatalogos, 1 ficheros
+  [5] PET: 0 subcatalogos, 1 ficheros
+  [5] pr: 0 subcatalogos, 1 ficheros
+  [5] prNa1: 0 subcatalogos, 1 ficheros
+  [5] prNb1: 0 subcatalogos, 1 ficheros
+  [5] prmax24: 0 subcatalogos, 1 ficheros
+  [5] prmax5days: 0 subcatalogos, 1 ficheros
+  [5] prp95: 0 subcatalogos, 1 ficheros
+  [5] prspella1: 0 subcatalogos, 1 ficheros
+  [5] prspellb1: 0 subcatalogos, 1 ficheros
+  [5] cdd: 0 subcatalogos, 1 ficheros
+  [5] hdd: 0 subcatalogos, 1 ficheros
+  [5] tasdr: 0 subcatalogos, 1 ficheros
+  [5] tasdrp99: 0 subcatalogos, 1 ficheros
+  [5] tasmax: 0 subcatalogos, 2 ficheros
+  [5] tasmaxNap90: 0 subcatalogos, 1 ficheros
+  [5] tasmaxhwdmax: 0 subcatalogos, 1 ficheros
+  [5] tasmaxmax: 0 subcatalogos, 1 ficheros
+  [5] tasmaxp5: 0 subcatalogos, 1 ficheros
+  [5] tasmaxp95: 0 subcatalogos, 1 ficheros
+  [5] tasmaxp99: 0 subcatalogos, 1 ficheros
+  [5] tasmin: 0 subcatalogos, 1 ficheros
+  [5] tasminNa20: 0 subcatalogos, 1 ficheros
+  [5] tasminNap90: 0 subcatalogos, 1 ficheros
+  [5] tasminNb0: 0 subcatalogos, 1 ficheros
+  [5] tasminmin: 0 subcatalogos, 1 ficheros
+  [5] tasminp1: 0 subcatalogos, 1 ficheros
+  [5] tasminp5: 0 subcatalogos, 1 ficheros
+  [5] tasminp95: 0 subcatalogos, 1 ficheros
+  [5] tmean: 0 subcatalogos, 1 ficheros
+  [2] Observaciones_en_estaciones: 2 subcatalogos, 0 ficheros
+  [3] Climatologia: 3 subcatalogos, 0 ficheros
+  [3] Dato_anual: 15 subcatalogos, 0 ficheros
   [4] Otras: 1 subcatalogos, 0 ficheros
   [4] Precipitacion: 8 subcatalogos, 0 ficheros
   [4] Temperatura: 20 subcatalogos, 0 ficheros
@@ -124,57 +344,6 @@ raiz: https://escenarios.adaptecca.es/thredds/catalog/catalog.xml
   [4] rp95: 0 subcatalogos, 1 ficheros
   [4] rx1day: 0 subcatalogos, 1 ficheros
   [4] rx5day: 0 subcatalogos, 1 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 1 subcatalogos, 0 ficheros
-  [4] Temperatura: 6 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 1 subcatalogos, 0 ficheros
-  [4] Temperatura: 6 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 9 subcatalogos, 0 ficheros
-  [4] Temperatura: 33 subcatalogos, 0 ficheros
-  [4] cd: 0 subcatalogos, 1 ficheros
-  [4] dtr: 0 subcatalogos, 1 ficheros
-  [4] dtrp99: 0 subcatalogos, 1 ficheros
-  [4] fd: 0 subcatalogos, 1 ficheros
-  [4] hd: 0 subcatalogos, 1 ficheros
-  [4] hwd: 0 subcatalogos, 1 ficheros
-  [4] mcwd: 0 subcatalogos, 1 ficheros
-  [4] r01lmm: 0 subcatalogos, 1 ficheros
-  [4] r01mm: 0 subcatalogos, 1 ficheros
-  [4] rp95: 0 subcatalogos, 1 ficheros
-  [4] rx1day: 0 subcatalogos, 1 ficheros
-  [4] rx5day: 0 subcatalogos, 1 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 8 subcatalogos, 0 ficheros
-  [4] Temperatura: 20 subcatalogos, 0 ficheros
-  [4] Otras: 1 subcatalogos, 0 ficheros
-  [4] Precipitacion: 1 subcatalogos, 0 ficheros
-  [4] Temperatura: 6 subcatalogos, 0 ficheros
   [5] PET: 0 subcatalogos, 1 ficheros
   [5] pr: 0 subcatalogos, 1 ficheros
   [5] prNa1: 0 subcatalogos, 1 ficheros
@@ -247,81 +416,51 @@ raiz: https://escenarios.adaptecca.es/thredds/catalog/catalog.xml
   [5] txp95: 0 subcatalogos, 1 ficheros
   [5] txp99: 0 subcatalogos, 1 ficheros
   [5] txx: 0 subcatalogos, 1 ficheros
-  [5] PET: 0 subcatalogos, 1 ficheros
-  [5] pr: 0 subcatalogos, 1 ficheros
-  [5] prNa1: 0 subcatalogos, 1 ficheros
-  [5] prNb1: 0 subcatalogos, 1 ficheros
-  [5] prmax24: 0 subcatalogos, 1 ficheros
-  [5] prmax5days: 0 subcatalogos, 1 ficheros
-  [5] prp95: 0 subcatalogos, 1 ficheros
-  [5] prspella1: 0 subcatalogos, 1 ficheros
-  [5] prspellb1: 0 subcatalogos, 1 ficheros
-  (tope de 250 peticiones alcanzado)
+  (2 ramas de canarias/andorra no visitadas a proposito)
 
---- ficheros encontrados: 117 ---
-  cd:
-      yearly_AEMET_cd_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/cd/yearly_AEMET_cd_None_1970-2022.nc
-  dtr:
-      yearly_AEMET_dtr_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/dtr/yearly_AEMET_dtr_None_1970-2022.nc
-  dtrp99:
-      yearly_AEMET_dtrp99_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/dtrp99/yearly_AEMET_dtrp99_None_1970-2022.nc
-  fd:
-      yearly_AEMET_fd_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/fd/yearly_AEMET_fd_None_1970-2022.nc
-  hd:
-      yearly_AEMET_hd_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/hd/yearly_AEMET_hd_None_1970-2022.nc
-  hwd:
-      yearly_AEMET_hwd_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/hwd/yearly_AEMET_hwd_None_1970-2022.nc
-  mcwd:
-      yearly_AEMET_mcwd_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/mcwd/yearly_AEMET_mcwd_None_1970-2022.nc
-  r01lmm:
-      yearly_AEMET_r01lmm_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/r01lmm/yearly_AEMET_r01lmm_None_1970-2022.nc
-  r01mm:
-      yearly_AEMET_r01mm_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/r01mm/yearly_AEMET_r01mm_None_1970-2022.nc
-  rp95:
-      yearly_AEMET_rp95_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/rp95/yearly_AEMET_rp95_None_1970-2022.nc
-  rx1day:
-      yearly_AEMET_rx1day_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/rx1day/yearly_AEMET_rx1day_None_1970-2022.nc
-  rx5day:
-      yearly_AEMET_rx5day_None_1970-2022.nc
-        andorra/Observaciones_en_estaciones/Dato_anual/rx5day/yearly_AEMET_rx5day_None_1970-2022.nc
+--- ficheros por rama ---
+     29  peninsula/Observaciones_en_estaciones/Climatologia
+     55  peninsula/Observaciones_en_estaciones/Dato_anual
+     32  peninsula/Observaciones_en_rejilla/Climatologia
+     30  peninsula/Observaciones_en_rejilla/Dato_anual
+     66  peninsula/Proyecciones_CMIP5_en_rejilla/Climatologia
+     99  peninsula/Proyecciones_CMIP5_en_rejilla/Dato_anual
+    872  peninsula/Proyecciones_CMIP5_en_rejilla/Dato_diario
+    116  peninsula/Proyecciones_CMIP6_en_estaciones/Climatologia
+    145  peninsula/Proyecciones_CMIP6_en_estaciones/Dato_anual
+    440  peninsula/Proyecciones_CMIP6_en_estaciones/Dato_diario
+    116  peninsula/Proyecciones_CMIP6_en_rejilla/Climatologia
+    145  peninsula/Proyecciones_CMIP6_en_rejilla/Dato_anual
+    440  peninsula/Proyecciones_CMIP6_en_rejilla/Dato_diario
+
+--- ficheros encontrados: 2585 ---
   PET:
-      climatology_AEMET_PET.nc
-        peninsula/Observaciones_en_rejilla/Climatologia/Otras/PET/climatology_AEMET_PET.nc
+      yearly_AEMET_PET_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Otras/PET/yearly_AEMET_PET_None_1975-2020.nc
   pr:
-      climatology_AEMET_pr.nc
-        peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/pr/climatology_AEMET_pr.nc
+      yearly_AEMET_pr_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/pr/yearly_AEMET_pr_None_1975-2020.nc
   prNa1:
-      climatology_AEMET_prNa1.nc
-        peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prNa1/climatology_AEMET_prNa1.nc
+      yearly_AEMET_prNa1_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prNa1/yearly_AEMET_prNa1_None_1975-2020.nc
   prNb1:
-      climatology_AEMET_prNb1.nc
-        peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prNb1/climatology_AEMET_prNb1.nc
+      yearly_AEMET_prNb1_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prNb1/yearly_AEMET_prNb1_None_1975-2020.nc
   prmax24:
-      climatology_AEMET_prmax24.nc
-        peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prmax24/climatology_AEMET_prmax24.nc
+      yearly_AEMET_prmax24_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prmax24/yearly_AEMET_prmax24_None_1975-2020.nc
   prmax5days:
-      climatology_AEMET_prmax5days.nc
-        peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prmax5days/climatology_AEMET_prmax5days.nc
+      yearly_AEMET_prmax5days_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prmax5days/yearly_AEMET_prmax5days_None_1975-2020.nc
   prp95:
-      climatology_AEMET_prp95.nc
-        peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prp95/climatology_AEMET_prp95.nc
+      yearly_AEMET_prp95_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prp95/yearly_AEMET_prp95_None_1975-2020.nc
   prspella1:
-      climatology_AEMET_prspella1.nc
-        peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prspella1/climatology_AEMET_prspella1.nc
+      yearly_AEMET_prspella1_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prspella1/yearly_AEMET_prspella1_None_1975-2020.nc
   prspellb1:
-      climatology_AEMET_prspellb1.nc
-        peninsula/Observaciones_en_rejilla/Climatologia/Precipitacion/prspellb1/climatology_AEMET_prspellb1.nc
+      yearly_AEMET_prspellb1_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Precipitacion/prspellb1/yearly_AEMET_prspellb1_None_1975-2020.nc
   cdd:
       yearly_AEMET_cdd_None_1975-2020.nc
         peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/cdd/yearly_AEMET_cdd_None_1975-2020.nc
@@ -334,50 +473,136 @@ raiz: https://escenarios.adaptecca.es/thredds/catalog/catalog.xml
   tasdrp99:
       yearly_AEMET_tasdrp99_None_1975-2020.nc
         peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasdrp99/yearly_AEMET_tasdrp99_None_1975-2020.nc
+  tasmax:
+      yearly_AEMET_tasmax_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmax/yearly_AEMET_tasmax_None_1975-2020.nc
+  tasmaxNap90:
+      yearly_AEMET_tasmaxNap90_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxNap90/yearly_AEMET_tasmaxNap90_None_1975-2020.nc
+  tasmaxhwdmax:
+      yearly_AEMET_tasmaxhwdmax_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxhwdmax/yearly_AEMET_tasmaxhwdmax_None_1975-2020.nc
+  tasmaxmax:
+      yearly_AEMET_tasmaxmax_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxmax/yearly_AEMET_tasmaxmax_None_1975-2020.nc
+  tasmaxp5:
+      yearly_AEMET_tasmaxp5_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxp5/yearly_AEMET_tasmaxp5_None_1975-2020.nc
+  tasmaxp95:
+      yearly_AEMET_tasmaxp95_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxp95/yearly_AEMET_tasmaxp95_None_1975-2020.nc
+  tasmaxp99:
+      yearly_AEMET_tasmaxp99_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmaxp99/yearly_AEMET_tasmaxp99_None_1975-2020.nc
+  tasmin:
+      yearly_AEMET_tasmin_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasmin/yearly_AEMET_tasmin_None_1975-2020.nc
+  tasminNa20:
+      yearly_AEMET_tasminNa20_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminNa20/yearly_AEMET_tasminNa20_None_1975-2020.nc
+  tasminNap90:
+      yearly_AEMET_tasminNap90_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminNap90/yearly_AEMET_tasminNap90_None_1975-2020.nc
+  tasminNb0:
+      yearly_AEMET_tasminNb0_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminNb0/yearly_AEMET_tasminNb0_None_1975-2020.nc
+  tasminmin:
+      yearly_AEMET_tasminmin_None_1975-2020.nc
+        peninsula/Observaciones_en_estaciones/Dato_anual/Temperatura/tasminmin/yearly_AEMET_tasminmin_None_1975-2020.nc
 
---- candidatos de temperatura: 99 ---
-  yearly_AEMET_cd_None_1970-2022.nc
-  yearly_AEMET_dtr_None_1970-2022.nc
-  yearly_AEMET_dtrp99_None_1970-2022.nc
-  yearly_AEMET_fd_None_1970-2022.nc
-  yearly_AEMET_hd_None_1970-2022.nc
-  yearly_AEMET_hwd_None_1970-2022.nc
-  yearly_AEMET_mcwd_None_1970-2022.nc
-  yearly_AEMET_r01lmm_None_1970-2022.nc
-  yearly_AEMET_r01mm_None_1970-2022.nc
-  yearly_AEMET_rp95_None_1970-2022.nc
-  yearly_AEMET_rx1day_None_1970-2022.nc
-  yearly_AEMET_rx5day_None_1970-2022.nc
-  yearly_AEMET_dtr_None_1970-2022.nc
-  yearly_AEMET_dtrp99_None_1970-2022.nc
-  yearly_AEMET_hwd_None_1970-2022.nc
-  yearly_AEMET_dtr_None_1970-2022.nc
-  yearly_AEMET_dtrp99_None_1970-2022.nc
-  yearly_AEMET_hwd_None_1970-2022.nc
-  climatology_AEMET_PET_None.nc
-  climatology_AEMET_pr_None.nc
-  climatology_AEMET_prNa1_None.nc
-  climatology_AEMET_prNb1_None.nc
-  climatology_AEMET_prmax24_None.nc
-  climatology_AEMET_prmax5days_None.nc
-  climatology_AEMET_prp95_None.nc
-  climatology_AEMET_prspella1_None.nc
-  climatology_AEMET_prspellb1_None.nc
-  climatology_AEMET_cdd_None.nc
-  climatology_AEMET_hdd_None.nc
-  climatology_AEMET_tasdr_None.nc
-  climatology_AEMET_tasdrp99_None.nc
-  climatology_AEMET_tasmax_None.nc
-  climatology_AEMET_tasmaxNap90_None.nc
-  climatology_AEMET_tasmaxhwdmax_None.nc
-  climatology_AEMET_tasmaxmax_None.nc
-  climatology_AEMET_tasmaxp5_None.nc
-  climatology_AEMET_tasmaxp95_None.nc
-  climatology_AEMET_tasmaxp99_None.nc
-  climatology_AEMET_tasmin_None.nc
-  climatology_AEMET_tasminNa20_None.nc
+--- candidatos de temperatura: 2585 ---
+  climatology_CMIP6_deepESD_PET_ssp126.nc
+  climatology_CMIP6_deepESD_PET_ssp245.nc
+  climatology_CMIP6_deepESD_PET_ssp370.nc
+  climatology_CMIP6_deepESD_PET_ssp585.nc
+  climatology_CMIP6_deepESD_pr_ssp126.nc
+  climatology_CMIP6_deepESD_pr_ssp245.nc
+  climatology_CMIP6_deepESD_pr_ssp370.nc
+  climatology_CMIP6_deepESD_pr_ssp585.nc
+  climatology_CMIP6_deepESD_prNa1_ssp126.nc
+  climatology_CMIP6_deepESD_prNa1_ssp245.nc
+  climatology_CMIP6_deepESD_prNa1_ssp370.nc
+  climatology_CMIP6_deepESD_prNa1_ssp585.nc
+  climatology_CMIP6_deepESD_prNb1_ssp126.nc
+  climatology_CMIP6_deepESD_prNb1_ssp245.nc
+  climatology_CMIP6_deepESD_prNb1_ssp370.nc
+  climatology_CMIP6_deepESD_prNb1_ssp585.nc
+  climatology_CMIP6_deepESD_prmax24_ssp126.nc
+  climatology_CMIP6_deepESD_prmax24_ssp245.nc
+  climatology_CMIP6_deepESD_prmax24_ssp370.nc
+  climatology_CMIP6_deepESD_prmax24_ssp585.nc
+  climatology_CMIP6_deepESD_prmax5days_ssp126.nc
+  climatology_CMIP6_deepESD_prmax5days_ssp245.nc
+  climatology_CMIP6_deepESD_prmax5days_ssp370.nc
+  climatology_CMIP6_deepESD_prmax5days_ssp585.nc
+  climatology_CMIP6_deepESD_prp95_ssp126.nc
+  climatology_CMIP6_deepESD_prp95_ssp245.nc
+  climatology_CMIP6_deepESD_prp95_ssp370.nc
+  climatology_CMIP6_deepESD_prp95_ssp585.nc
+  climatology_CMIP6_deepESD_prspella1_ssp126.nc
+  climatology_CMIP6_deepESD_prspella1_ssp245.nc
+  climatology_CMIP6_deepESD_prspella1_ssp370.nc
+  climatology_CMIP6_deepESD_prspella1_ssp585.nc
+  climatology_CMIP6_deepESD_prspellb1_ssp126.nc
+  climatology_CMIP6_deepESD_prspellb1_ssp245.nc
+  climatology_CMIP6_deepESD_prspellb1_ssp370.nc
+  climatology_CMIP6_deepESD_prspellb1_ssp585.nc
+  climatology_CMIP6_ESD-RegBA_cdd_ssp126.nc
+  climatology_CMIP6_ESD-RegBA_cdd_ssp245.nc
+  climatology_CMIP6_ESD-RegBA_cdd_ssp370.nc
+  climatology_CMIP6_ESD-RegBA_cdd_ssp585.nc
+
+--- de ellos, 2439 son proyecciones ---
+  climatology_CMIP6_deepESD_PET_ssp126.nc
+  climatology_CMIP6_deepESD_PET_ssp245.nc
+  climatology_CMIP6_deepESD_PET_ssp370.nc
+  climatology_CMIP6_deepESD_PET_ssp585.nc
+  climatology_CMIP6_deepESD_pr_ssp126.nc
+  climatology_CMIP6_deepESD_pr_ssp245.nc
+  climatology_CMIP6_deepESD_pr_ssp370.nc
+  climatology_CMIP6_deepESD_pr_ssp585.nc
+  climatology_CMIP6_deepESD_prNa1_ssp126.nc
+  climatology_CMIP6_deepESD_prNa1_ssp245.nc
+  climatology_CMIP6_deepESD_prNa1_ssp370.nc
+  climatology_CMIP6_deepESD_prNa1_ssp585.nc
+  climatology_CMIP6_deepESD_prNb1_ssp126.nc
+  climatology_CMIP6_deepESD_prNb1_ssp245.nc
+  climatology_CMIP6_deepESD_prNb1_ssp370.nc
+  climatology_CMIP6_deepESD_prNb1_ssp585.nc
+  climatology_CMIP6_deepESD_prmax24_ssp126.nc
+  climatology_CMIP6_deepESD_prmax24_ssp245.nc
+  climatology_CMIP6_deepESD_prmax24_ssp370.nc
+  climatology_CMIP6_deepESD_prmax24_ssp585.nc
+  climatology_CMIP6_deepESD_prmax5days_ssp126.nc
+  climatology_CMIP6_deepESD_prmax5days_ssp245.nc
+  climatology_CMIP6_deepESD_prmax5days_ssp370.nc
+  climatology_CMIP6_deepESD_prmax5days_ssp585.nc
+  climatology_CMIP6_deepESD_prp95_ssp126.nc
+  climatology_CMIP6_deepESD_prp95_ssp245.nc
+  climatology_CMIP6_deepESD_prp95_ssp370.nc
+  climatology_CMIP6_deepESD_prp95_ssp585.nc
+  climatology_CMIP6_deepESD_prspella1_ssp126.nc
+  climatology_CMIP6_deepESD_prspella1_ssp245.nc
+  climatology_CMIP6_deepESD_prspella1_ssp370.nc
+  climatology_CMIP6_deepESD_prspella1_ssp585.nc
+  climatology_CMIP6_deepESD_prspellb1_ssp126.nc
+  climatology_CMIP6_deepESD_prspellb1_ssp245.nc
+  climatology_CMIP6_deepESD_prspellb1_ssp370.nc
+  climatology_CMIP6_deepESD_prspellb1_ssp585.nc
+  climatology_CMIP6_ESD-RegBA_cdd_ssp126.nc
+  climatology_CMIP6_ESD-RegBA_cdd_ssp245.nc
+  climatology_CMIP6_ESD-RegBA_cdd_ssp370.nc
+  climatology_CMIP6_ESD-RegBA_cdd_ssp585.nc
 
 --- prueba de OPeNDAP sobre el primer candidato ---
-  https://escenarios.adaptecca.es/thredds/dodsC/peninsula/Observaciones_en_estaciones/Dato_anual/cd/yearly_AEMET_cd_None_1970-2022.nc
-  ERROR abriendo por OPeNDAP: OSError: [Errno -70] NetCDF: DAP server error: 'https://escenarios.adaptecca.es/thredds/dodsC/peninsula/Observaciones_en_estaciones/Dato_anual/cd/yearly_AEMET_cd_None_1970-2022.nc'
-  (si falla, habra que bajar por HTTPServer el fichero completo)
+  https://escenarios.adaptecca.es/thredds/dodsC/peninsula/Proyecciones_CMIP6_en_rejilla/Climatologia/Otras/PET/climatology_CMIP6_deepESD_PET_ssp126.nc
+  variables: ['PET', 'PET_anom', 'PET_relanom']
+  dimensiones: {'member': 12, 'time_filter': 17, 'period': 4, 'lat': 251, 'lon': 400}
+  coordenadas: ['lat', 'lon', 'period', 'time_filter', 'member']
+    lat: 33.475 .. 45.97499999999929  (n=251)
+    lon: -13.175 .. 6.775000000000283  (n=400)
+    period: [b'far_future' b'medium_future' b'near_future'] ... (n=4)
+    time_filter: [b'Apr' b'Aug' b'Dec'] ... (n=17)
+    member: [b'average' b'ACCESS-CM2_r1i1p1f1_deepESD'
+ b'CMCC-CM2-SR5_r1i1p1f1_deepESD'] ... (n=12)
+  -> OPeNDAP funciona: se puede recortar sin bajar el fichero entero
