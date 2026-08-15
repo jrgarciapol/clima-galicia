@@ -1,0 +1,141 @@
+Proyecciones AdapteCCa para Galicia - 2026-08-15 13:12
+
+742,336 filas | 7 variables | 4 escenarios | 1657 celdas de 5 km
+Referencia 1971-2000. Horquilla p10-p90 sobre los 11 modelos.
+
+=== comprobacion: anomalia == futuro - referencia ===
+  near_future     error maximo 0.0010  (mediana 0.0000)
+  medium_future   error maximo 0.0010  (mediana 0.0000)
+  far_future      error maximo 0.0010  (mediana 0.0000)
+  ok: los dos caminos dan lo mismo
+
+=== cuanto cambia cada indice en verano (JJA) ===
+mediana sobre las celdas de Galicia; entre parentesis, p10-p90 entre modelos
+
+  cdd  (grados-dia de refrigeracion: cuanto aire acondicionado)
+    escenario               2011-2040              2041-2070              2071-2100
+    ssp126      +13.54 (+6.91 a +22.94)  +22.74 (+11.87 a +34.98)  +23.41 (+10.57 a +39.26)
+    ssp245      +14.69 (+9.46 a +22.49)  +29.27 (+21.96 a +46.34)  +42.12 (+24.02 a +66.34)
+    ssp370      +14.50 (+10.40 a +19.60)  +33.61 (+23.73 a +48.23)  +62.74 (+42.04 a +89.69)
+    ssp585      +17.39 (+11.71 a +24.93)  +40.47 (+30.10 a +51.16)  +95.55 (+75.44 a +116.35)
+
+  tasmax  (maxima media, para el confort medio)
+    escenario               2011-2040              2041-2070              2071-2100
+    ssp126       +1.61 (+0.76 a +2.20)   +2.48 (+1.58 a +3.50)   +2.46 (+1.18 a +3.92)
+    ssp245       +1.79 (+1.17 a +2.43)   +2.98 (+2.23 a +4.13)   +3.75 (+2.62 a +4.97)
+    ssp370       +1.73 (+1.04 a +2.25)   +3.24 (+2.42 a +4.22)   +4.87 (+3.66 a +6.16)
+    ssp585       +2.03 (+1.43 a +2.54)   +3.73 (+2.90 a +4.51)   +6.35 (+5.27 a +7.16)
+
+  tasmaxhwdmax  (duracion maxima de ola de calor)
+    escenario               2011-2040              2041-2070              2071-2100
+    ssp126       +2.39 (+1.04 a +3.96)   +3.79 (+1.40 a +6.13)   +4.16 (+1.67 a +8.20)
+    ssp245       +2.57 (+1.11 a +4.44)   +5.11 (+3.03 a +7.80)   +7.53 (+3.47 a +12.37)
+    ssp370       +2.77 (+1.85 a +3.70)   +5.41 (+3.27 a +7.63)  +11.39 (+5.23 a +19.90)
+    ssp585       +2.94 (+1.83 a +4.60)   +6.86 (+4.57 a +9.40)  +18.13 (+9.13 a +26.13)
+
+  tasmaxmax  (maxima absoluta del periodo)
+    escenario               2011-2040              2041-2070              2071-2100
+    ssp126       +1.73 (+0.91 a +2.59)   +2.58 (+1.57 a +3.66)   +2.57 (+0.78 a +3.35)
+    ssp245       +1.74 (+0.69 a +2.77)   +2.90 (+2.09 a +3.73)   +4.03 (+2.82 a +5.16)
+    ssp370       +1.75 (+1.16 a +2.35)   +3.22 (+2.48 a +4.20)   +5.24 (+4.03 a +6.58)
+    ssp585       +1.84 (+0.84 a +2.88)   +3.66 (+2.70 a +4.60)   +6.65 (+5.83 a +7.73)
+
+  tasmaxp99  (percentil 99 de la maxima: es literalmente nuestro tx_p99)
+    escenario               2011-2040              2041-2070              2071-2100
+    ssp126       +1.74 (+0.89 a +2.69)   +2.55 (+1.44 a +3.71)   +2.58 (+0.87 a +3.46)
+    ssp245       +1.77 (+0.92 a +2.75)   +2.90 (+2.07 a +3.76)   +4.04 (+2.86 a +5.19)
+    ssp370       +1.78 (+1.18 a +2.42)   +3.23 (+2.51 a +4.31)   +5.24 (+3.90 a +6.41)
+    ssp585       +1.91 (+0.98 a +3.05)   +3.67 (+2.82 a +4.64)   +6.64 (+5.71 a +7.70)
+
+  tasminNa20  (noches por encima de 20 C: noches tropicales, absolutas)
+    escenario               2011-2040              2041-2070              2071-2100
+    ssp126       +0.05 (+0.00 a +0.12)   +0.20 (+0.03 a +0.40)   +0.21 (+0.00 a +0.33)
+    ssp245       +0.06 (+0.00 a +0.15)   +0.26 (+0.07 a +0.47)   +0.69 (+0.13 a +1.37)
+    ssp370       +0.05 (+0.00 a +0.12)   +0.25 (+0.03 a +0.50)   +1.47 (+0.53 a +2.93)
+    ssp585       +0.04 (+0.00 a +0.12)   +0.47 (+0.07 a +0.97)   +3.82 (+1.80 a +6.40)
+
+  tmean  (media, para comparar con la climatologia observada)
+    escenario               2011-2040              2041-2070              2071-2100
+    ssp126       +1.40 (+0.65 a +1.83)   +2.08 (+1.29 a +2.98)   +2.06 (+0.88 a +3.29)
+    ssp245       +1.57 (+0.99 a +2.15)   +2.52 (+1.81 a +3.48)   +3.13 (+2.18 a +4.25)
+    ssp370       +1.52 (+0.93 a +1.98)   +2.72 (+2.02 a +3.48)   +4.06 (+3.04 a +5.14)
+    ssp585       +1.76 (+1.14 a +2.27)   +3.15 (+2.39 a +3.84)   +5.29 (+4.40 a +6.02)
+
+=== el ritmo que proyectan, frente al que medimos ===
+near_future (2011-2040, centro 2025) menos reference (1971-2000,
+centro 1985) son 40 anios, asi que la anomalia dividida por 4 es
+C/decada y se puede comparar con nuestras cifras.
+  ssp126: +0.40 C/decada
+  ssp245: +0.45 C/decada
+  ssp370: +0.43 C/decada
+  ssp585: +0.51 C/decada
+  observado: ROCIO 1951-2022 +0,20 | AEMET 2011-2025 +1,13 | ERA5-Land 2011-2025 +1,31
+
+=== LA pregunta: aguanta el orden entre sitios? ===
+correlacion de rangos entre el mapa de hoy y el de cada futuro.
+1,00 seria 'el orden no cambia en absoluto'.
+
+  tasmaxp99:
+    ssp126     near    0.992   medium  0.991   far     0.991
+    ssp245     near    0.990   medium  0.985   far     0.983
+    ssp370     near    0.986   medium  0.975   far     0.970
+    ssp585     near    0.981   medium  0.971   far     0.962
+
+  tasmax:
+    ssp126     near    0.992   medium  0.987   far     0.987
+    ssp245     near    0.993   medium  0.982   far     0.975
+    ssp370     near    0.992   medium  0.978   far     0.963
+    ssp585     near    0.989   medium  0.973   far     0.952
+
+=== se abre la brecha entre sitios frescos y calurosos? ===
+correlacion entre lo caluroso que es un sitio hoy y cuanto se
+calienta. Positiva = los calurosos se calientan mas.
+  ssp126: rho +0.619 | cuarto fresco 28.4C +1.99 | cuarto calido 34.2C +2.85
+  ssp245: rho +0.608 | cuarto fresco 28.4C +2.27 | cuarto calido 34.2C +3.34
+  ssp370: rho +0.572 | cuarto fresco 28.4C +2.46 | cuarto calido 34.2C +3.75
+  ssp585: rho +0.576 | cuarto fresco 28.4C +2.83 | cuarto calido 34.2C +4.25
+
+=== los extremos de Galicia, hoy y en 2041-2070 ===
+
+  ssp245 -- las 5 celdas mas frescas de hoy:
+    43.77 -7.58   hoy  25.0  2041-2070  26.5  (+1.5)
+    43.77 -7.53   hoy  25.0  2041-2070  26.5  (+1.5)
+    43.77 -7.47   hoy  25.0  2041-2070  26.5  (+1.5)
+    42.23 -6.78   hoy  25.1  2041-2070  28.5  (+3.3)
+    42.23 -6.83   hoy  25.2  2041-2070  28.5  (+3.3)
+  ssp245 -- las 5 mas calurosas de hoy:
+    41.88 -7.47   hoy  36.5  2041-2070  40.4  (+3.9)
+    41.92 -7.47   hoy  36.5  2041-2070  40.4  (+3.9)
+    42.33 -7.83   hoy  36.4  2041-2070  40.0  (+3.6)
+    41.88 -7.42   hoy  36.2  2041-2070  40.1  (+3.9)
+    42.33 -7.88   hoy  36.2  2041-2070  39.7  (+3.5)
+  rango entre la mas fresca y la mas calurosa: hoy 11.5 C, en 2041-2070 13.9 C
+
+  ssp585 -- las 5 celdas mas frescas de hoy:
+    43.77 -7.58   hoy  25.0  2041-2070  26.6  (+1.7)
+    43.77 -7.53   hoy  25.0  2041-2070  26.6  (+1.7)
+    43.77 -7.47   hoy  25.0  2041-2070  26.7  (+1.7)
+    42.23 -6.78   hoy  25.1  2041-2070  29.4  (+4.2)
+    42.23 -6.83   hoy  25.2  2041-2070  29.4  (+4.2)
+  ssp585 -- las 5 mas calurosas de hoy:
+    41.88 -7.47   hoy  36.5  2041-2070  41.5  (+5.1)
+    41.92 -7.47   hoy  36.5  2041-2070  41.5  (+5.1)
+    42.33 -7.83   hoy  36.4  2041-2070  41.0  (+4.6)
+    41.88 -7.42   hoy  36.2  2041-2070  41.2  (+5.0)
+    42.33 -7.88   hoy  36.2  2041-2070  40.7  (+4.5)
+  rango entre la mas fresca y la mas calurosa: hoy 11.5 C, en 2041-2070 14.9 C
+
+=== nuestro ranking de 1 km, con el delta encima ===
+  top 20 de hoy: 19.9 a 24.0 C
+  ssp126: 14 de los 20 mejores de hoy siguen en el top 20; rho global 0.948
+  ssp245: 14 de los 20 mejores de hoy siguen en el top 20; rho global 0.933
+  ssp370: 14 de los 20 mejores de hoy siguen en el top 20; rho global 0.914
+  ssp585: 14 de los 20 mejores de hoy siguen en el top 20; rho global 0.892
+  escrito ranking_con_proyeccion.csv
+
+=== limite que no se puede saltar ===
+AdapteCCa no publica ningun indice de confort con humedad: ni
+humidex, ni temperatura aparente, ni bulbo humedo. El 40 % del
+criterio no tiene proyeccion, solo observacion. Lo que hay aqui
+proyecta el 60 % de picos extremos, que es la parte que pesa mas,
+pero conviene no presentarlo como si cubriera el criterio entero.
