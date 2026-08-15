@@ -1,0 +1,29 @@
+# Datos brutos: pesan mucho y se pueden volver a descargar.
+# Lo que se sube al repositorio son los resultados agregados, no las materias primas.
+descargas/
+wrf/
+*.nc
+*.nc4
+*.grib
+*.parcial
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+
+# Directorios temporales que crean los tests
+_pruebas*/
+
+# Nunca subas esto: son tus credenciales personales
+.cdsapirc
+.aemetrc
+.aemetrc.txt
+
+# Series brutas de AEMET: se vuelven a descargar; lo que se sube es el resumen
+aemet/
+rocio/
+*.tar.gz
+
+# Excepciones: estos SI van al repositorio (son pequenios y son el resultado)
+!celdas_galicia.csv
