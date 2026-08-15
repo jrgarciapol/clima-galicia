@@ -194,6 +194,34 @@ print(f"  brecha: {rhos}")
 assert rhos.get("ssp245", 0) > 0.7, "impuse brecha en ssp245 y no la ve"
 assert abs(rhos.get("ssp585", 1)) < 0.2, "en ssp585 no hay brecha y se la inventa"
 
+print("\n=== la union con el ranking de 1 km no puede dejar la costa fuera ===")
+# La primera version buscaba lat y lon por separado. En la costa ese par cae
+# sobre celdas de mar, que no estan en la tabla, y 31 de 400 puntos se quedaban
+# sin delta -- justo los mas bajos y frescos, o sea los candidatos buenos.
+celdas = pd.read_csv(os.path.join(p9.DIR, "tasmaxp99_ssp245.csv"))
+celdas = celdas[(celdas.tipo == "anom") & (celdas.filtro == "JJA")
+                & (celdas.periodo == "medium_future")][["lat", "lon"]].drop_duplicates()
+# puntos de "1 km" pegados a la costa: en el borde oeste, donde empieza el mar
+borde = celdas.lon.min()
+rank = pd.DataFrame({
+    "lat": np.random.default_rng(3).choice(celdas.lat.unique(), 60),
+    "lon": borde - 0.03,                       # al oeste de la primera celda
+    "altitud": 20.0, "tx_p99_1km": 24.0})
+rank.to_csv(os.path.join(TMP, "ranking_60_40.csv"), index=False)
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    p9.analizar()
+texto = open(os.path.join(TMP, "resumen_proyecciones.txt"), encoding="utf-8").read()
+linea = [l for l in texto.splitlines() if "union con la rejilla" in l]
+print("  " + (linea[0].strip() if linea else "SIN LINEA DE UNION"))
+assert linea, "el informe tiene que decir como fue la union"
+assert "0 puntos sin delta" in linea[0], \
+    ("ningun punto costero puede quedarse sin delta: si se queda, el informe "
+     "lo cuenta como 'sale del top 20' cuando lo que pasa es que falta el dato")
+rc = pd.read_csv(os.path.join(TMP, "ranking_con_proyeccion.csv"))
+assert rc.d_ssp245.notna().all(), "quedaron NaN en el delta"
+print("  ok: 60 puntos al oeste de la primera celda, todos con delta")
+
 assert "no publica ningun indice de confort con humedad" in texto, \
     "el limite tiene que ir en el informe, no solo en el README"
 assert os.path.exists(os.path.join(TMP, "proyecciones_galicia.csv.gz"))

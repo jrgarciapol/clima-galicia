@@ -39,7 +39,7 @@ cada variable y en qué punto está el trabajo.
 | 6 | Fusión de escalas 9 km + 1 km | ✅ 60.690 puntos |
 | 7 | Evolución año a año de cada estación | ✅ hecho |
 | 8 | Periodos de retorno y extremos no estacionarios | ✅ hecho sobre estaciones |
-| 9 | Proyecciones climáticas de AdapteCCa | 🔄 descarga escrita, falta ejecutarla |
+| 9 | Proyecciones climáticas de AdapteCCa | ✅ CMIP6 a 5 km, 4 escenarios, 11 modelos |
 | 10 | Validación contra las 153 estaciones | ✅ hecho |
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
@@ -973,6 +973,69 @@ por medio. En temperatura media la diferencia parece modesta —+0,26 frente a
 los 45 años de la serie, eso son 33 días de verano que Ourense ha ganado y A
 Coruña no.
 
+### 8.7 Lo que dicen las proyecciones (paso 9)
+
+CMIP6 regionalizado a 5 km, 11 modelos, 4 escenarios, 1.657 celdas de Galicia.
+Referencia **1971-2000** — no es el clima de hoy, así que solo son comparables
+las anomalías, nunca los valores absolutos.
+
+**Cuánto sube el `tasmaxp99`, que es literalmente nuestro `tx_p99`:**
+
+| escenario | 2011-2040 | 2041-2070 | 2071-2100 |
+|---|---|---|---|
+| SSP1-2.6 | +1,74 | +2,55 | +2,58 |
+| SSP2-4.5 | +1,77 | +2,90 | +4,04 |
+| SSP3-7.0 | +1,78 | +3,23 | +5,24 |
+| SSP5-8.5 | +1,91 | +3,67 | +6,64 |
+
+Hasta 2040 los cuatro escenarios dicen lo mismo (+1,8): el calentamiento de las
+próximas dos décadas ya está comprometido y no depende de lo que se decida
+ahora. **Se separan a partir de 2050**, y a final de siglo la horquilla va de
++2,6 a +6,6.
+
+La duración máxima de ola de calor crece de +5,1 días (SSP2-4.5, 2041-2070) a
+**+18,1** (SSP5-8.5, 2071-2100). Los grados-día de refrigeración se multiplican
+por dos a mediados de siglo y por siete a final en el peor escenario.
+
+**Las noches tropicales siguen siendo casi cero**: +0,26 noches en 2041-2070 con
+SSP2-4.5. Solo se disparan en SSP5-8.5 a final de siglo (+3,8). Es la ventaja
+atlántica de Galicia y aguanta casi todo el siglo.
+
+#### La respuesta a la pregunta que importaba
+
+**El orden entre sitios aguanta.** Correlación de rangos entre el mapa de
+1971-2000 y el de cada futuro, sobre las 1.657 celdas:
+
+| escenario | 2011-2040 | 2041-2070 | 2071-2100 |
+|---|---|---|---|
+| SSP2-4.5 | 0,990 | 0,985 | 0,983 |
+| SSP5-8.5 | 0,981 | 0,971 | **0,962** |
+
+Ni en el peor escenario a final de siglo baja de 0,96. Y aplicando el delta a
+nuestros 400 puntos de 1 km, **19 de los 20 mejores de hoy siguen en el top 20**
+en 2041-2070 (18 con SSP5-8.5). El primero de hoy —Fisterra-Muxía, 42,92 /
+−9,29— sigue siendo el primero.
+
+**Y la brecha se abre, por tercera vez y con un método distinto.** Correlación
+entre lo caluroso que es un sitio y cuánto se calienta: **+0,57 a +0,62** según
+escenario. El cuarto más fresco gana +2,27 °C y el más caluroso +3,34 (SSP2-4.5,
+2041-2070). El rango entre la celda más fresca y la más calurosa de Galicia pasa
+de **11,5 °C a 13,9** —y a 14,9 con SSP5-8.5—.
+
+Tres fuentes independientes dicen lo mismo: ROCIO sobre 72 años de observación,
+las estaciones de AEMET sobre 45 años de termómetro, y ahora once modelos
+físicos mirando hacia adelante.
+
+#### Una discrepancia que hay que dejar dicha
+
+Los modelos, para 2011-2040 contra 1971-2000, implican **+0,40 a +0,51 °C por
+década**. Lo observado en 2011-2025 fue **+1,13**. No es contradictorio —el
+promedio de 1985 a 2025 mezcla décadas lentas con décadas rápidas, y +0,45 cae
+justo entre el +0,20 del promedio largo y el +1,13 reciente—, pero significa que
+**si el ritmo de los últimos quince años se mantuviera, los escenarios se
+quedarían cortos**. No se puede saber cuál de las dos cosas pasará; conviene
+tratar las cifras de arriba como el suelo, no como el techo.
+
 ### 8.6 Errores propios que conviene no repetir
 
 Van aquí porque todos eran silenciosos —ninguno producía una excepción— y
@@ -980,6 +1043,7 @@ cualquiera habría envenenado el resultado:
 
 | Qué pasaba | Cómo se detectó |
 |---|---|
+| Unir el ranking de 1 km con la rejilla de 5 km buscando la latitud y la longitud más parecidas **por separado**: en la costa ese par cae sobre celdas de mar, y 31 de 400 puntos se quedaban sin proyección — los más bajos y frescos, o sea los candidatos buenos | el informe decía «6 de los 20 mejores salen del top 20» y al mirar cuáles eran, su delta era `NaN` |
 | `rh` en fracción tratada como porcentaje: el humidex se quedaba igual que la temperatura seca | mirando las unidades del fichero, `units="1"` |
 | El océano y los embalses en el ranking, y el mar contaminando la media de 9 km de toda la costa | los 20 «sitios más frescos» estaban a −9,45 de longitud |
 | Píxeles 8 °C más fríos que su entorno sin relieve que lo explique | la prueba topográfica: 271 puntos, el 0,68 % |

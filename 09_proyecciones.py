@@ -646,7 +646,10 @@ def analizar():
     L.append("")
 
     # --- el sitio concreto ---
-    L.append("=== los extremos de Galicia, hoy y en 2041-2070 ===")
+    L.append("=== los extremos de Galicia, 1971-2000 frente a 2041-2070 ===")
+    L.append("OJO: la referencia de AdapteCCa es 1971-2000, no el clima de hoy.")
+    L.append("Nuestra climatologia observada es 2011-2025, asi que los absolutos")
+    L.append("de las dos fuentes no son comparables; las anomalias si.")
     for e in ("ssp245", "ssp585"):
         base = ab[(ab.variable == "tasmaxp99") & (ab.escenario == e)
                   & (ab.filtro == "JJA") & (ab.periodo == "reference")]
@@ -654,20 +657,20 @@ def analizar():
                  & (ab.filtro == "JJA") & (ab.periodo == "medium_future")]
         if base.empty or fut.empty:
             continue
-        j = pd.concat({"hoy": base.set_index(["lat", "lon"]).valor,
+        j = pd.concat({"ref": base.set_index(["lat", "lon"]).valor,
                        "fut": fut.set_index(["lat", "lon"]).valor},
                       axis=1).dropna().reset_index()
-        j["salto"] = j.fut - j.hoy
-        L.append(f"\n  {e} -- las 5 celdas mas frescas de hoy:")
-        for _, r in j.nsmallest(5, "hoy").iterrows():
-            L.append(f"    {r.lat:.2f} {r.lon:.2f}   hoy {r.hoy:5.1f}  "
+        j["salto"] = j.fut - j.ref
+        L.append(f"\n  {e} -- las 5 celdas mas frescas en 1971-2000:")
+        for _, r in j.nsmallest(5, "ref").iterrows():
+            L.append(f"    {r.lat:.2f} {r.lon:.2f}   1971-2000 {r.ref:5.1f}  "
                      f"2041-2070 {r.fut:5.1f}  ({r.salto:+.1f})")
-        L.append(f"  {e} -- las 5 mas calurosas de hoy:")
-        for _, r in j.nlargest(5, "hoy").iterrows():
-            L.append(f"    {r.lat:.2f} {r.lon:.2f}   hoy {r.hoy:5.1f}  "
+        L.append(f"  {e} -- las 5 mas calurosas en 1971-2000:")
+        for _, r in j.nlargest(5, "ref").iterrows():
+            L.append(f"    {r.lat:.2f} {r.lon:.2f}   1971-2000 {r.ref:5.1f}  "
                      f"2041-2070 {r.fut:5.1f}  ({r.salto:+.1f})")
         L.append(f"  rango entre la mas fresca y la mas calurosa: "
-                 f"hoy {j.hoy.max() - j.hoy.min():.1f} C, "
+                 f"1971-2000 {j.ref.max() - j.ref.min():.1f} C, "
                  f"en 2041-2070 {j.fut.max() - j.fut.min():.1f} C")
     L.append("")
 
@@ -676,32 +679,47 @@ def analizar():
     if os.path.exists(ruta_rank):
         L.append("=== nuestro ranking de 1 km, con el delta encima ===")
         r = pd.read_csv(ruta_rank)
+        primero = True
         for e in sorted(ab.escenario.unique()):
             anm = an[(an.variable == "tasmaxp99") & (an.escenario == e)
                      & (an.filtro == "JJA") & (an.periodo == "medium_future")]
             if anm.empty:
                 continue
-            # vecino mas proximo: la rejilla es de 0,05 grados, asi que basta
-            # con redondear a la celda, sin arbol de busqueda
-            cl = anm.groupby([anm.lat.round(3), anm.lon.round(3)]).valor.mean()
-            latg = np.array(sorted({k[0] for k in cl.index}))
-            long_ = np.array(sorted({k[1] for k in cl.index}))
-            ila = np.abs(r.lat.values[:, None] - latg[None]).argmin(1)
-            ilo = np.abs(r.lon.values[:, None] - long_[None]).argmin(1)
-            delta = np.array([cl.get((latg[a], long_[b]), np.nan)
-                              for a, b in zip(ila, ilo)])
-            r[f"d_{e}"] = delta
-            r[f"tx_p99_{e}"] = r.tx_p99_1km + delta
+            # Vecino mas proximo, en 2D y SOLO entre las celdas que existen.
+            #
+            # La primera version buscaba la latitud mas parecida y la longitud
+            # mas parecida por separado. Parece lo mismo y no lo es: en la costa
+            # ese par cae a menudo sobre una celda de mar, que no esta en la
+            # tabla, y el punto se quedaba sin delta. Fallaban 31 de 400 puntos,
+            # y no al azar: los de menos altitud y mas frescos, o sea justo los
+            # candidatos buenos. Seis de los veinte primeros. El informe lo
+            # contaba como "salen del top 20" cuando lo que pasaba era que no
+            # tenian dato.
+            cl = anm.groupby(["lat", "lon"]).valor.mean().reset_index()
+            k = np.cos(np.radians(float(r.lat.mean())))
+            dist = np.hypot(r.lat.values[:, None] - cl.lat.values[None, :],
+                            (r.lon.values[:, None] - cl.lon.values[None, :]) * k)
+            i = dist.argmin(1)
+            lejos = dist[np.arange(len(r)), i] * 111.0      # a km
+            r[f"d_{e}"] = cl.valor.values[i]
+            r[f"tx_p99_{e}"] = r.tx_p99_1km + cl.valor.values[i]
+            if primero:
+                primero = False
+                sin = int(np.isnan(cl.valor.values[i]).sum())
+                L.append(f"  union con la rejilla de 5 km: mediana "
+                         f"{np.median(lejos):.1f} km al centro de celda, "
+                         f"maxima {lejos.max():.1f} km; {sin} puntos sin delta"
+                         + ("" if sin == 0 else "   <-- OJO, revisar la union"))
         cols = [c for c in r.columns if c.startswith("tx_p99_ssp")]
         if cols:
             hoy = r.nsmallest(20, "tx_p99_1km")
-            L.append(f"  top 20 de hoy: {hoy.tx_p99_1km.min():.1f} a "
+            L.append(f"  top 20 de hoy (observado 2011-2025): {hoy.tx_p99_1km.min():.1f} a "
                      f"{hoy.tx_p99_1km.max():.1f} C")
             for c in cols:
                 fut = r.nsmallest(20, c)
                 comunes = len(set(map(tuple, hoy[["lat", "lon"]].values))
                               & set(map(tuple, fut[["lat", "lon"]].values)))
-                L.append(f"  {c[7:]}: {comunes} de los 20 mejores de hoy siguen "
+                L.append(f"  {c[7:]}: {comunes} de los 20 mejores siguen "
                          f"en el top 20; rho global "
                          f"{_rho(r.tx_p99_1km.values, r[c].values):.3f}")
             r.to_csv(os.path.join(BASE, "ranking_con_proyeccion.csv"), index=False)
