@@ -19,6 +19,61 @@ cols = ["puesto","lat","lon","altitud","cerca","km","tx_p99_1km","hx_p99_1km",
 O["puntos"] = json.loads(r[cols].round(3).to_json(orient="records"))
 print(f"puntos: {len(r)}")
 
+# ---- los extremos, para los mapas pequenios de contexto --------------------
+al = pd.read_csv(f"{R}/alta_resolucion.csv.gz")
+al = al[al.tierra == 1].copy()
+al["tx"] = al.tx_p99_1km + 2.74
+dist = np.hypot(al.lat.values[:, None] - est.lat.values[None, :],
+                (al.lon.values[:, None] - est.lon.values[None, :]) * k) * 111
+ii = dist.argmin(1)
+al["cerca"] = est.concello.values[ii]
+al["km"] = dist[np.arange(len(al)), ii].round(1)
+# El dominio del modelo de 1 km es un rectangulo: incluye franjas de Portugal,
+# Asturias, Leon y Zamora. Para una lista titulada "los extremos DE GALICIA" hay
+# que quitarlas, o el segundo sitio mas fresco acaba estando en Caminha.
+# Como no hay contorno administrativo a mano, se usa la envolvente convexa de la
+# red de MeteoGalicia -- que solo tiene estaciones en Galicia -- dilatada 0,08
+# grados. Deja fuera el 100 % de Portugal y de Asturias; en el limite con Leon,
+# por Valdeorras, la separacion es borrosa y algo se cuela.
+from scipy.spatial import ConvexHull
+from matplotlib.path import Path as _Path
+_h = ConvexHull(est[["lon", "lat"]].values)
+GALICIA = _Path(est[["lon", "lat"]].values[_h.vertices])
+al["gal"] = GALICIA.contains_points(al[["lon", "lat"]].values, radius=0.08)
+print(f"  mascara de Galicia: {int(al.gal.sum())} de {len(al)} puntos ({al.gal.mean():.0%})")
+
+def titulo(n):
+    menores = {"de", "do", "da", "dos", "das", "e", "a", "o"}
+    ps = str(n).lower().split()
+    return " ".join(w if (i and w in menores) else w.capitalize() for i, w in enumerate(ps))
+
+def extremos(col, n=4, arriba=True, separacion=25.0):
+    """Los n extremos, obligando a que esten en sitios DISTINTOS.
+
+    Sin la separacion salian cuatro puntos del mismo kilometro cuadrado: tres de
+    los cuatro mas calurosos eran Larouco, y en el mapa se tapaban unos a otros.
+    """
+    z = al[al.gal].sort_values(col, ascending=not arriba)
+    sel = []
+    for _, r in z.iterrows():
+        if all(np.hypot(r.lat - q.lat, (r.lon - q.lon) * k) * 111 > separacion for q in sel):
+            sel.append(r)
+        if len(sel) == n:
+            break
+    return [{"lat": round(float(r.lat), 3), "lon": round(float(r.lon), 3),
+             "alt": round(float(r.altitud)), "tx": round(float(r.tx), 1),
+             "d32": int(r.wrf_n_ge32), "cerca": titulo(r.cerca), "km": float(r.km)}
+            for r in sel]
+O["extremos"] = {"frescos": extremos("tx", 4, False), "calidos": extremos("tx", 4, True)}
+O["mascara"] = {"dentro": int(al.gal.sum()), "total": int(len(al))}
+print(f"extremos: {O['extremos']['frescos'][0]['cerca']} ... {O['extremos']['calidos'][0]['cerca']}")
+
+# ---- concellos con coordenadas: para decir donde esta el raton en el mapa ---
+O["lugares"] = [{"n": titulo(r.concello), "la": round(float(r.lat), 3),
+                 "lo": round(float(r.lon), 3)}
+                for _, r in est.drop_duplicates("concello").iterrows()]
+print(f"lugares: {len(O['lugares'])}")
+
 # ---- estaciones de MeteoGalicia --------------------------------------------
 ie = pd.read_csv(f"{R}/indices_estaciones.csv")
 te = pd.read_csv(f"{R}/tendencias_estaciones.csv")

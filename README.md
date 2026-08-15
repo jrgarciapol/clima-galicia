@@ -44,7 +44,7 @@ cada variable y en qué punto está el trabajo.
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
 | 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | ✅ hecho |
-| 14 | Informe interactivo en un solo HTML | ✅ mapa OSM, gráficas, metodología y modo comentario |
+| 14 | Informe interactivo en un solo HTML | ✅ 5 capas de mapa, glosario, comentarios |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
 
@@ -1046,6 +1046,7 @@ cualquiera habría envenenado el resultado:
 
 | Qué pasaba | Cómo se detectó |
 |---|---|
+| El dominio del modelo de 1 km es un **rectángulo**, no Galicia: incluye franjas de Portugal, Asturias, León y Zamora. El segundo punto «más fresco de Galicia» estaba en Caminha | Rafa pidió un mapa con los cuatro extremos, y al dibujarlos se vio uno al sur del Miño |
 | Unir el ranking de 1 km con la rejilla de 5 km buscando la latitud y la longitud más parecidas **por separado**: en la costa ese par cae sobre celdas de mar, y 31 de 400 puntos se quedaban sin proyección — los más bajos y frescos, o sea los candidatos buenos | el informe decía «6 de los 20 mejores salen del top 20» y al mirar cuáles eran, su delta era `NaN` |
 | `rh` en fracción tratada como porcentaje: el humidex se quedaba igual que la temperatura seca | mirando las unidades del fichero, `units="1"` |
 | El océano y los embalses en el ranking, y el mar contaminando la media de 9 km de toda la costa | los 20 «sitios más frescos» estaban a −9,45 de longitud |

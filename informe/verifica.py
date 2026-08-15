@@ -63,10 +63,40 @@ assert cor < our - 5, "Ourense tiene que salir MUCHO mas caluroso que A Coruña"
 assert 26 < cor < 31 and 35 < our < 40, f"valores fuera de rango: {cor}, {our}"
 ok += 1; print("  ok   la orientacion norte-sur es correcta")
 
+print("\n=== los extremos que se pintan en los mapas pequenios ===")
+ex = d["extremos"]
+for lado in ("frescos", "calidos"):
+    n_sitios = len({q["cerca"] for q in ex[lado]})
+    print("  " + lado + ": " + ", ".join(f"{q['cerca']} ({q['tx']})" for q in ex[lado]))
+    assert n_sitios == 4, f"los cuatro tienen que ser sitios distintos, hay {n_sitios}"
+    ok += 1
+# ninguno puede caer fuera de Galicia: el fallo real fue tener Caminha entre los
+# cuatro sitios mas frescos "de Galicia"
+for q in ex["frescos"] + ex["calidos"]:
+    assert q["lat"] > 41.80, f"{q['cerca']} en {q['lat']} esta al sur del Mino: es Portugal"
+    assert q["lon"] < -6.75, f"{q['cerca']} en {q['lon']} esta demasiado al este"
+ok += 1
+print(f"  ok   ninguno cae fuera de Galicia ({d['mascara']['dentro']:,} de "
+      f"{d['mascara']['total']:,} puntos dentro de la mascara)")
+comprueba("Baiona entre los mas frescos", 23.4,
+          [q["tx"] for q in ex["frescos"] if q["cerca"] == "Baiona"][0], 0.05)
+
+print("\n=== glosario: cada termino marcado tiene definicion ===")
+marcados = set(re.findall(r'class="gl" data-t="([a-z0-9]+)"', html))
+definidos = set(re.findall(r'^  ([a-z0-9]+): \["', html, re.M))
+faltan = marcados - definidos
+if faltan: fallos.append(f"terminos sin definicion: {faltan}")
+else: ok += 1; print(f"  ok   {len(marcados)} terminos marcados, todos definidos")
+sobran = definidos - marcados
+if sobran: print(f"  aviso: definidos y no usados en el texto: {sobran}")
+
 print("\n=== textos que prometen algo ===")
 for frase, cond in [("40.050", "40.050 puntos" in html), ("1.657 celdas", "1.657" in html),
                     ("−6,46 °C/km", "−6,46" in html), ("0,962", "0,962" in html),
-                    ("+2,7 °C de sesgo", "+2,7" in html)]:
+                    ("+2,7 °C de sesgo", "+2,7" in html),
+                    ("la capa de tendencia", "Cuánto se calienta" in html),
+                    ("el aviso del dominio", "no es Galicia, es un rectángulo" in html),
+                    ("la aclaración del humidex", "lo que no tiene proyección es la\nhumedad" in html)]:
     if cond: ok += 1; print(f"  ok   aparece {frase}")
     else: fallos.append(f"falta la mencion de {frase}")
 

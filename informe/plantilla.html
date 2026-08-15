@@ -70,9 +70,11 @@ button.tema-btn:hover{color:var(--tinta)}
 /* controles */
 .controles{display:flex; flex-wrap:wrap; gap:18px; align-items:flex-end; margin:18px 0 14px;
   padding:14px 16px; background:var(--sup); border:1px solid var(--borde); border-radius:11px}
-.control{display:flex; flex-direction:column; gap:6px}
+.control{display:flex; flex-direction:column; gap:6px; min-width:0; max-width:100%}
 .control > span{font-size:12px; color:var(--tinta3); text-transform:uppercase; letter-spacing:0.06em; font-weight:600}
-.segmentado{display:flex; gap:2px; background:var(--plano); border:1px solid var(--borde); border-radius:8px; padding:2px}
+/* con cinco capas el grupo ya no cabe en un movil: se deja envolver */
+.segmentado{display:flex; flex-wrap:wrap; gap:2px; background:var(--plano);
+  border:1px solid var(--borde); border-radius:8px; padding:2px; max-width:100%}
 .segmentado button{background:none; border:0; color:var(--tinta2); font:inherit; font-size:13px;
   padding:5px 11px; border-radius:6px; cursor:pointer; white-space:nowrap}
 .segmentado button:hover{color:var(--tinta)}
@@ -123,6 +125,29 @@ table.suelta{margin:16px 0; background:var(--sup); border:1px solid var(--borde)
 table.suelta td,table.suelta th{padding:9px 14px}
 
 /* pista flotante */
+/* ------------------------------------------------------------ glosario --- */
+.gl{border-bottom:1px dotted var(--s1); cursor:help; color:inherit}
+.gl:hover{border-bottom-style:solid; background:color-mix(in srgb,var(--s1) 8%, transparent)}
+#defi{position:fixed; z-index:2200; background:var(--sup); border:1px solid var(--borde);
+  border-radius:10px; padding:12px 14px; width:320px; box-shadow:0 8px 30px rgba(0,0,0,0.20);
+  display:none; font-size:13.5px; line-height:1.55}
+#defi b{display:block; margin-bottom:5px; font-size:14px}
+#defi .comose{margin-top:7px; padding-top:7px; border-top:1px solid var(--rejilla);
+  color:var(--tinta2); font-size:12.5px}
+dl.glos{margin:18px 0}
+dl.glos dt{font-weight:650; margin-top:16px}
+dl.glos dd{margin:3px 0 0; color:var(--tinta2); max-width:70ch}
+
+/* ------------------------------------------------------- mapa pequenio --- */
+.minis{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:22px 0}
+.mini{background:var(--sup); border:1px solid var(--borde); border-radius:12px; padding:14px 16px}
+.mini h4{margin:0 0 2px; font-size:14px; color:var(--tinta)}
+.mini .sub{font-size:12.5px; color:var(--tinta3); margin:0 0 8px}
+.mini canvas{width:100%; height:auto; display:block; border-radius:6px}
+.mini ol{margin:9px 0 0; padding-left:20px; font-size:13px; color:var(--tinta2)}
+.mini ol li{margin:3px 0}
+.mini ol li b{color:var(--tinta)}
+
 /* ---------------------------------------------------- modo comentario --- */
 body.comentando{cursor:text}
 /* el tinte marca lo que se puede comentar; dentro de una grafica no aplica */
@@ -197,6 +222,7 @@ hr{border:0; border-top:1px solid var(--borde); margin:44px 0}
 </head>
 <body>
 <nav class="barra"><ul>
+  <li><a href="#intro">De qué va</a></li>
   <li><a href="#respuesta">La respuesta</a></li>
   <li><a href="#mapa">El mapa</a></li>
   <li><a href="#futuro">2041-2070</a></li>
@@ -204,6 +230,7 @@ hr{border:0; border-top:1px solid var(--borde); margin:44px 0}
   <li><a href="#sitios">Sitios</a></li>
   <li><a href="#metodo">Cómo se ha hecho</a></li>
   <li><a href="#limites">Límites</a></li>
+  <li><a href="#glosario">Glosario</a></li>
   <li class="tema"><button class="tema-btn" id="btn-comentar">Comentar</button>
       <button class="tema-btn" id="btn-tema">Modo oscuro</button></li>
 </ul></nav>
@@ -211,9 +238,8 @@ hr{border:0; border-top:1px solid var(--borde); margin:44px 0}
 <div class="envoltorio">
 <header class="principal">
   <h1>Dónde hace menos calor en Galicia</h1>
-  <p class="subtitulo">Un criterio de dos partes —60&nbsp;% picos de calor extremo, 40&nbsp;% confort real con
-  humedad— aplicado a 40.050 puntos de 1&nbsp;km, validado contra 298 termómetros y proyectado
-  hasta 2100 con once modelos climáticos.</p>
+  <p class="subtitulo">Dónde conviene poner la residencia habitual si lo que se quiere evitar
+  es el calor, hoy y dentro de cuarenta años.</p>
   <p class="meta" id="meta-fecha"></p>
   <div id="ayuda-com" style="margin-top:22px">
     <strong>Para comentarlo:</strong> pulsa <em>Comentar</em> arriba a la derecha y luego
@@ -224,11 +250,68 @@ hr{border:0; border-top:1px solid var(--borde); margin:44px 0}
   </div>
 </header>
 
+<section id="intro">
+<h2>De qué va esto</h2>
+<p class="destacado">La pregunta es concreta: <strong>en qué parte de Galicia conviene vivir si lo
+que se quiere evitar es el calor</strong>, contando con que el clima de dentro de treinta o
+cuarenta años no será el de ahora.</p>
+
+<p>No es una pregunta de gustos. El calentamiento está haciendo que en algunos sitios el verano
+pase de incómodo a difícil, y eso ocurre a escalas pequeñas: dentro de Galicia, con dos horas de
+coche entre extremos, hay más diferencia térmica de la que mucha gente supone. La decisión de
+dónde poner la casa es de las pocas que se toman una vez y duran décadas, así que merece la pena
+mirarla con datos en vez de con la impresión de los veranos que uno recuerda.</p>
+
+<h3>Qué se mide, y por qué esas dos cosas</h3>
+<p>Un solo número no describe el calor. Aquí se usan dos, y cada uno responde a una molestia
+distinta:</p>
+
+<ul class="limpia">
+<li><strong>Los picos extremos (60&nbsp;% del peso).</strong> Medidos con el
+<span class="gl" data-t="txp99">percentil 99 de la temperatura máxima</span>: el nivel que solo se supera
+unos tres días al año. Es lo que convierte una semana de agosto en algo que hay que aguantar en
+vez de vivir. Pesa más porque un verano se recuerda por sus peores días, no por su promedio.</li>
+
+<li><strong>El confort real (40&nbsp;%).</strong> Medido con el <span class="gl" data-t="humidex">humidex</span>,
+que junta temperatura y humedad. En Galicia esto importa especialmente: con 85&nbsp;% de humedad,
+28&nbsp;°C se sienten como 35. Una cifra de temperatura a secas se quedaría corta en la mitad
+atlántica del territorio.</li>
+</ul>
+
+<p><strong>Cómo se combinan.</strong> Cada punto recibe una nota que es la media ponderada de los
+dos, después de llevar ambos a una escala común. Ese 60/40 es una elección, y por tanto discutible
+—pero resulta que <strong>da igual</strong>: como los dos índices están muy correlacionados, con
+50/50 o con 40/60 salen los mismos doce primeros puestos en el mismo orden. Es un resultado
+afortunado, porque significa que la conclusión no descansa sobre una decisión arbitraria.</p>
+
+<h3>De dónde salen los datos</h3>
+<p>De seis fuentes, cada una aportando lo que las otras no pueden:</p>
+<div id="tabla-fuentes-intro"></div>
+
+<p>Las <strong>estaciones meteorológicas</strong> tienen un papel aparte. No entran en el cálculo
+del mapa: sirven para <em>comprobarlo</em>. Un campo modelado puede estar equivocado sin dar
+ningún aviso, así que se contrastó contra 145 termómetros reales antes de fiarse de él. Y como
+además tienen humedad medida —cosa que las proyecciones no dan—, son las que sostienen la mitad
+del criterio que el futuro no puede cubrir.</p>
+
+<h3>Lo que este trabajo no es</h3>
+<p>No es un ranking de dónde vivir. Es un ranking de temperatura. No entra la lluvia, ni el
+viento, ni el precio de la vivienda, ni el trabajo, ni la familia. Y no baja al nivel de parcela:
+sirve para elegir <em>la zona</em>, no la casa.</p>
+</section>
+
 <section id="respuesta">
 <h2>La respuesta</h2>
 <p class="destacado">El noroeste costero —el arco de <strong>Fisterra a Camariñas</strong>, la
 Costa da Morte y el litoral de Bergantiños— es sistemáticamente el sitio más fresco de Galicia,
-y lo sigue siendo en 2070 <strong>en los cuatro escenarios de emisiones</strong>.</p>
+y lo sigue siendo en 2070 en los cuatro <span class="gl" data-t="ssp">escenarios de emisiones</span>.</p>
+
+<p>«Más fresco» quiere decir aquí lo que dice el criterio: <strong>menos picos de calor extremo y
+menos bochorno</strong>. No es que allí no haga sol; es que el termómetro no llega a los niveles
+que se alcanzan cuarenta kilómetros tierra adentro. Estos son los cuatro extremos de cada lado,
+sobre la silueta de Galicia:</p>
+
+<div class="minis" id="minis-extremos"></div>
 
 <div class="cifras" id="cifras-clave"></div>
 
@@ -237,16 +320,32 @@ fresco y el más caluroso hay <strong>16,5&nbsp;°C</strong> en la máxima del p
 distancia entre ambos es de dos horas de coche. En días por encima de 32&nbsp;°C la diferencia es
 categórica, no de grado: <strong>0 frente a 169&nbsp;días</strong> en los quince años analizados.</p>
 
+<p>La cuarta cifra es la que da derecho a creerse las otras tres. El mapa sale de un modelo, y un
+modelo puede equivocarse sin avisar. Se comparó, punto por punto, el
+<span class="gl" data-t="txp99">percentil 99</span> que da el mapa con el que miden 145 estaciones reales en su
+misma posición: la <span class="gl" data-t="rangos">correlación de rangos</span> entre ambas listas es
+<strong>0,83</strong>. Es decir, el mapa ordena los sitios casi igual que los termómetros. En
+valor absoluto acierta menos —va frío en 2,7&nbsp;°C, y por qué está explicado en la
+<span class="gl" data-t="sesgo">sección de validación</span>—, pero para elegir sitio lo que importa es el orden.</p>
+
 <p>El peso que se le dé a cada mitad del criterio <strong>no cambia la respuesta</strong>. Con
 60/40, con 50/50 o con 40/60, los doce primeros puestos son los mismos y en el mismo orden. Eso
 no era obvio de antemano, y significa que la conclusión no depende de una decisión arbitraria.</p>
 
 <h3>Los diez mejores emplazamientos</h3>
-<p>De los 400 finalistas por debajo de 400&nbsp;m de altitud. La columna «2041-2070» aplica encima
-la anomalía proyectada del escenario intermedio SSP2-4.5. Los cinco primeros están todos en el
-mismo arco, entre Fisterra y Corcubión; la estación más próxima queda a varios kilómetros porque
-<strong>esa costa tiene muy poca observación</strong>, que es precisamente el límite reconocido más
-abajo. Se dan las coordenadas para poder situarlos en un mapa.</p>
+<p>De los 400 finalistas por debajo de 400&nbsp;m de altitud, y <strong>son los mismos puntos que
+se pintan en el mapa de la sección siguiente</strong>: los veinte primeros salen ahí marcados en
+negro.</p>
+
+<p><strong>Sobre las dos últimas columnas, que se prestan a confusión.</strong> El humidex es un
+dato <em>de hoy</em>, medido: aparece porque es la mitad del criterio, no porque se proyecte. La
+columna «2041-2070» solo mueve la temperatura, porque <strong>lo que no tiene proyección es la
+humedad</strong>, no la temperatura. Ninguna de las fuentes de escenarios publica un índice de
+confort con humedad, así que el futuro de esa columna no se puede calcular y no se inventa.</p>
+
+<p>Los cinco primeros están todos en el mismo arco, entre Fisterra y Corcubión. La estación más
+próxima queda a varios kilómetros porque <strong>esa costa tiene muy poca observación</strong>, que
+es precisamente el límite reconocido más abajo. Se dan las coordenadas para poder situarlos.</p>
 <div id="tabla-top"></div>
 </section>
 
@@ -255,6 +354,12 @@ abajo. Se dan las coordenadas para poder situarlos en un mapa.</p>
 <p>Cada celda son <strong>1&nbsp;km</strong>. El color es el <strong>percentil 99 de la temperatura
 máxima</strong>: el valor que solo se supera unos tres días de cada año, que es la definición
 operativa de «episodio de calor extremo». Más oscuro, más calor.</p>
+
+<p>Los controles permiten <strong>cambiar qué se pinta</strong> —calor extremo, bochorno, días
+por encima de 32&nbsp;°C, cuánto se está calentando cada sitio, o la altitud—, saltar al futuro
+con cualquiera de los cuatro escenarios, y <strong>subir la transparencia</strong> para leer los
+nombres de los pueblos que hay debajo. Al mover el ratón por encima, a la derecha de la leyenda
+aparece <strong>el sitio y el valor exacto</strong> bajo el cursor.</p>
 
 <div class="controles" id="ctrl-mapa"></div>
 <div class="mapa" id="mapa-1"></div>
@@ -267,6 +372,23 @@ atlántica y se deshilacha tierra adentro siguiendo los valles. Los tres focos o
 <strong>valle del Miño</strong> (Ourense, Ribadavia, Leiro), el <strong>Sil y Valdeorras</strong>,
 y el <strong>bajo Miño</strong> hacia Tui. Entre A Coruña y Ourense hay 130&nbsp;km y
 <strong>diez grados</strong> en el percentil 99.</p>
+
+<p><strong>Y hay una franja pálida en el suroeste, entre Baiona y A Guarda, que merece
+explicación</strong> porque a primera vista parece contradecir lo anterior. Es real y es la misma
+física: esa costa está tan expuesta al Atlántico como la de A Coruña. Pero <strong>el color del
+mapa exagera el parecido</strong>. En una franja de 4&nbsp;km de costa, la Costa da Morte está a
+28,4&nbsp;°C con 3,3&nbsp;días de más de 32&nbsp;°C al año; el tramo Baiona-A Guarda está a
+30,1&nbsp;°C con <strong>15,9&nbsp;días</strong>. Casi cinco veces más.</p>
+
+<p>La diferencia está en lo que hay detrás. En la Costa da Morte la franja fresca es ancha porque
+tierra adentro sigue habiendo relieve abierto al mar; en el suroeste el valle del Miño se abre
+justo detrás, y a treinta kilómetros Tui ya acumula 46,8&nbsp;días por encima de 32&nbsp;°C. Es
+una costa fresca con una banda estrecha.</p>
+
+<p><strong>Dicho lo cual, tenías razón en fijarte.</strong> El mejor punto de ese tramo —junto a
+Baiona— está <strong>entre los cuatro más frescos de toda Galicia</strong>: 23,4&nbsp;°C y cero
+días por encima de 32. Lo que cambia respecto al noroeste no es la calidad del mejor sitio, sino
+cuántos kilómetros aguanta esa calidad tierra adentro.</p>
 
 <p>Hay una segunda forma de ser fresco que conviene distinguir, porque se comporta de manera
 opuesta: <strong>la altitud</strong>. Los Ancares y Trevinca también salen frescos, pero por estar
@@ -282,14 +404,21 @@ al ritmo del interior, no al de la costa. Cambia el color del mapa a «altitud»
 <div class="cifras" id="cifras-futuro"></div>
 
 <p>Cambiando el selector «momento» del mapa de arriba se ve el efecto directamente: el mapa entero
-se oscurece, pero <strong>el dibujo no se reordena</strong>. La correlación de rangos entre el
-mapa de referencia y el de 2041-2070 es de 0,985 con SSP2-4.5 y no baja de
-<strong>0,962</strong> ni en el peor escenario a final de siglo.</p>
+se oscurece, pero <strong>el dibujo no se reordena</strong>.</p>
+
+<p>Lo que se compara son <strong>dos listas de las mismas 1.657 celdas de 5&nbsp;km</strong>: la
+del <span class="gl" data-t="txp99">percentil 99 de la máxima</span> en el periodo de referencia 1971-2000, y la
+del mismo índice en cada periodo futuro. Si el sitio que hace el número 1 hoy sigue haciendo el
+número 1 en 2060, y el 500 sigue siendo el 500, la <span class="gl" data-t="rangos">correlación de rangos</span>
+vale 1. Sale <strong>0,985</strong> con SSP2-4.5 a mediados de siglo y no baja de
+<strong>0,962</strong> ni con SSP5-8.5 a final de siglo. Dicho de otra forma: el calor sube en
+todas partes, pero <strong>el mapa no se baraja</strong>.</p>
 
 <figure>
 <div class="grafica">
   <p class="titulo-g">Cuánto sube el percentil 99 de la máxima en verano</p>
-  <p class="sub-g">Mediana de las 1.657 celdas de Galicia. La banda es el rango entre los once modelos.</p>
+  <p class="sub-g">Mediana de las 1.657 celdas de Galicia. La banda es la
+  <span class="gl" data-t="p10p90">horquilla entre los once modelos</span>.</p>
   <div class="leyenda-s" id="leyenda-esc"></div>
   <div id="g-escenarios"></div>
 </div>
@@ -301,8 +430,17 @@ calentamiento ya está comprometido y no depende de lo que se decida ahora. Se s
 <div id="tabla-escenarios"></div>
 
 <h3>Lo que sí cambia, y mucho</h3>
-<p>El orden entre sitios aguanta, pero las cifras absolutas no. Tres cambios que afectan a cómo
-se vive un verano:</p>
+<p>El orden entre sitios aguanta, pero las cifras absolutas no. Estos tres índices están elegidos
+porque cada uno mide una molestia distinta que el promedio de temperatura no captura:</p>
+<ul class="limpia">
+<li>La <span class="gl" data-t="olacalor">duración máxima de ola de calor</span> mide la
+<em>persistencia</em>: tres días seguidos a 35&nbsp;°C se soportan mucho peor que tres días
+sueltos, porque la casa no llega a enfriarse de noche.</li>
+<li>Los <span class="gl" data-t="cdd">grados-día de refrigeración</span> miden el <em>total</em> del verano, no
+sus picos. Es la cifra que mejor se traduce en factura eléctrica.</li>
+<li>Las <span class="gl" data-t="nochestrop">noches tropicales</span> miden lo que impide dormir, que es
+independiente de lo que marque el termómetro a mediodía.</li>
+</ul>
 <div id="tabla-otros"></div>
 
 <p><strong>Las noches tropicales siguen siendo casi cero.</strong> En 2041-2070 con SSP2-4.5 se
@@ -332,8 +470,10 @@ calienta (eje vertical). Si la nube sube hacia la derecha, la brecha se abre.</p
 <figure>
 <div class="malla-3" id="g-brecha"></div>
 <figcaption>La pendiente es positiva en las tres, pero <strong>no con la misma fuerza, y conviene
-decirlo</strong>. ROCIO da una correlación de rangos de <strong>+0,82</strong> sobre 1.174 celdas y
-CMIP6 <strong>+0,61</strong> sobre 1.657: ahí el resultado es sólido. El panel de estaciones da
+decirlo</strong>. <span class="gl" data-t="rocio">ROCIO</span> —la rejilla de AEMET con temperatura observada
+desde 1951— da una <span class="gl" data-t="rangos">correlación de rangos</span> de <strong>+0,82</strong>
+sobre 1.174 celdas, y <span class="gl" data-t="cmip6">CMIP6</span> —los once modelos climáticos—
+<strong>+0,61</strong> sobre 1.657: ahí el resultado es sólido. El panel de estaciones da
 <strong>+0,54</strong> pero <strong>solo hay diez</strong>, que es demasiado poco para concluir
 nada por sí solo, y una de ellas —Monforte de Lemos, calurosa y con tendencia plana— apunta al
 revés. Las estaciones <em>acompañan</em> el resultado; quienes lo sostienen son las otras dos.</figcaption>
@@ -398,6 +538,21 @@ informe: una máxima media de verano por año, sin suavizar ni corregir.</p>
 </div>
 <figcaption>Las tres series costeras corren casi paralelas y por debajo; Ourense se despega. La
 separación entre la línea de A Coruña y la de Ourense es mayor al final que al principio.</figcaption>
+
+<div class="tarjeta">
+<h4>Por qué no hay un mapa de tendencias hecho con las estaciones de AEMET</h4>
+<p style="margin-top:6px">Sería lo natural —interpolar la pendiente de cada estación y pintar
+Galicia entera— y sin embargo no se puede hacer con honestidad. Solo <strong>diez</strong>
+estaciones tienen la serie completa 1980-2025. Las otras 48 cubren periodos distintos, y una
+tendencia medida en 1995-2025 no es comparable con otra medida en 1960-2000: el ritmo del
+calentamiento cambió por el camino. Interpolar entre ellas produciría un mapa suave y
+convincente donde el color estaría diciendo, en buena parte, en qué años funcionó cada aparato.</p>
+<p><strong>Ese mapa sí existe, y está más arriba.</strong> La capa <em>«Cuánto se calienta»</em>
+del mapa grande es exactamente eso, hecho bien: la tendencia observada 1951-2022 en
+<span class="gl" data-t="rocio">ROCIO</span>, <strong>1.174 celdas</strong> con el mismo periodo para todas.
+Se pinta con sus celdas de 5&nbsp;km y no interpolada a 1, porque esa es la resolución real del
+dato y fingir más sería aparentar una precisión que no existe.</p>
+</div>
 </figure>
 </section>
 
@@ -410,9 +565,10 @@ todo, <strong>cómo se ha comprobado que no está mal</strong>.</p>
 <div id="tabla-fuentes"></div>
 
 <h3>La fusión de escalas: por qué 1 km y no 9</h3>
-<p>ERA5-Land da 9&nbsp;km, que en Galicia es una celda del tamaño de una comarca pequeña: mete en
-la misma casilla un cabo y un valle interior. El modelo WRF de MeteoGalicia da 1&nbsp;km pero solo
-desde septiembre de 2021, demasiado poco para una climatología.</p>
+<p><span class="gl" data-t="era5">ERA5-Land</span> da 9&nbsp;km, que en Galicia es una celda del tamaño de una
+comarca pequeña: mete en la misma casilla un cabo y un valle interior. El modelo
+<span class="gl" data-t="wrf">WRF de MeteoGalicia</span> da 1&nbsp;km pero solo desde septiembre de 2021,
+demasiado poco para una climatología.</p>
 <p>La solución es un <strong>descenso de escala por deltas</strong>: se toma el patrón fino del
 WRF —la diferencia entre cada punto de 1&nbsp;km y la media de su entorno de 9&nbsp;km— y se le
 suma a la climatología larga de ERA5-Land. El patrón fino es estable en el tiempo aunque la serie
@@ -443,14 +599,28 @@ error absoluto baja de 2,71 a <strong>1,37&nbsp;°C</strong>.</p>
 correlación de rangos es <strong>0,83</strong>. Y bajar a 1&nbsp;km sirvió de algo medible: mejora
 el error de ERA5-Land de 2,90 a 2,67&nbsp;°C y la correlación de rangos de 0,78 a 0,84.</p>
 
-<h3>Cómo se calcula la tendencia</h3>
-<p>Con la <strong>pendiente de Sen</strong>: la mediana de las pendientes entre todos los pares de
-puntos de la serie. A diferencia de una recta de mínimos cuadrados, un solo año extremo no la
-arrastra. La significación se comprueba con el test de Mann-Kendall, que no supone ninguna
-distribución concreta.</p>
-<p>Para los periodos de retorno se ajusta una <strong>distribución de Gumbel</strong> por momentos
-L, y se comprueba la estacionariedad: si la serie tiene tendencia, un Gumbel estacionario
-subestima el riesgo futuro, así que se ajusta también la versión no estacionaria.</p>
+<h3>Cómo se mide «cuánto se está calentando un sitio»</h3>
+<p>Aparece en todo el informe una misma operación: coger una serie de un valor por año —la máxima
+media de verano de una estación, o el percentil 99 de una celda— y resumir en un solo número
+cuánto sube por década. Es la <strong>tendencia</strong>, y es la base de la sección de la brecha
+y de la comparación entre A&nbsp;Coruña y Ourense.</p>
+<p>Se calcula con la <span class="gl" data-t="sen">pendiente de Sen</span>: se mide la pendiente entre todos los
+pares de años de la serie y se toma la mediana. Un solo verano excepcional —2003, 2022— movería
+mucho una recta de mínimos cuadrados y apenas mueve esta. La significación se comprueba con el
+test de Mann-Kendall, que no supone que los datos sigan ninguna distribución concreta.</p>
+
+<h4>Y una cosa que se calculó y no se usa</h4>
+<p>El trabajo incluye un análisis de <strong>periodos de retorno</strong> —cada cuántos años se
+repite un extremo dado, ajustando una distribución de Gumbel— con su versión no estacionaria, que
+tiene en cuenta que la serie se está calentando. <strong>No alimenta el ranking</strong> y conviene
+decirlo en vez de dejarlo insinuado: responde a otra pregunta, la de con qué frecuencia vuelve un
+episodio concreto, no la de qué sitio es más fresco.</p>
+<p>Lo que sí aportó fue una cifra que se usa más arriba: agrupando las 134 estaciones, las máximas
+anuales suben <strong>+1,02&nbsp;°C por década</strong> con un intervalo del 95&nbsp;% de +0,83 a
++1,20. Individualmente solo el 19&nbsp;% de las estaciones da una tendencia significativa —con
+diecisiete años el ruido casi iguala a la señal—, pero <strong>la media regional sí excluye el
+cero</strong>. Es un buen ejemplo de por qué agrupar: lo que no se ve en un punto se ve en ciento
+treinta.</p>
 
 <h3>Verificación</h3>
 <p>Cada paso del trabajo tiene una prueba automática que fabrica datos con una respuesta conocida
@@ -484,6 +654,14 @@ sitios más frescos son también los que menos observación tienen detrás.</li>
 valores absolutos de AdapteCCa y los de nuestra climatología observada no son comparables
 directamente; solo lo son las anomalías, y así es como se han usado.</li>
 
+<li><strong>El dominio no es Galicia, es un rectángulo.</strong> El modelo de 1&nbsp;km cubre
+una caja que incluye franjas de Portugal, Asturias, León y Zamora, y el ranking de 400 puntos
+<strong>no está recortado</strong> a la frontera administrativa: nueve de sus puntos caen al sur
+del Miño. Para las listas de extremos de este informe sí se recorta, con la envolvente de la red
+de MeteoGalicia dilatada unos 9&nbsp;km, que deja fuera el 100&nbsp;% de Portugal y de Asturias
+pero es borrosa en el límite con León por Valdeorras. Es una aproximación a partir de los datos,
+no el contorno oficial.</li>
+
 <li><strong>Nada de esto es un modelo de microclima.</strong> A 1&nbsp;km no caben la orientación
 de una ladera, un fondo de valle estrecho o la sombra de un monte. Para elegir una parcela
 concreta hace falta ir y mirar; esto sirve para elegir <em>la zona</em>.</li>
@@ -491,7 +669,19 @@ concreta hace falta ir y mirar; esto sirve para elegir <em>la zona</em>.</li>
 <li><strong>El criterio es solo térmico.</strong> No entra la lluvia, ni el viento, ni la niebla,
 ni el precio de la vivienda, ni el trabajo, ni la familia, ni la distancia a un hospital. Un
 ranking de temperatura no es un ranking de dónde vivir.</li>
+
+<li><strong>Solo diez estaciones tienen serie larga completa.</strong> Es la razón por la que la
+brecha se apoya en ROCIO y en los modelos, y no en los termómetros individuales: con diez puntos
+—y uno de ellos apuntando al revés— cualquier conclusión sería frágil.</li>
 </ul>
+
+</section>
+
+<section id="glosario">
+<h2>Glosario</h2>
+<p>Todos los términos que aparecen subrayados con puntos en el texto. Ahí también se pueden
+consultar sin salir del párrafo, pasando el ratón o pinchando encima.</p>
+<dl class="glos" id="lista-glosario"></dl>
 
 <hr>
 <p class="fuente" id="fuentes-pie"></p>
@@ -499,6 +689,7 @@ ranking de temperatura no es un ranking de dónde vivir.</li>
 </div>
 
 <div id="pista" role="tooltip"></div>
+<div id="defi"></div>
 
 <div id="globo">
   <div class="cita" id="globo-cita"></div>
@@ -582,13 +773,14 @@ function tarjeta(n, et, pie, color){
     <span class="et">${et}</span>${pie?`<span class="pie">${pie}</span>`:""}</div>`;
 }
 $("#cifras-clave").innerHTML =
-  tarjeta("16,5 °C", "de diferencia entre el punto más fresco y el más caluroso de Galicia",
-          "percentil 99 de la máxima") +
-  tarjeta("0 vs 169", "días por encima de 32 °C, del mejor sitio al peor", "en 15 años") +
+  tarjeta("16,5 °C", "entre Carnota (22,3 °C) y Larouco, en Valdeorras (38,8 °C)",
+          "percentil 99 de la máxima, medido sobre 2011-2025") +
+  tarjeta("0 vs 169", "días al año por encima de 32 °C, de la Costa da Morte a Ourense capital",
+          "media de los 15 años, no una predicción") +
   tarjeta("19 de 20", "de los mejores emplazamientos de hoy siguen entre los 20 mejores en 2041-2070",
-          "escenario SSP2-4.5") +
-  tarjeta("0,83", "correlación de rangos del campo modelado contra 145 termómetros reales",
-          "el orden es fiable, el valor absoluto menos");
+          "con SSP2-4.5, el escenario de emisiones intermedio") +
+  tarjeta("0,83", "coincidencia entre el orden que da el mapa y el que dan 145 termómetros",
+          "correlación de rangos: el orden es fiable, el valor absoluto menos");
 
 $("#cifras-futuro").innerHTML =
   tarjeta("0,985", "correlación de rangos entre el mapa de hoy y el de 2041-2070", "SSP2-4.5") +
@@ -627,18 +819,41 @@ function montaMapa(){
   // ("de los mas frescos" / "de los mas calurosos"). El techo deja sitio ademas
   // para el desplazamiento de 2041-2070, para que los momentos sean comparables.
   const CAPAS = {
-    tx:{n:"Calor extremo", u:" °C", desc:"percentil 99 de la máxima", lo:26, hi:40, clip:true},
-    hx:{n:"Bochorno", u:"", desc:"percentil 99 del humidex", lo:28, hi:40, clip:true},
-    alt:{n:"Altitud", u:" m", desc:"metros sobre el mar", lo:0, hi:1400, clip:true}
+    tx:{n:"Calor extremo", u:" °C", desc:"percentil 99 de la máxima", lo:26, hi:40},
+    hx:{n:"Bochorno", u:"", desc:"percentil 99 del humidex", lo:28, hi:40},
+    d32:{n:"Días >32 °C", u:" días/año", desc:"días al año por encima de 32 °C", lo:0, hi:110},
+    alt:{n:"Altitud", u:" m", desc:"metros sobre el mar", lo:0, hi:1400},
+    // Esta capa no sale del campo de 1 km sino de ROCIO, que es de 5 km y de
+    // observacion pura, asi que se pinta con sus propias celdas grandes: fingir
+    // 1 km de detalle sobre un dato de 5 km seria aparentar precision que no hay.
+    tend:{n:"Cuánto se calienta", u:" °C/década", celdas:true,
+          desc:"cuánto ha subido la máxima de verano, 1951-2022", lo:0.0, hi:0.30}
   };
-  const bytes = {tx:b64aBytes(M.tx.d), hx:b64aBytes(M.hx.d), alt:b64aBytes(M.alt.d)};
+  const bytes = {tx:b64aBytes(M.tx.d), hx:b64aBytes(M.hx.d),
+                 alt:b64aBytes(M.alt.d), d32:b64aBytes(M.d32.d)};
   // limites con los que se cuantizo a 0-255 en origen (distintos de los de pintado)
-  const QLIM = {tx:M.tx, hx:M.hx, alt:M.alt};
+  const QLIM = {tx:M.tx, hx:M.hx, alt:M.alt, d32:M.d32};
+  let opacidad = 0.82;
+
+  // Lugar mas proximo al cursor. Sin esto el mapa dice "aqui hace 33 grados" y
+  // no dice donde, que era justo lo que faltaba.
+  const LUG = D.lugares || [];
+  function lugarDe(la, lo){
+    let mej = null, d0 = 1e9;
+    const k = Math.cos(la * Math.PI/180);
+    for(const L of LUG){
+      const d = Math.hypot(la - L.la, (lo - L.lo) * k);
+      if(d < d0){ d0 = d; mej = L; }
+    }
+    return mej ? {n: mej.n, km: d0 * 111} : null;
+  }
 
   $("#ctrl-mapa").innerHTML = `
     <div class="control"><span>Qué se pinta</span><div class="segmentado" id="seg-capa">
       <button data-v="tx" aria-pressed="true">Calor extremo</button>
       <button data-v="hx" aria-pressed="false">Bochorno</button>
+      <button data-v="d32" aria-pressed="false">Días &gt;32 °C</button>
+      <button data-v="tend" aria-pressed="false">Cuánto se calienta</button>
       <button data-v="alt" aria-pressed="false">Altitud</button></div></div>
     <div class="control"><span>Momento</span><div class="segmentado" id="seg-momento">
       <button data-v="hoy" aria-pressed="true">Hoy</button>
@@ -648,7 +863,9 @@ function montaMapa(){
     <div class="control"><span>Escenario</span><div class="segmentado" id="seg-esc">
       ${ESCS.map(e=>`<button data-v="${e}" aria-pressed="${e==="ssp245"}">${ESC_N[e]}</button>`).join("")}
     </div></div>
-    <label class="casilla"><input type="checkbox" id="chk-est"> Estaciones meteorológicas</label>`;
+    <label class="casilla"><input type="checkbox" id="chk-est"> Estaciones meteorológicas</label>
+    <div class="control"><span>Transparencia</span>
+      <input type="range" id="opac" min="25" max="100" value="82" style="width:130px"></div>`;
 
   const mapa = L.map("mapa-1", {scrollWheelZoom:false, minZoom:6});
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -689,7 +906,32 @@ function montaMapa(){
     return d == null ? 0 : d;
   }
 
+  let capaCeldas = null;
+  function pintaCeldas(){
+    if(capaCeldas){ mapa.removeLayer(capaCeldas); capaCeldas = null; }
+    const c = CAPAS[capa];
+    // La rejilla de ROCIO viene de un polo rotado: sus celdas estan giradas
+    // respecto al norte, asi que cuadrados alineados con el meridiano dejan
+    // franjas sin pintar y el mapa sale a rayas. Se dibujan un 30 % mas grandes
+    // para que solapen y cierren los huecos.
+    const T = MAPA_D.tendencia, h = T.paso * 0.66;
+    capaCeldas = L.layerGroup();
+    for(const [la, lo, v] of T.c){
+      const rgb = colorRampa((v - c.lo) / (c.hi - c.lo));
+      // el borde del MISMO color tapa la costura entre celdas: sin el quedan
+      // hilos blancos donde el antialiasing de dos rectangulos no se junta
+      const col = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+      L.rectangle([[la - h, lo - h], [la + h, lo + h]],
+        {stroke:true, color:col, weight:1.5, opacity:opacidad,
+         fillColor:col, fillOpacity:opacidad, pane:"raster"}).addTo(capaCeldas);
+    }
+    capaCeldas.addTo(mapa);
+  }
+
   function pintaMapa(){
+    if(capaImg){ mapa.removeLayer(capaImg); capaImg = null; }
+    if(capaCeldas){ mapa.removeLayer(capaCeldas); capaCeldas = null; }
+    if(CAPAS[capa].celdas){ pintaCeldas(); dibujaLeyenda(); return; }
     const c = CAPAS[capa], b = bytes[capa];
     const fut = capa === "tx" && momento !== "hoy";
     // el maximo sube con el escenario, pero la escala se mantiene fija para que
@@ -720,11 +962,10 @@ function montaMapa(){
         if(fut) val += deltaEn(lat, lon);
         const rgb = colorRampa((val - lo)/(hi - lo));
         img.data[k] = rgb[0]; img.data[k+1] = rgb[1]; img.data[k+2] = rgb[2];
-        img.data[k+3] = 218;
+        img.data[k+3] = Math.round(opacidad * 255);
       }
     }
     ctx.putImageData(img, 0, 0);
-    if(capaImg) mapa.removeLayer(capaImg);
     capaImg = L.imageOverlay(lienzo.toDataURL(), LIM,
       {opacity:1, interactive:false, pane:"raster"}).addTo(mapa);
     dibujaLeyenda();
@@ -734,7 +975,10 @@ function montaMapa(){
     const c = CAPAS[capa];
     const g = RAMPA.map((h,i)=>`${h} ${(i/(RAMPA.length-1)*100).toFixed(0)}%`).join(",");
     const n = 5, ticks = [];
-    for(let i=0;i<n;i++) ticks.push(fmt(c.lo + (c.hi-c.lo)*i/(n-1), 0));
+    // la capa de tendencia va en decimas de grado: con cero decimales la
+    // leyenda decia "de 0 a 0"
+    const dec = (c.hi - c.lo) < 3 ? 2 : 0;
+    for(let i=0;i<n;i++) ticks.push(fmt(c.lo + (c.hi-c.lo)*i/(n-1), dec));
     $("#leyenda-mapa").innerHTML =
       `<span style="color:var(--tinta2)">${c.desc}</span>
        <span style="display:inline-flex;align-items:center;gap:8px">
@@ -743,7 +987,12 @@ function montaMapa(){
          <span>≥&thinsp;${ticks[n-1]}${c.u}</span></span>
        <span style="color:var(--tinta3)">más oscuro = más ${capa==="alt"?"alto":"calor"}</span>
        <span id="lectura" style="margin-left:auto;font-variant-numeric:tabular-nums;color:var(--tinta)"></span>`;
-    const extra = momento === "hoy"
+    const extra = CAPAS[capa].celdas
+      ? `Tendencia medida con 72 años de observación (ROCIO, de AEMET). Celdas de 5&nbsp;km,
+         no de 1: esa es la resolución real del dato. Nueve celdas del extremo oriental dan
+         tendencia negativa; están en el borde con León, donde la interpolación tiene pocos
+         termómetros detrás, y conviene no leerlas como un dato firme.`
+      : momento === "hoy"
       ? "Climatología observada 2011-2025."
       : `${PER_N[momento]}, escenario ${ESC_N[escenario]}. <strong>La escala de color es la misma que en «hoy»</strong>, así que el oscurecimiento del mapa es el calentamiento.`;
     $("#pie-mapa").innerHTML = capa === "alt"
@@ -787,6 +1036,10 @@ function montaMapa(){
   segmentado("#seg-capa", v=>{ capa=v; pintaMapa(); });
   segmentado("#seg-momento", v=>{ momento=v; pintaMapa(); });
   segmentado("#seg-esc", v=>{ escenario=v; if(momento!=="hoy") pintaMapa(); else dibujaLeyenda(); });
+  $("#opac").addEventListener("input", ev=>{
+    opacidad = +ev.target.value / 100;
+    pintaMapa();
+  });
   $("#chk-est").addEventListener("change", ev=>{
     verEstaciones = ev.target.checked;
     verEstaciones ? capaEst.addTo(mapa) : mapa.removeLayer(capaEst);
@@ -796,17 +1049,29 @@ function montaMapa(){
   mapa.on("mousemove", ev=>{
     const l = document.getElementById("lectura"); if(!l) return;
     const {lat, lng} = ev.latlng;
-    const sy = Math.round((lat - M.s)/M.paso - 0.5), sx = Math.round((lng - M.o)/M.paso - 0.5);
-    if(sy<0||sy>=M.ny||sx<0||sx>=M.nx){ l.textContent=""; return; }
-    const q = bytes[capa][sy*M.nx + sx];
-    if(q === 0){ l.textContent = "mar"; return; }
     const c = CAPAS[capa];
+    const g = lugarDe(lat, lng);
+    const sitio = g ? `<span style="color:var(--tinta2)">${g.km < 3 ? "" :
+      Math.round(g.km) + " km de "}${g.n}</span>` : "";
+    if(c.celdas){
+      const T = MAPA_D.tendencia; let mej = null, d0 = 1e9;
+      for(const [la, lo, v] of T.c){
+        const d = Math.hypot(lat - la, (lng - lo) * Math.cos(lat*Math.PI/180));
+        if(d < d0){ d0 = d; mej = v; }
+      }
+      l.innerHTML = d0 > 0.06 ? "" : `${sitio} &nbsp; <b>${sig(mej,2)}${c.u}</b>`;
+      return;
+    }
+    const sy = Math.round((lat - M.s)/M.paso - 0.5), sx = Math.round((lng - M.o)/M.paso - 0.5);
+    if(sy<0||sy>=M.ny||sx<0||sx>=M.nx){ l.innerHTML=""; return; }
+    const q = bytes[capa][sy*M.nx + sx];
+    if(q === 0){ l.innerHTML = `${sitio} &nbsp; <b>mar</b>`; return; }
     let v = QLIM[capa].lo + (q-1)/254*(QLIM[capa].hi - QLIM[capa].lo);
     if(capa === "tx") v += SESGO;
     if(capa === "tx" && momento !== "hoy") v += deltaEn(lat, lng);
-    l.textContent = fmt(v, capa==="alt"?0:1) + c.u;
+    l.innerHTML = `${sitio} &nbsp; <b>${fmt(v, capa==="alt"||capa==="d32"?0:1)}${c.u}</b>`;
   });
-  mapa.on("mouseout", ()=>{ const l=document.getElementById("lectura"); if(l) l.textContent=""; });
+  mapa.on("mouseout", ()=>{ const l=document.getElementById("lectura"); if(l) l.innerHTML=""; });
 
   pintaMapa();
 }
@@ -1071,7 +1336,8 @@ function dibujaFichas(){
     ["hr_verano","Humedad media en verano"," %",false]];
   let h = `<h3>Cuatro sitios, uno de cada tipo</h3>
     <p>Estaciones reales de MeteoGalicia, sin ningún modelo de por medio. La última fila añade
-    la anomalía proyectada de su celda de 5&nbsp;km para 2041-2070 con SSP2-4.5.</p>
+    la <span class="gl" data-t="anomalia">anomalía</span> proyectada de su celda de 5&nbsp;km para 2041-2070
+    con SSP2-4.5.</p>
     <div class="tabla-caja"><table class="suelta"><thead><tr><th></th>`;
   fichas.forEach(f=>h += `<th>${f.e.concello}<br><span style="font-weight:400;text-transform:none;
     letter-spacing:0;color:var(--tinta3)">${f.et} · ${fmt(f.e.alt,0)} m</span></th>`);
@@ -1141,11 +1407,11 @@ function dibujaSeries(){
 }
 
 const DIBUJOS = [dibujaBrecha, dibujaEscenarios, dibujaDias30, dibujaEstaciones,
-                 dibujaFichas, dibujaSeries];
+                 dibujaFichas, dibujaSeries, dibujaMinis];
 DIBUJOS.forEach(f=>f());
 
 /* ========================================================= tablas de texto */
-$("#tabla-fuentes").innerHTML = `<div class="tabla-caja"><table class="suelta"><thead><tr>
+const HTML_FUENTES = `<div class="tabla-caja"><table class="suelta"><thead><tr>
   <th>Fuente</th><th>Resolución</th><th>Periodo</th><th>Para qué se usa</th></tr></thead><tbody>
   <tr><td>ERA5-Land (Copernicus)</td><td>9 km</td><td>2011-2025</td><td>climatología base, horaria</td></tr>
   <tr><td>WRF 1 km (MeteoGalicia)</td><td>1 km</td><td>251 días cálidos</td><td>el patrón fino del terreno</td></tr>
@@ -1154,6 +1420,8 @@ $("#tabla-fuentes").innerHTML = `<div class="tabla-caja"><table class="suelta"><
   <tr><td>ROCIO_IBEB (AEMET)</td><td>5 km</td><td>1951-2022</td><td>72 años de observación en rejilla</td></tr>
   <tr><td>AdapteCCa · CMIP6</td><td>5 km</td><td>1971-2100</td><td>proyecciones, 11 modelos, 4 escenarios</td></tr>
   </tbody></table></div>`;
+$("#tabla-fuentes").innerHTML = HTML_FUENTES;
+$("#tabla-fuentes-intro").innerHTML = HTML_FUENTES;
 
 $("#tabla-validacion").innerHTML = `<div class="tabla-caja"><table class="suelta"><tbody>
   <tr><td>Estaciones utilizables</td><td>145 de 153</td></tr>
@@ -1200,6 +1468,157 @@ $("#meta-fecha").textContent =
     {day:"numeric", month:"long", year:"numeric"}) +
   " · 13 pasos de análisis · 40.050 puntos de 1 km · 298 estaciones · 11 modelos climáticos";
 
+
+
+
+/* ============================================== mapas pequenios de contexto
+   Se dibujan con la MISMA malla del mapa grande: donde el byte es 0 hay mar o
+   falta el dato, y donde no, tierra. Asi no hace falta ningun contorno externo
+   y la silueta siempre coincide con lo que se ha analizado de verdad. */
+function dibujaMinis(){
+  const cont = $("#minis-extremos"); if(!cont || !D.extremos) return;
+  cont.innerHTML = "";
+  const M = MAPA_D.malla;
+  const bytes = (()=>{ const b = atob(M.tx.d), a = new Uint8Array(b.length);
+    for(let i=0;i<b.length;i++) a[i]=b.charCodeAt(i); return a; })();
+
+  const paneles = [
+    {t:"Los cuatro más frescos", s:"percentil 99 de la máxima más bajo de Galicia",
+     p:D.extremos.frescos, col:"#86b6ef"},
+    {t:"Los cuatro más calurosos", s:"percentil 99 de la máxima más alto",
+     p:D.extremos.calidos, col:"#0d366b"}
+  ];
+  for(const pa of paneles){
+    const d = document.createElement("div");
+    d.className = "mini";
+    d.innerHTML = `<h4>${pa.t}</h4><p class="sub">${pa.s}</p>`;
+    const cv = document.createElement("canvas");
+    const ESC = 2;
+    cv.width = M.nx * ESC; cv.height = M.ny * ESC;
+    const ctx = cv.getContext("2d");
+    ctx.fillStyle = getComputedStyle(document.documentElement)
+      .getPropertyValue("--rejilla").trim() || "#e1e0d9";
+    for(let y=0; y<M.ny; y++)
+      for(let x=0; x<M.nx; x++)
+        if(bytes[y*M.nx + x] !== 0)
+          ctx.fillRect(x*ESC, (M.ny-1-y)*ESC, ESC, ESC);   // el lienzo va al reves
+    pa.p.forEach((q, i)=>{
+      const x = ((q.lon - M.o)/M.paso) * ESC;
+      const y = (M.ny - (q.lat - M.s)/M.paso) * ESC;
+      ctx.beginPath(); ctx.arc(x, y, 9, 0, 7);
+      ctx.fillStyle = pa.col; ctx.fill();
+      ctx.lineWidth = 3; ctx.strokeStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue("--sup").trim() || "#fff"; ctx.stroke();
+      ctx.fillStyle = pa.col === "#86b6ef" ? "#0b0b0b" : "#fff";
+      ctx.font = "bold 11px system-ui"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.fillText(String(i+1), x, y);
+    });
+    d.appendChild(cv);
+    const ol = document.createElement("ol");
+    ol.innerHTML = pa.p.map(q=>`<li><b>${q.cerca.charAt(0)+q.cerca.slice(1).toLowerCase()}</b>
+      ${q.km > 3 ? `<span style="color:var(--tinta3)">(a ${fmt(q.km)} km)</span>` : ""}
+      · ${fmt(q.tx)} °C · ${q.d32} días &gt;32 °C · ${fmt(q.alt,0)} m</li>`).join("");
+    d.appendChild(ol);
+    cont.appendChild(d);
+  }
+  // con id, para no acumular una copia de la nota en cada redibujo
+  let nota = document.getElementById("nota-minis");
+  if(!nota){
+    nota = document.createElement("p");
+    nota.id = "nota-minis"; nota.className = "pie-fig";
+    cont.parentNode.insertBefore(nota, cont.nextSibling);
+  }
+  nota.innerHTML = `Cada punto es de un sitio distinto: se obliga a que disten al menos
+    25&nbsp;km entre sí, porque si no los cuatro más calurosos salían del mismo kilómetro
+    cuadrado de Valdeorras. El nombre es el del municipio con estación meteorológica más
+    cercano, no necesariamente el del punto. Los valores son la media de 2011-2025, no una
+    predicción. <strong>Solo entran puntos dentro de Galicia</strong>: el dominio del modelo
+    es un rectángulo que incluye franjas de Portugal, Asturias y León, y sin recortarlo el
+    segundo sitio más fresco de la lista caía en Caminha.`;
+}
+
+/* ======================================================== glosario =======
+   Casi todos los comentarios de la primera revision pedian lo mismo: que un
+   termino se explique DONDE se usa, no solo al final. Cada <span class="gl">
+   saca su definicion al pasar el raton o al pincharlo. */
+const GLOSARIO = {
+  txp99: ["Percentil 99 de la máxima",
+    "De las 365 temperaturas máximas de un año, la que solo superan unas tres. No es la máxima absoluta —que puede ser un día raro— sino el nivel de los días verdaderamente calurosos, que es lo que se repite cada verano.",
+    "Se calcula sobre los 15 años de la climatología, punto por punto."],
+  humidex: ["Humidex",
+    "Combina temperatura y humedad en una sola cifra: la temperatura que «se siente». Con 34 °C y 60 % de humedad el humidex es 46. Por encima de 40 hay malestar fuerte; por encima de 45, riesgo de golpe de calor.",
+    "Fórmula canadiense estándar, a partir del punto de rocío."],
+  rangos: ["Correlación de rangos",
+    "Mide si dos listas ordenan los sitios igual, sin importar los valores. Vale 1 si el orden es idéntico y 0 si no tienen nada que ver. Aquí interesa más que el valor absoluto: la pregunta no es «cuántos grados» sino «qué sitio es más fresco que cuál».",
+    "Rho de Spearman."],
+  sen: ["Pendiente de Sen",
+    "Una forma de medir cuánto sube una serie por década: se calcula la pendiente entre todos los pares de años y se toma la mediana. A diferencia de una recta normal, un solo verano extremo no la arrastra.",
+    "La significación se comprueba con el test de Mann-Kendall."],
+  ssp: ["Escenarios SSP",
+    "Cuánto CO₂ emitirá el mundo. SSP1-2.6 es el optimista (emisiones que caen pronto); SSP2-4.5 el intermedio, hacia donde apuntan las políticas actuales; SSP3-7.0 el de emisiones altas; SSP5-8.5 el extremo. No son predicciones: son supuestos de partida.",
+    "Los cuatro coinciden hasta 2040; solo se separan después."],
+  cdd: ["Grados-día de refrigeración",
+    "Suma, día a día, los grados que la temperatura media supera los 18 °C. Aproxima cuánta energía haría falta para refrigerar: no distingue un día muy caluroso de tres templados, mide el total del verano.",
+    "Es la cifra que mejor traduce el calor a factura eléctrica."],
+  olacalor: ["Duración máxima de ola de calor",
+    "La racha más larga del año de días consecutivos por encima del umbral de calor del lugar. Importa aparte de la temperatura: tres días seguidos a 35 °C se soportan mucho peor que tres días sueltos, porque la casa no se enfría por la noche.",
+    ""],
+  nochestrop: ["Noches tropicales",
+    "Noches en las que la mínima no baja de 20 °C. Es lo que impide dormir y lo que hace que el calor se acumule día tras día. Galicia tiene casi ninguna, y es su mayor ventaja frente al Mediterráneo.",
+    ""],
+  rocio: ["ROCIO_IBEB",
+    "Rejilla de AEMET con la temperatura diaria observada de toda España desde 1951, a 5 km. No es un modelo: es interpolación de miles de termómetros reales. Es la fuente con más años de todo el trabajo, y por eso la que mide la tendencia de fondo.",
+    "1951-2022 · 1.174 celdas en Galicia."],
+  cmip6: ["CMIP6",
+    "El conjunto de modelos climáticos globales con el que trabaja el IPCC. AEMET los regionaliza a 5 km para España. Aquí se usan once, y en vez de promediarlos se enseña el rango entre ellos: esa horquilla es la incertidumbre real.",
+    "Vía el visor AdapteCCa de AEMET y el Ministerio."],
+  era5: ["ERA5-Land",
+    "Reanálisis europeo: un modelo que reconstruye hora a hora el estado de la atmósfera pasada, forzado con todas las observaciones disponibles. Da 9 km de resolución y es la climatología base de este trabajo.",
+    "2011-2025 · 328 celdas en Galicia."],
+  wrf: ["WRF 1 km",
+    "Modelo atmosférico que MeteoGalicia corre a 1 km sobre Galicia. Solo tiene archivo desde 2021, demasiado poco para una climatología, pero suficiente para captar el dibujo fino del terreno.",
+    "Se descargaron los 251 días más cálidos."],
+  anomalia: ["Anomalía",
+    "La diferencia respecto a un periodo de referencia, no el valor en sí. Las proyecciones se usan siempre así: no «en 2060 hará 38 °C» sino «hará 2,9 °C más que en 1971-2000». Las anomalías son mucho más fiables que los absolutos porque los sesgos del modelo se cancelan.",
+    ""],
+  p10p90: ["Horquilla entre modelos",
+    "El rango entre el modelo más frío y el más cálido de los once, descartando los extremos. Cuando la banda es ancha, los modelos no se ponen de acuerdo y la cifra central merece menos confianza.",
+    "Percentiles 10 y 90."],
+  sesgo: ["Sesgo del campo",
+    "El campo modelado da temperaturas 2,7 °C más bajas que los termómetros, porque una celda es una media de área y las medias no alcanzan los extremos de un punto. En el mapa se corrige esa cantidad; para el orden entre sitios da igual, porque es la misma resta en todas partes.",
+    "Medido contra 145 estaciones reales."]
+};
+(function(){
+  const caja = $("#defi");
+  let dentro = false;
+  function muestra(el){
+    const k = el.dataset.t, g = GLOSARIO[k];
+    if(!g) return;
+    caja.innerHTML = `<b>${g[0]}</b>${g[1]}` + (g[2] ? `<div class="comose">${g[2]}</div>` : "");
+    caja.style.display = "block";
+    const r = el.getBoundingClientRect(), c = caja.getBoundingClientRect();
+    let x = Math.min(r.left, innerWidth - c.width - 12);
+    let y = r.bottom + 8;
+    if(y + c.height > innerHeight - 12) y = r.top - c.height - 8;
+    caja.style.left = Math.max(12, x) + "px";
+    caja.style.top = Math.min(Math.max(12, y), innerHeight - c.height - 12) + "px";
+  }
+  const esconde = ()=>{ if(!dentro) caja.style.display = "none"; };
+  document.addEventListener("pointerover", ev=>{
+    const el = ev.target.closest(".gl");
+    if(el) muestra(el); else if(!ev.target.closest("#defi")) esconde();
+  });
+  caja.addEventListener("pointerenter", ()=> dentro = true);
+  caja.addEventListener("pointerleave", ()=>{ dentro = false; esconde(); });
+  document.addEventListener("click", ev=>{
+    const el = ev.target.closest(".gl");
+    if(el){ ev.preventDefault(); muestra(el); }
+  });
+  // la lista completa al final, para quien prefiera leerla de corrido
+  const dl = $("#lista-glosario");
+  if(dl) dl.innerHTML = Object.values(GLOSARIO).sort((a,b)=>a[0].localeCompare(b[0],"es"))
+    .map(g=>`<dt>${g[0]}</dt><dd>${g[1]}${g[2]?` <span style="color:var(--tinta3)">${g[2]}</span>`:""}</dd>`).join("");
+})();
 
 /* ==================================================== modo comentario ====
    Sin almacenamiento del navegador a proposito: los comentarios viven en

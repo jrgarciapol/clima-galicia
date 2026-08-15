@@ -41,6 +41,7 @@ def cuantiza(m, lo, hi):
     return base64.b64encode(b.tobytes()).decode()
 
 tx = rasteriza(a.tx_p99_1km.values)
+d32 = rasteriza(a.wrf_n_ge32.values.astype(float))
 hx = rasteriza(a.hx_p99_1km.values)
 alt = rasteriza(a.altitud.values)
 LO_TX, HI_TX = 18.0, 42.0
@@ -48,7 +49,8 @@ LO_HX, HI_HX = 22.0, 48.0
 OUT["malla"] = {"s": S, "o": O, "paso": PASO, "ny": ny, "nx": nx,
                 "tx": {"lo": LO_TX, "hi": HI_TX, "d": cuantiza(tx, LO_TX, HI_TX)},
                 "hx": {"lo": LO_HX, "hi": HI_HX, "d": cuantiza(hx, LO_HX, HI_HX)},
-                "alt": {"lo": 0.0, "hi": 1800.0, "d": cuantiza(alt, 0, 1800)}}
+                "alt": {"lo": 0.0, "hi": 1800.0, "d": cuantiza(alt, 0, 1800)},
+                "d32": {"lo": 0.0, "hi": 170.0, "d": cuantiza(d32, 0, 170)}}
 print(f"malla {ny}x{nx}, cobertura {np.isfinite(tx).mean():.1%}, "
       f"tx {np.nanmin(tx):.1f}-{np.nanmax(tx):.1f}")
 
@@ -71,5 +73,18 @@ for e in ESC:
         OUT["delta"]["v"][f"{e}|{p}"] = [None if not np.isfinite(x) else round(float(x),2)
                                          for x in m.ravel()]
 print(f"delta {len(la_i)}x{len(lo_i)} x {len(OUT['delta']['v'])} capas")
+# Tendencia observada 1951-2022 (ROCIO). Se manda como lista de celdas, no
+# como rejilla: la malla de ROCIO viene de un polo rotado, asi que sus lat/lon
+# no caen en una cuadricula regular. Forzarla a una lo inflaba a 5,7 MB de los
+# que el 99,9 % eran huecos.
+ro = pd.read_csv(f"{R}/rocio_tendencias.csv")
+ro = ro[np.isfinite(ro.tx_verano_tend)]
+OUT["tendencia"] = {"paso": 0.05,
+                    "c": [[round(float(a_), 3), round(float(b_), 3), round(float(v), 3)]
+                          for a_, b_, v in zip(ro.lat, ro.lon, ro.tx_verano_tend)]}
+print(f"tendencia ROCIO: {len(OUT['tendencia']['c'])} celdas "
+      f"({min(c[2] for c in OUT['tendencia']['c']):+.2f} a "
+      f"{max(c[2] for c in OUT['tendencia']['c']):+.2f} C/decada)")
+
 json.dump(OUT, open("datos_mapa.json", "w"), separators=(",", ":"))
 print("datos_mapa.json", os.path.getsize("datos_mapa.json")/1e6, "MB")
