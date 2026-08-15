@@ -42,7 +42,7 @@ cada variable y en qué punto está el trabajo.
 | 9 | Proyecciones climáticas de AdapteCCa | 🔍 catálogo reconocido, falta la descarga |
 | 10 | Validación contra las 153 estaciones | ✅ hecho |
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
-| 12 | Series largas de AEMET para la tendencia | 🔄 descargando |
+| 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
 | 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | ✅ hecho |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
@@ -892,6 +892,48 @@ no solo son más frescos hoy, sino que además se están calentando más despaci
 orden entre sitios debería aguantar, y la ventaja de la costa noroeste crece con
 el tiempo en vez de encogerse.
 
+#### Los termómetros de AEMET lo confirman sin modelo por medio (paso 12)
+
+58 estaciones, 1.108 años-estación, series diarias descargadas una a una de
+AEMET OpenData. Nada de reanálisis ni de interpolación: termómetro y libro de
+registro.
+
+**La prueba que importaba** era medir la *misma ventana* que la nuestra. 18
+estaciones tienen 2011-2025 completo:
+
+| | tx_verano |
+|---|---|
+| mediana de las 18 estaciones | **+1,13 °C/década** |
+| rango p10-p90 | +0,25 a +2,86 |
+| nuestro ERA5-Land, misma ventana | +1,31 |
+| ROCIO, 1951-2022 | +0,20 |
+
+**Nuestro +1,31 no era un artefacto.** Los termómetros, por su cuenta y con otro
+método, dan +1,13 para el mismo periodo. La diferencia entre +1,3 y +0,2 no
+estaba en el modelo: estaba en el periodo.
+
+**Y confirman que las ventanas cortas no engañan.** En las 6 estaciones con más
+de 40 años, la mediana de todas sus ventanas de 15 años menos su tendencia larga
+es **−0,06 °C/década**. Prácticamente cero, igual que en ROCIO (+0,02). Una
+ventana de 15 años es imprecisa, no tramposa.
+
+**Comparación justa, mismo periodo 1980-2025 para todas:**
+
+| estación | tx_verano | tx_p99 | días >30 °C |
+|---|---|---|---|
+| A Coruña | +0,38 | +0,33 | **+0,00** /década |
+| A Coruña Aeropuerto | +0,26 | +0,18 | +0,28 |
+| Santiago Aeropuerto | +0,37 | +0,28 | +0,83 |
+| Vigo Aeropuerto | +0,60 | +0,58 | +2,50 |
+| **Ourense** | +0,57 | +0,50 | **+7,41** |
+
+Es la brecha de ROCIO, medida con termómetros y sin ninguna cadena de proceso
+por medio. En temperatura media la diferencia parece modesta —+0,26 frente a
++0,57—, pero en **lo que decide la habitabilidad** es abismal: A Coruña gana
+**cero** días de más de 30 °C por década y Ourense gana **siete y medio**. En
+los 45 años de la serie, eso son 33 días de verano que Ourense ha ganado y A
+Coruña no.
+
 ### 8.6 Errores propios que conviene no repetir
 
 Van aquí porque todos eran silenciosos —ninguno producía una excepción— y
@@ -962,6 +1004,9 @@ plantilla_est.html              plantilla del mapa (la usa el paso 11)
 12_aemet.py                     series largas de AEMET y sesgo de ventana corta
 13_rocio.py                     rejilla ROCIO_IBEB de 5 km, 1951-2022
 
+sincroniza.py                   pull / instalar kit / push, sin subir datos brutos
+.gitignore                      la primera red: qué no llega nunca a GitHub
+
 test_indices.py                 índices térmicos y de extremos
 test_malla.py                   paso 2 de extremo a extremo
 test_wrf.py                     catálogo THREDDS y fusión de escalas
@@ -969,6 +1014,7 @@ test_evolucion.py               pendiente de Sen y Mann-Kendall
 test_retorno.py                 Gumbel, bulbo húmedo y no estacionariedad
 test_aemet.py                   formato de AEMET y sesgo de ventana corta
 test_rocio.py                   recorte de la rejilla y tendencia larga
+test_sincroniza.py              que aborta antes de subir datos o credenciales
 ```
 
 Las pruebas trabajan en un directorio temporal propio (variable `GAL_BASE`), así
@@ -989,6 +1035,89 @@ que **nunca borran descargas reales**.
 | Tras el paso 13 | `resumen_rocio.txt`, `rocio_tendencias.csv` |
 | Reconocimientos | `wrf_exploracion.txt`, `adaptecca_exploracion.txt`, `wrf_fallos.txt` |
 
-**Nunca**: las carpetas `descargas/`, `wrf/` y `aemet/` (datos brutos, regenerables)
-ni los ficheros `.cdsapirc` y `.aemetrc`. El límite de subida por el navegador de GitHub es de
-**25 MiB por fichero**.
+**Nunca**: las carpetas `descargas/`, `wrf/`, `aemet/` y `rocio/` (datos brutos,
+regenerables) ni los ficheros `.cdsapirc` y `.aemetrc`. El límite de subida por
+el navegador de GitHub es de **25 MiB por fichero**.
+
+### Trabajar con git en vez de subir a mano
+
+Subir ficheros uno a uno por el navegador funciona, pero cansa. Con el
+repositorio clonado en el disco duro, `git pull` trae los scripts nuevos y
+`git push` sube las salidas, sin tocar el navegador.
+
+**Lo que protege el repositorio es `.gitignore`**, que está en la raíz del kit y
+tiene que estar *commiteado* antes de la primera subida. Excluye:
+
+```
+descargas/   wrf/   aemet/   rocio/     # datos brutos, decenas de GB
+*.nc  *.tar.gz  *.grib                  # cualquier fichero de datos suelto
+.cdsapirc  .aemetrc                     # credenciales
+__pycache__/  _pruebas*/                # basura de Python y de los tests
+```
+
+Con eso, aunque el clon esté en la misma carpeta donde se descargan los datos,
+`git status` no ve las carpetas pesadas y **no hay forma de subirlas por
+descuido**. Un `git add .` es seguro.
+
+Primera vez, en la carpeta del proyecto (Windows o Raspberry, da igual):
+
+```bash
+git clone https://github.com/jrgarciapol/clima-galicia.git
+```
+
+Si la carpeta ya existe con datos dentro y no se quiere mover nada:
+
+```bash
+cd carpeta-del-proyecto
+git init
+git remote add origin https://github.com/jrgarciapol/clima-galicia.git
+git fetch origin
+git checkout -t origin/main -f      # el .gitignore llega en este paso
+```
+
+#### `sincroniza.py`: el ciclo en un comando
+
+Se ejecuta **dentro de la carpeta del proyecto**, la que tiene el `.git`. Da
+igual desde qué subcarpeta: busca la raíz él solo.
+
+```bash
+python sincroniza.py                       # traer lo último (git pull)
+python sincroniza.py clima-galicia.zip     # instalar un kit nuevo y subirlo
+python sincroniza.py --subir               # subir las salidas generadas
+python sincroniza.py --revisar             # solo comprobar, sin subir nada
+```
+
+Un ciclo completo queda así. En el PC, tras recibir un kit:
+
+```bash
+python sincroniza.py clima-galicia.zip
+```
+
+En la Raspberry, antes de ejecutar un paso:
+
+```bash
+python sincroniza.py
+python 12_aemet.py --analizar
+python sincroniza.py --subir -m "salidas del paso 12"
+```
+
+**Lo que aporta no es ahorrar comandos, es la comprobación previa.** Antes de
+cada subida lista lo que va a subir con su tamaño y **aborta** si encuentra:
+
+| Qué caza | Ejemplo |
+|---|---|
+| carpetas de datos brutos, a cualquier profundidad | `salidas/wrf/d02.nc` |
+| extensiones de datos | `.nc`, `.grib`, `.tar.gz`, `.parcial` |
+| credenciales | `.aemetrc`, `.cdsapirc` |
+| **cualquier fichero de más de 20 MB**, aunque sea `.csv` | `salida_enorme.csv` |
+
+El último es el que de verdad hace falta: el `.gitignore` cubre lo previsible,
+y esta comprobación cubre lo que no se le ocurrió a nadie. Son dos redes
+independientes, y `test_sincroniza.py` comprueba las dos por separado —monta un
+repositorio de git real y le mete un `.nc`, una credencial y un CSV de 23 MB—.
+
+Importa porque **subir un fichero grande no se deshace**: aunque se borre
+después, sigue en el historial de git y GitHub lo sirve igual. Hay que
+arreglarlo *antes* del push, con `git rm --cached -r <ruta>` (que lo saca del
+índice sin borrarlo del disco). Y si lo que se cuela es una credencial, no basta
+con borrarla: hay que darla por comprometida y regenerarla.

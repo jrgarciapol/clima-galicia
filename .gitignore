@@ -15,6 +15,17 @@ __pycache__/
 # Directorios temporales que crean los tests
 _pruebas*/
 
+# El propio kit comprimido: se descomprime encima, no hace falta guardarlo.
+# El patron es amplio a proposito: el nombre del zip cambia segun como lo
+# guarde el navegador (clima-galicia.zip, climagalicia.zip, ...(1).zip).
+*.zip
+
+# Intermedio del paso 3: el registro diario CRUDO de las 153 estaciones de
+# MeteoGalicia, unos 40 MB. No es un resultado, es la materia prima de la que
+# salen indices_estaciones.csv y evolucion_estaciones.csv, que si se suben y
+# pesan 80 y 360 KB. Se regenera con 03_estaciones_meteogalicia.py.
+estaciones_diario.csv
+
 # Nunca subas esto: son tus credenciales personales
 .cdsapirc
 .aemetrc

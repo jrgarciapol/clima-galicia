@@ -1,0 +1,524 @@
+[
+ {
+  "idema": "1387",
+  "nombre": "A Coruña",
+  "provincia": "A Coruña",
+  "altitud": 57.0,
+  "lat": 43.36583,
+  "lon": -8.42139,
+  "desde": 1940
+ },
+ {
+  "idema": "1387E",
+  "nombre": "A Coruña Aeropuerto",
+  "provincia": "A Coruña",
+  "altitud": 98.0,
+  "lat": 43.30694,
+  "lon": -8.37194,
+  "desde": 1980
+ },
+ {
+  "idema": "1387D",
+  "nombre": "A Coruña Bens",
+  "provincia": "A Coruña",
+  "altitud": 132.0,
+  "lat": 43.36333,
+  "lon": -8.44194,
+  "desde": 2015
+ },
+ {
+  "idema": "1363X",
+  "nombre": "As Pontes",
+  "provincia": "A Coruña",
+  "altitud": 343.0,
+  "lat": 43.44583,
+  "lon": -7.86139,
+  "desde": 2015
+ },
+ {
+  "idema": "1442U",
+  "nombre": "Boiro",
+  "provincia": "A Coruña",
+  "altitud": 10.0,
+  "lat": 42.64389,
+  "lon": -8.89222,
+  "desde": 2000
+ },
+ {
+  "idema": "1393",
+  "nombre": "Cabo Vilán",
+  "provincia": "A Coruña",
+  "altitud": 50.0,
+  "lat": 43.16056,
+  "lon": -9.21083,
+  "desde": 2000
+ },
+ {
+  "idema": "1390X",
+  "nombre": "Carballo, Depuradora",
+  "provincia": "A Coruña",
+  "altitud": 98.0,
+  "lat": 43.20361,
+  "lon": -8.71111,
+  "desde": 2015
+ },
+ {
+  "idema": "1351",
+  "nombre": "Estaca De Bares",
+  "provincia": "A Coruña",
+  "altitud": 90.0,
+  "lat": 43.78611,
+  "lon": -7.685,
+  "desde": 2000
+ },
+ {
+  "idema": "1354C",
+  "nombre": "Ferrol",
+  "provincia": "A Coruña",
+  "altitud": 4.0,
+  "lat": 43.47639,
+  "lon": -8.26222,
+  "desde": 2015
+ },
+ {
+  "idema": "1400",
+  "nombre": "Fisterra",
+  "provincia": "A Coruña",
+  "altitud": 230.0,
+  "lat": 42.92472,
+  "lon": -9.29139,
+  "desde": 1960
+ },
+ {
+  "idema": "1406X",
+  "nombre": "Mazaricos",
+  "provincia": "A Coruña",
+  "altitud": 340.0,
+  "lat": 42.93528,
+  "lon": -8.99361,
+  "desde": 2015
+ },
+ {
+  "idema": "1437O",
+  "nombre": "Monte Iroite",
+  "provincia": "A Coruña",
+  "altitud": 685.0,
+  "lat": 42.72056,
+  "lon": -8.92333,
+  "desde": 2000
+ },
+ {
+  "idema": "1435C",
+  "nombre": "Noia",
+  "provincia": "A Coruña",
+  "altitud": 128.0,
+  "lat": 42.80028,
+  "lon": -8.87611,
+  "desde": 2015
+ },
+ {
+  "idema": "1473A",
+  "nombre": "Padrón",
+  "provincia": "A Coruña",
+  "altitud": 100.0,
+  "lat": 42.73833,
+  "lon": -8.62722,
+  "desde": 2000
+ },
+ {
+  "idema": "1476R",
+  "nombre": "Rois, Casas Do Porto",
+  "provincia": "A Coruña",
+  "altitud": 210.0,
+  "lat": 42.74972,
+  "lon": -8.71472,
+  "desde": 2000
+ },
+ {
+  "idema": "1475X",
+  "nombre": "Santiago De Compostela",
+  "provincia": "A Coruña",
+  "altitud": 240.0,
+  "lat": 42.87611,
+  "lon": -8.55583,
+  "desde": 2000
+ },
+ {
+  "idema": "1428",
+  "nombre": "Santiago De Compostela Aeropuerto",
+  "provincia": "A Coruña",
+  "altitud": 370.0,
+  "lat": 42.88806,
+  "lon": -8.41056,
+  "desde": 1960
+ },
+ {
+  "idema": "1410X",
+  "nombre": "Sobrado",
+  "provincia": "A Coruña",
+  "altitud": 500.0,
+  "lat": 43.03778,
+  "lon": -8.02222,
+  "desde": 2015
+ },
+ {
+  "idema": "1399",
+  "nombre": "Vimianzo",
+  "provincia": "A Coruña",
+  "altitud": 287.0,
+  "lat": 43.0575,
+  "lon": -9.04694,
+  "desde": 1980
+ },
+ {
+  "idema": "1521X",
+  "nombre": "Becerreá",
+  "provincia": "Lugo",
+  "altitud": 1080.0,
+  "lat": 42.86389,
+  "lon": -7.18528,
+  "desde": 2015
+ },
+ {
+  "idema": "1347T",
+  "nombre": "Burela",
+  "provincia": "Lugo",
+  "altitud": 80.0,
+  "lat": 43.65111,
+  "lon": -7.35722,
+  "desde": 2000
+ },
+ {
+  "idema": "1297E",
+  "nombre": "Cervantes",
+  "provincia": "Lugo",
+  "altitud": 1020.0,
+  "lat": 42.76861,
+  "lon": -7.0175,
+  "desde": 2015
+ },
+ {
+  "idema": "1658",
+  "nombre": "Folgoso Do Courel",
+  "provincia": "Lugo",
+  "altitud": 612.0,
+  "lat": 42.58861,
+  "lon": -7.19167,
+  "desde": 1980
+ },
+ {
+  "idema": "1518A",
+  "nombre": "Lugo",
+  "provincia": "Lugo",
+  "altitud": 442.0,
+  "lat": 42.99833,
+  "lon": -7.5525,
+  "desde": 1980
+ },
+ {
+  "idema": "1505",
+  "nombre": "Lugo Aeropuerto",
+  "provincia": "Lugo",
+  "altitud": 442.0,
+  "lat": 43.11111,
+  "lon": -7.4575,
+  "desde": 2000
+ },
+ {
+  "idema": "1344X",
+  "nombre": "Mondoñedo",
+  "provincia": "Lugo",
+  "altitud": 125.0,
+  "lat": 43.43139,
+  "lon": -7.36167,
+  "desde": 2015
+ },
+ {
+  "idema": "1679A",
+  "nombre": "Monforte De Lemos",
+  "provincia": "Lugo",
+  "altitud": 291.0,
+  "lat": 42.53167,
+  "lon": -7.51083,
+  "desde": 1960
+ },
+ {
+  "idema": "1446X",
+  "nombre": "Monterroso",
+  "provincia": "Lugo",
+  "altitud": 680.0,
+  "lat": 42.80972,
+  "lon": -7.76833,
+  "desde": 2015
+ },
+ {
+  "idema": "1521I",
+  "nombre": "O Páramo",
+  "provincia": "Lugo",
+  "altitud": 403.0,
+  "lat": 42.84528,
+  "lon": -7.49944,
+  "desde": 1980
+ },
+ {
+  "idema": "1342X",
+  "nombre": "Ribadeo",
+  "provincia": "Lugo",
+  "altitud": 43.0,
+  "lat": 43.54056,
+  "lon": -7.08306,
+  "desde": 2015
+ },
+ {
+  "idema": "2969U",
+  "nombre": "A Gudiña",
+  "provincia": "Ourense",
+  "altitud": 910.0,
+  "lat": 42.02722,
+  "lon": -7.18306,
+  "desde": 2000
+ },
+ {
+  "idema": "1631E",
+  "nombre": "A Pobra De Trives",
+  "provincia": "Ourense",
+  "altitud": 840.0,
+  "lat": 42.33944,
+  "lon": -7.2825,
+  "desde": 2000
+ },
+ {
+  "idema": "1706A",
+  "nombre": "Allariz",
+  "provincia": "Ourense",
+  "altitud": 492.0,
+  "lat": 42.18278,
+  "lon": -7.79611,
+  "desde": 2000
+ },
+ {
+  "idema": "1696O",
+  "nombre": "Beariz",
+  "provincia": "Ourense",
+  "altitud": 610.0,
+  "lat": 42.46806,
+  "lon": -8.27806,
+  "desde": 1940
+ },
+ {
+  "idema": "1639X",
+  "nombre": "Chandrexa De Queixa",
+  "provincia": "Ourense",
+  "altitud": 990.0,
+  "lat": 42.26028,
+  "lon": -7.38361,
+  "desde": 2015
+ },
+ {
+  "idema": "1738U",
+  "nombre": "Muiños",
+  "provincia": "Ourense",
+  "altitud": 730.0,
+  "lat": 41.93417,
+  "lon": -7.98889,
+  "desde": 2000
+ },
+ {
+  "idema": "1583X",
+  "nombre": "O Barco De Valdeorras",
+  "provincia": "Ourense",
+  "altitud": 315.0,
+  "lat": 42.41556,
+  "lon": -6.99306,
+  "desde": 2015
+ },
+ {
+  "idema": "1700X",
+  "nombre": "O Carballiño",
+  "provincia": "Ourense",
+  "altitud": 400.0,
+  "lat": 42.42139,
+  "lon": -8.0925,
+  "desde": 2000
+ },
+ {
+  "idema": "1690A",
+  "nombre": "Ourense",
+  "provincia": "Ourense",
+  "altitud": 146.0,
+  "lat": 42.32528,
+  "lon": -7.85972,
+  "desde": 1980
+ },
+ {
+  "idema": "1690B",
+  "nombre": "Ourense,Instituto",
+  "provincia": "Ourense",
+  "altitud": 148.0,
+  "lat": 42.33222,
+  "lon": -7.86444,
+  "desde": 1960
+ },
+ {
+  "idema": "1701X",
+  "nombre": "Ribadavia",
+  "provincia": "Ourense",
+  "altitud": 112.0,
+  "lat": 42.3,
+  "lon": -8.12917,
+  "desde": 2015
+ },
+ {
+  "idema": "2978X",
+  "nombre": "Verín",
+  "provincia": "Ourense",
+  "altitud": 380.0,
+  "lat": 41.92667,
+  "lon": -7.42194,
+  "desde": 2015
+ },
+ {
+  "idema": "1735X",
+  "nombre": "Xinzo De Limia",
+  "provincia": "Ourense",
+  "altitud": 616.0,
+  "lat": 42.07917,
+  "lon": -7.73361,
+  "desde": 2015
+ },
+ {
+  "idema": "1719",
+  "nombre": "A Cañiza",
+  "provincia": "Pontevedra",
+  "altitud": 560.0,
+  "lat": 42.21806,
+  "lon": -8.28111,
+  "desde": 1960
+ },
+ {
+  "idema": "1468X",
+  "nombre": "A Estrada",
+  "provincia": "Pontevedra",
+  "altitud": 269.0,
+  "lat": 42.69361,
+  "lon": -8.50194,
+  "desde": 2015
+ },
+ {
+  "idema": "1489A",
+  "nombre": "A Lama",
+  "provincia": "Pontevedra",
+  "altitud": 395.0,
+  "lat": 42.40694,
+  "lon": -8.45111,
+  "desde": 2015
+ },
+ {
+  "idema": "1486E",
+  "nombre": "Escuela Naval De Marín",
+  "provincia": "Pontevedra",
+  "altitud": 20.0,
+  "lat": 42.39472,
+  "lon": -8.70667,
+  "desde": 1980
+ },
+ {
+  "idema": "1465U",
+  "nombre": "Lalin-Cristimil",
+  "provincia": "Pontevedra",
+  "altitud": 463.0,
+  "lat": 42.66556,
+  "lon": -8.1925,
+  "desde": 2015
+ },
+ {
+  "idema": "1730E",
+  "nombre": "O Rosal",
+  "provincia": "Pontevedra",
+  "altitud": 55.0,
+  "lat": 41.94389,
+  "lon": -8.8475,
+  "desde": 2000
+ },
+ {
+  "idema": "1723X",
+  "nombre": "Ponteareas, Canedo",
+  "provincia": "Pontevedra",
+  "altitud": 90.0,
+  "lat": 42.18222,
+  "lon": -8.49278,
+  "desde": 2015
+ },
+ {
+  "idema": "1484C",
+  "nombre": "Pontevedra",
+  "provincia": "Pontevedra",
+  "altitud": 113.0,
+  "lat": 42.43833,
+  "lon": -8.61583,
+  "desde": 2000
+ },
+ {
+  "idema": "1484",
+  "nombre": "Pontevedra, Instituto",
+  "provincia": "Pontevedra",
+  "altitud": 19.0,
+  "lat": 42.43056,
+  "lon": -8.64722,
+  "desde": 1980
+ },
+ {
+  "idema": "1455I",
+  "nombre": "Rodeiro-Vilamaior",
+  "provincia": "Pontevedra",
+  "altitud": 645.0,
+  "lat": 42.71111,
+  "lon": -7.95389,
+  "desde": 2015
+ },
+ {
+  "idema": "1466A",
+  "nombre": "Silleda",
+  "provincia": "Pontevedra",
+  "altitud": 435.0,
+  "lat": 42.70083,
+  "lon": -8.25778,
+  "desde": 2015
+ },
+ {
+  "idema": "1496X",
+  "nombre": "Vigo ",
+  "provincia": "Pontevedra",
+  "altitud": 120.0,
+  "lat": 42.23056,
+  "lon": -8.72417,
+  "desde": 2015
+ },
+ {
+  "idema": "1495",
+  "nombre": "Vigo Aeropuerto",
+  "provincia": "Pontevedra",
+  "altitud": 255.0,
+  "lat": 42.23861,
+  "lon": -8.62389,
+  "desde": 1960
+ },
+ {
+  "idema": "1477U",
+  "nombre": "Vilagarcia De Arousa",
+  "provincia": "Pontevedra",
+  "altitud": 36.0,
+  "lat": 42.58222,
+  "lon": -8.76972,
+  "desde": 2000
+ },
+ {
+  "idema": "1477V",
+  "nombre": "Vilagarcía De Arousa",
+  "provincia": "Pontevedra",
+  "altitud": 32.0,
+  "lat": 42.58472,
+  "lon": -8.77472,
+  "desde": 2015
+ }
+]

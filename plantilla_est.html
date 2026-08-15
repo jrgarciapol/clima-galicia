@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estaciones de MeteoGalicia — calor y su evolución</title>
+<style>
+  :root{ color-scheme: light; }
+  .viz-root{
+    --surface-1:#fcfcfb; --plane:#f9f9f7;
+    --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+    --tierra:#e8e7e0; --acento:#2a78d6; --sel:#0b0b0b;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])) .viz-root{ color-scheme: dark;
+      --surface-1:#1a1a19; --plane:#0d0d0d; --text-primary:#fff;
+      --text-secondary:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --axis:#383835;
+      --border:rgba(255,255,255,.10); --tierra:#2a2a27; --acento:#3987e5; --sel:#fff; }
+  }
+  :root[data-theme="dark"] .viz-root{ color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d; --text-primary:#fff;
+    --text-secondary:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --axis:#383835;
+    --border:rgba(255,255,255,.10); --tierra:#2a2a27; --acento:#3987e5; --sel:#fff; }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--plane);color:var(--text-primary);
+       font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .viz-root{max-width:1180px;margin:0 auto;padding:26px 20px 56px}
+  h1{font-size:25px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--text-secondary);margin:0 0 18px;max-width:74ch}
+  .panel{background:var(--surface-1);border:1px solid var(--border);
+         border-radius:12px;padding:16px;margin-bottom:18px}
+  h2{font-size:16px;margin:0 0 12px;letter-spacing:-.005em}
+  h2 small{font-weight:400;color:var(--text-secondary);font-size:13.5px}
+
+  .filtros{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+  .filtros label{font-size:13px;color:var(--text-secondary)}
+  select,button.chip{font:14px system-ui,sans-serif;color:var(--text-primary);
+    background:var(--surface-1);border:1px solid var(--axis);border-radius:8px;
+    padding:7px 11px;cursor:pointer}
+  select:focus-visible,button:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+  button.chip[aria-pressed="true"]{background:var(--acento);color:#fff;border-color:var(--acento)}
+
+  .cols{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}
+  @media(max-width:900px){.cols{grid-template-columns:1fr}}
+
+  .lienzo{position:relative;width:100%;aspect-ratio:366/277;border-radius:8px;overflow:hidden}
+  /* La silueta va como mascara y no como imagen: asi el color sale de la
+     variable del tema y no queda un continente gris claro sobre fondo negro. */
+  .lienzo .tierra{position:absolute;inset:0;background:var(--tierra);
+    -webkit-mask:var(--silueta) no-repeat center/100% 100%;
+            mask:var(--silueta) no-repeat center/100% 100%}
+  .pt{position:absolute;transform:translate(-50%,-50%);width:13px;height:13px;
+      border-radius:50%;border:1.5px solid var(--surface-1);padding:0;cursor:pointer;
+      box-shadow:0 0 0 .5px rgba(0,0,0,.28)}
+  .pt:hover,.pt:focus-visible{width:19px;height:19px;z-index:8;outline:none}
+  .pt[aria-pressed="true"]{width:19px;height:19px;z-index:9;
+      box-shadow:0 0 0 2.5px var(--sel)}
+  .pt.sinDato{background:var(--surface-1) !important;
+      box-shadow:0 0 0 1px var(--muted);opacity:.55}
+
+  .tip{position:absolute;z-index:20;pointer-events:none;background:var(--surface-1);
+       border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13px;
+       box-shadow:0 6px 22px rgba(0,0,0,.2);min-width:180px;display:none}
+  .tip b{display:block;margin-bottom:5px}
+  .tip i{font-style:normal;color:var(--muted);display:block;font-size:12px;margin-bottom:6px}
+  .tip div{display:flex;justify-content:space-between;gap:16px;color:var(--text-secondary)}
+  .tip div span:last-child{color:var(--text-primary);font-variant-numeric:tabular-nums}
+
+  .leyenda{display:flex;margin:14px 0 0;border-radius:3px;overflow:hidden}
+  .leyenda span{flex:1;height:13px}
+  .lgnd{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+
+  .ficha{border-bottom:1px solid var(--grid);padding-bottom:12px;margin-bottom:12px}
+  .ficha h3{margin:0 0 2px;font-size:19px;letter-spacing:-.01em}
+  .ficha p{margin:0;color:var(--text-secondary);font-size:13.5px}
+  .cifras{display:flex;gap:26px;flex-wrap:wrap;margin-top:12px}
+  .cifra{min-width:88px}
+  .cifra b{display:block;font-size:23px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .cifra span{font-size:12px;color:var(--muted)}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .vacio{color:var(--muted);font-size:14px;padding:36px 4px;text-align:center}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:6px 9px;border-bottom:1px solid var(--grid)}
+  th{color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;
+     letter-spacing:.04em;cursor:pointer;user-select:none}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  tbody tr{cursor:pointer}
+  tbody tr:hover,tbody tr[aria-selected="true"]{background:color-mix(in srgb,var(--acento) 12%,transparent)}
+  details{margin-top:6px}
+  summary{cursor:pointer;color:var(--text-secondary);font-size:13.5px;padding:6px 0}
+  .pie{color:var(--muted);font-size:12.5px;margin-top:22px;max-width:80ch}
+</style>
+</head>
+<body>
+<div class="viz-root">
+
+  <h1>Las 147 estaciones de MeteoGalicia</h1>
+  <p class="sub">Termómetros reales, sin modelo de por medio. Elige el criterio para colorear
+  el mapa y pincha en cualquier estación para ver cómo ha ido cambiando año a año.</p>
+
+  <div class="panel">
+    <div class="filtros">
+      <label for="v">Criterio</label>
+      <select id="v"></select>
+      <label for="pr">Provincia</label>
+      <select id="pr"><option value="">todas</option></select>
+      <button class="chip" id="litoral" aria-pressed="false">solo litoral (&lt; 8 km del mar)</button>
+      <button class="chip" id="bajo" aria-pressed="false">solo por debajo de 400 m</button>
+    </div>
+
+    <div class="cols">
+      <div>
+        <div class="lienzo" id="lienzo">
+          <div class="tierra" id="silueta" role="img" aria-label="Contorno de Galicia"></div>
+          <div class="tip" id="tip"></div>
+        </div>
+        <div class="leyenda" id="leyenda"></div>
+        <div class="lgnd"><span id="lmin"></span><span id="lmax"></span></div>
+        <p style="font-size:12.5px;color:var(--muted);margin:10px 0 0">
+          Más oscuro, más alto el valor. Los puntos huecos no tienen ese dato.</p>
+      </div>
+
+      <div id="detalle"><p class="vacio">Pincha en una estación del mapa
+        o en una fila de la tabla.</p></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Todas las estaciones <small>— pincha en la cabecera para ordenar, en la fila para verla</small></h2>
+    <details open><summary id="resumenTabla"></summary>
+      <div style="max-height:460px;overflow:auto">
+        <table id="tabla"><thead></thead><tbody></tbody></table>
+      </div>
+    </details>
+  </div>
+
+  <p class="pie">Serie de 2010 a 2025; la mayoría de las estaciones tienen 17 años completos.
+  Solo se incluyen las que tienen al menos 8 años y 300 días válidos por año.
+  La tendencia dibujada es la <b>pendiente de Sen</b> (la mediana de las pendientes entre todos
+  los pares de años): con series de esta longitud, una recta de mínimos cuadrados la inclinaría
+  un solo verano extremo. Una pendiente sobre 16 años mezcla cambio climático y variabilidad
+  decenal, y no permite separarlos: sirve para comparar estaciones entre sí, no para
+  cuantificar el calentamiento.<br>
+  Distancia al mar medida al océano, no a cualquier masa de agua: los embalses del Miño no son costa.</p>
+</div>
+
+<script id="datos" type="application/json">{{JSON}}</script>
+<script>
+(function(){
+  const D = JSON.parse(document.getElementById('datos').textContent);
+  const [LON0,LON1,LAT0,LAT1] = D.extent;
+  const RAMPA = ['#cde2fb','#9ec5f4','#6da7ec','#3987e5','#256abf','#184f95','#0d366b'];
+  const lienzo = document.getElementById('lienzo'), tip = document.getElementById('tip');
+  document.getElementById('silueta').style.setProperty(
+    '--silueta', `url("data:image/png;base64,${D.b64}")`);
+
+  const selV = document.getElementById('v'), selP = document.getElementById('pr');
+  D.vars.forEach(v => selV.add(new Option(v.t, v.k)));
+  [...new Set(D.est.map(e=>e.p))].sort().forEach(p => selP.add(new Option(p,p)));
+
+  let clave = D.vars[0].k, sel = null, orden = {c:null, asc:true};
+  const bLit = document.getElementById('litoral'), bBajo = document.getElementById('bajo');
+  const meta = () => D.vars.find(v=>v.k===clave);
+  const fmt = x => x==null ? '—' : (Math.round(x*10)/10).toLocaleString('es-ES');
+
+  function visibles(){
+    return D.est.filter(e =>
+      (!selP.value || e.p===selP.value) &&
+      (bLit.getAttribute('aria-pressed')!=='true' || e.mar < 8) &&
+      (bBajo.getAttribute('aria-pressed')!=='true' || e.alt < 400));
+  }
+  function cortes(vs){
+    const s = vs.filter(x=>x!=null).sort((a,b)=>a-b);
+    if(!s.length) return [];
+    return [...Array(RAMPA.length-1)].map((_,i)=> s[Math.floor(s.length*(i+1)/RAMPA.length)]);
+  }
+  function color(v, cs){
+    if(v==null) return null;
+    let i=0; while(i<cs.length && v>=cs[i]) i++;
+    return RAMPA[i];
+  }
+  function pos(lat,lon){
+    return [ (lon-LON0)/(LON1-LON0)*100, (LAT1-lat)/(LAT1-LAT0)*100 ];
+  }
+
+  // --- pendiente de Sen: mediana de las pendientes entre todos los pares ----
+  function sen(xs, ys){
+    const p=[];
+    for(let i=0;i<xs.length;i++) for(let j=i+1;j<xs.length;j++){
+      if(ys[i]==null||ys[j]==null||xs[j]===xs[i]) continue;
+      p.push((ys[j]-ys[i])/(xs[j]-xs[i]));
+    }
+    if(p.length<3) return null;
+    p.sort((a,b)=>a-b);
+    const m=p.length>>1;
+    return p.length%2 ? p[m] : (p[m-1]+p[m])/2;
+  }
+
+  function pintaMapa(){
+    lienzo.querySelectorAll('.pt').forEach(n=>n.remove());
+    const vis = visibles(), cs = cortes(vis.map(e=>e[clave]));
+    vis.forEach(e=>{
+      const [x,y]=pos(e.lat,e.lon), c=color(e[clave],cs);
+      const b=document.createElement('button');
+      b.className='pt'+(c?'':' sinDato');
+      b.style.cssText=`left:${x.toFixed(3)}%;top:${y.toFixed(3)}%;background:${c||'transparent'}`;
+      b.setAttribute('aria-pressed', sel && sel.id===e.id ? 'true':'false');
+      b.title = e.n;
+      b.addEventListener('mouseenter', ev=>muestraTip(ev.currentTarget, e));
+      b.addEventListener('focus', ev=>muestraTip(ev.currentTarget, e));
+      b.addEventListener('mouseleave', ()=>tip.style.display='none');
+      b.addEventListener('blur', ()=>tip.style.display='none');
+      b.addEventListener('click', ()=>{ sel=e; pintaMapa(); pintaFicha(); marcaFila(); });
+      lienzo.appendChild(b);
+    });
+    const vv = vis.map(e=>e[clave]).filter(x=>x!=null).sort((a,b)=>a-b);
+    document.getElementById('leyenda').innerHTML =
+      RAMPA.map(c=>`<span style="background:${c}"></span>`).join('');
+    document.getElementById('lmin').textContent = vv.length? fmt(vv[0])+' '+meta().u : '';
+    document.getElementById('lmax').textContent = vv.length? fmt(vv[vv.length-1])+' '+meta().u : '';
+  }
+
+  function muestraTip(nodo, e){
+    tip.innerHTML = `<b>${e.n}</b><i>${e.p} · ${e.alt} m · ${fmt(e.mar)} km del mar</i>` +
+      `<div><span>${meta().t}</span><span>${fmt(e[clave])} ${meta().u}</span></div>` +
+      `<div><span>años de serie</span><span>${e.an}</span></div>`;
+    tip.style.display='block';
+    const r=lienzo.getBoundingClientRect(), b=nodo.getBoundingClientRect();
+    let x=b.left-r.left+b.width/2-tip.offsetWidth/2;
+    let y=b.top-r.top-tip.offsetHeight-9;
+    if(y<2) y=b.top-r.top+b.height+9;
+    tip.style.left=Math.max(2,Math.min(x,r.width-tip.offsetWidth-2))+'px';
+    tip.style.top=y+'px';
+  }
+
+  function pintaFicha(){
+    const d=document.getElementById('detalle');
+    if(!sel){ d.innerHTML='<p class="vacio">Pincha en una estación del mapa o en una fila de la tabla.</p>'; return; }
+    const ys=sel.y, vs=(sel.s[clave]||[]).slice();
+    const pares=ys.map((a,i)=>[a,vs[i]]).filter(p=>p[1]!=null);
+    const m=meta(), pend=sen(pares.map(p=>p[0]),pares.map(p=>p[1]));
+    const prim=pares.slice(0,Math.floor(pares.length/2)), seg=pares.slice(Math.ceil(pares.length/2));
+    const med=a=>a.reduce((s,p)=>s+p[1],0)/a.length;
+    d.innerHTML=`
+      <div class="ficha"><h3>${sel.n}</h3>
+        <p>${sel.p} · ${sel.alt} m · ${fmt(sel.mar)} km del mar · ${sel.an} años de serie</p></div>
+      <div class="cifras">
+        <div class="cifra"><b>${fmt(sel[clave])}</b><span>${m.t.toLowerCase()} (${m.u})</span></div>
+        <div class="cifra"><b>${pend==null?'—':(pend*10>0?'+':'')+fmt(pend*10)}</b><span>por década</span></div>
+        <div class="cifra"><b>${prim.length&&seg.length?((med(seg)-med(prim))>0?'+':'')+fmt(med(seg)-med(prim)):'—'}</b>
+          <span>2ª mitad − 1ª</span></div>
+      </div>
+      ${grafico(pares, pend, m)}`;
+  }
+
+  function grafico(pares, pend, m){
+    if(pares.length<4) return '<p class="vacio">Serie demasiado corta para dibujarla.</p>';
+    const W=520,H=270,ML=46,MR=12,MT=18,MB=34;
+    const xs=pares.map(p=>p[0]), vs=pares.map(p=>p[1]);
+    const x0=Math.min(...xs), x1=Math.max(...xs);
+    let y0=Math.min(...vs), y1=Math.max(...vs);
+    if(y1===y0){ y0=Math.min(0,y0); y1=Math.max(1,y1*1.2||1); }
+    else { const pad=(y1-y0)*0.15; y0-=pad; y1+=pad;
+           if(y0>0 && y0/(y1||1) < .35) y0=0; }
+    if(vs.every(v=>v>=0) && y0<0) y0=0;
+    const X=a=>ML+(a-x0)/((x1-x0)||1)*(W-ML-MR);
+    const Y=b=>MT+(1-(b-y0)/((y1-y0)||1))*(H-MT-MB);
+    const linea=pares.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ');
+    const ticks=[];
+    const paso=(y1-y0)/4;
+    for(let i=0;i<=4;i++){const v=y0+paso*i; ticks.push(
+      `<line x1="${ML}" x2="${W-MR}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}"
+        stroke="var(--grid)" stroke-width="1"/>
+       <text x="${ML-8}" y="${(Y(v)+4).toFixed(1)}" text-anchor="end" font-size="11"
+        fill="var(--muted)">${fmt(v)}</text>`);}
+    const anios=[];
+    for(let a=Math.ceil(x0/2)*2;a<=x1;a+=2) anios.push(
+      `<text x="${X(a).toFixed(1)}" y="${H-12}" text-anchor="middle" font-size="11"
+        fill="var(--muted)">${a}</text>`);
+    let tend='';
+    if(pend!=null){
+      const cy=vs.reduce((s,v)=>s+v,0)/vs.length, cx=(x0+x1)/2;
+      tend=`<line x1="${X(x0)}" y1="${Y(cy+pend*(x0-cx)).toFixed(1)}"
+              x2="${X(x1)}" y2="${Y(cy+pend*(x1-cx)).toFixed(1)}"
+              stroke="var(--muted)" stroke-width="2" stroke-dasharray="5 4"/>`;
+    }
+    const pts=pares.map(p=>`<g class="g"><circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}"
+        r="4.5" fill="var(--acento)" stroke="var(--surface-1)" stroke-width="2"/>
+        <title>${p[0]}: ${fmt(p[1])} ${m.u}</title></g>`).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" role="img"
+      aria-label="Evolución anual de ${m.t}">
+      ${ticks.join('')}
+      <line x1="${ML}" x2="${W-MR}" y1="${(H-MB).toFixed(1)}" y2="${(H-MB).toFixed(1)}"
+        stroke="var(--axis)" stroke-width="1"/>
+      ${anios.join('')}${tend}
+      <path d="${linea}" fill="none" stroke="var(--acento)" stroke-width="2"
+        stroke-linejoin="round" stroke-linecap="round"/>
+      ${pts}
+      <text x="${ML}" y="${MT-5}" font-size="11.5" fill="var(--text-secondary)">${m.t} (${m.u})</text>
+    </svg>
+    <p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">
+      Línea discontinua: tendencia de Sen. Pasa el ratón por cada punto para el valor exacto.</p>`;
+  }
+
+  const COLS=[['n','Estación',0],['p','Provincia',0],['alt','Altitud',1],
+              ['mar','Al mar (km)',1],['VAL','',1],['an','Años',1]];
+  function pintaTabla(){
+    const vis=visibles().slice();
+    const c=orden.c||'VAL';
+    vis.sort((a,b)=>{
+      const va=c==='VAL'?a[clave]:a[c], vb=c==='VAL'?b[clave]:b[c];
+      if(va==null) return 1; if(vb==null) return -1;
+      const r = typeof va==='string' ? va.localeCompare(vb,'es') : va-vb;
+      return orden.asc? r : -r;
+    });
+    const th=COLS.map(([k,t,n])=>`<th class="${n?'n':''}" data-c="${k}">
+      ${k==='VAL'?meta().t+' ('+meta().u+')':t}${(orden.c||'VAL')===k?(orden.asc?' ↑':' ↓'):''}</th>`).join('');
+    document.querySelector('#tabla thead').innerHTML='<tr>'+th+'</tr>';
+    document.querySelector('#tabla tbody').innerHTML = vis.map(e=>
+      `<tr data-id="${e.id}" aria-selected="${sel&&sel.id===e.id}">
+        <td>${e.n}</td><td>${e.p}</td><td class="n">${e.alt}</td>
+        <td class="n">${fmt(e.mar)}</td><td class="n">${fmt(e[clave])}</td>
+        <td class="n">${e.an}</td></tr>`).join('');
+    document.getElementById('resumenTabla').textContent =
+      `${vis.length} estaciones — ver la tabla`;
+    document.querySelectorAll('#tabla thead th').forEach(h=>h.onclick=()=>{
+      const k=h.dataset.c;
+      orden = {c:k, asc: (orden.c===k? !orden.asc : true)};
+      pintaTabla();
+    });
+    document.querySelectorAll('#tabla tbody tr').forEach(tr=>tr.onclick=()=>{
+      sel=D.est.find(e=>e.id==tr.dataset.id); pintaMapa(); pintaFicha(); marcaFila();
+    });
+  }
+  function marcaFila(){
+    document.querySelectorAll('#tabla tbody tr').forEach(tr=>
+      tr.setAttribute('aria-selected', sel && tr.dataset.id==sel.id));
+  }
+
+  function todo(){ pintaMapa(); pintaFicha(); pintaTabla(); }
+  selV.onchange = ()=>{ clave=selV.value; todo(); };
+  selP.onchange = todo;
+  [bLit,bBajo].forEach(b=>b.onclick=()=>{
+    b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true');
+    todo();
+  });
+  // arranca con una estacion ya seleccionada: un panel vacio no explica nada
+  sel = D.est.filter(e => e[clave] != null)
+             .sort((a,b) => a[clave] - b[clave])[0] || null;
+  todo();
+})();
+</script>
+</body>
+</html>

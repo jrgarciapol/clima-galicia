@@ -1,0 +1,35 @@
+{
+  "conjunto": "https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1KM_HIST/catalog.xml",
+  "plantilla": {
+    "patron_catalogo": "modelos/WRF_ARW_1KM_HIST/%Y%m%d",
+    "patron_fichero": "wrf_arw_det_history_d02_%Y%m%d_0000.nc4",
+    "ejemplo": "modelos/WRF_ARW_1KM_HIST/20210903/wrf_arw_det_history_d02_20210903_0000.nc4",
+    "recorrido": [
+      "20210903"
+    ],
+    "url_hoja": "https://thredds.meteogalicia.gal/thredds/catalog/modelos/WRF_ARW_1KM_HIST/20210903/catalog.xml",
+    "n_ficheros_ejemplo": 2
+  },
+  "variables": [
+    "rh",
+    "temp"
+  ],
+  "via": "ncss",
+  "endpoint": "https://thredds.meteogalicia.gal/thredds/ncss/grid/modelos/WRF_ARW_1KM_HIST/20210903/wrf_arw_det_history_d02_20210903_0000.nc4",
+  "base_ncss": "https://thredds.meteogalicia.gal/thredds/ncss/grid/",
+  "base_dods": "https://thredds.meteogalicia.gal/thredds/dodsC/",
+  "servicios": {
+    "opendap": "https://thredds.meteogalicia.gal/thredds/dodsC/",
+    "httpserver": "https://thredds.meteogalicia.gal/thredds/fileServer/",
+    "wcs": "https://thredds.meteogalicia.gal/thredds/wcs/",
+    "netcdfsubset": "https://thredds.meteogalicia.gal/thredds/ncss/grid/",
+    "wms": "https://thredds.meteogalicia.gal/thredds/wms/"
+  },
+  "bbox": [
+    43.95,
+    -9.45,
+    41.7,
+    -6.6
+  ],
+  "stride": 1
+}
