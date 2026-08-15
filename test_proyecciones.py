@@ -111,7 +111,15 @@ xr.open_dataset = lambda u, **k: _abrir(nac, **{k2: v for k2, v in k.items()
                                                 if k2 != "decode_timedelta"})
 p9.url_dods = lambda up: "loquesea"
 dest = os.path.join(TMP, "tasmaxp99_ssp585.csv")
-filas = p9.baja_uno("tasmaxp99", "ssp585", dest)
+# El mar es NaN en los 11 modelos. Reducirlo hace que numpy avise una vez por
+# fichero, y con 28 ficheros son 28 avisos que asustan sin motivo.
+import warnings as _w
+with _w.catch_warnings(record=True) as capturados:
+    _w.simplefilter("always")
+    filas = p9.baja_uno("tasmaxp99", "ssp585", dest)
+avisos = [c for c in capturados if "All-NaN" in str(c.message)]
+print(f"  celdas de mar reducidas -> {len(avisos)} avisos de numpy")
+assert not avisos, f"no deberia salir ninguno: {[str(c.message) for c in avisos[:2]]}"
 xr.open_dataset = _abrir
 t = pd.read_csv(dest)
 print(f"  nacional {mb_nac:.0f} MB -> {os.path.getsize(dest) / 1e6:.2f} MB, {filas:,} filas")

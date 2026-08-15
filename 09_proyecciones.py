@@ -427,8 +427,17 @@ def baja_uno(var, esc, destino, intentos=4):
             continue
         a = np.asarray(sub[nombre].values, dtype=float)   # member,tf,period,lat,lon
         med = a[i_med]
-        p10 = np.nanpercentile(a[i_mod], 10, axis=0)
-        p90 = np.nanpercentile(a[i_mod], 90, axis=0)
+        # Las celdas de mar son NaN en los 11 modelos, y reducirlas hace que
+        # numpy avise por cada fichero ("All-NaN slice encountered"). No se
+        # silencia el aviso: se reduce solo donde hay dato, que ademas es mas
+        # rapido. Misma solucion que en el paso 13.
+        mods = a[i_mod]
+        hay = np.isfinite(mods).any(axis=0)
+        p10 = np.full(med.shape, np.nan)
+        p90 = np.full(med.shape, np.nan)
+        if hay.any():
+            p10[hay] = np.nanpercentile(mods[:, hay], 10, axis=0)
+            p90[hay] = np.nanpercentile(mods[:, hay], 90, axis=0)
         for j, f in enumerate(FILTROS):
             for k, p in enumerate(PERIODOS):
                 for ii in range(lat.size):
