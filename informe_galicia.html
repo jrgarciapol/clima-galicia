@@ -784,6 +784,63 @@ table.suelta{margin:16px 0; background:var(--sup); border:1px solid var(--borde)
 table.suelta td,table.suelta th{padding:9px 14px}
 
 /* pista flotante */
+/* ---------------------------------------------------- modo comentario --- */
+body.comentando{cursor:text}
+/* el tinte marca lo que se puede comentar; dentro de una grafica no aplica */
+body.comentando .envoltorio :is(p,li,td,h2,h3,h4):not(.grafica *){
+  background:linear-gradient(color-mix(in srgb,var(--s1) 4%, transparent),
+                             color-mix(in srgb,var(--s1) 4%, transparent));
+  border-radius:3px}
+mark.anot{background:color-mix(in srgb,var(--aviso) 34%, transparent);
+  color:inherit; border-bottom:2px solid var(--aviso); border-radius:2px;
+  padding:0 1px; cursor:pointer; position:relative}
+mark.anot:hover{background:color-mix(in srgb,var(--aviso) 55%, transparent)}
+mark.anot::after{content:attr(data-n); font-size:10px; font-weight:700;
+  vertical-align:super; color:var(--tinta2); margin-left:2px;
+  background:var(--aviso); color:#0b0b0b; border-radius:6px; padding:0 4px; line-height:1.5}
+#globo{position:fixed; z-index:2100; background:var(--sup); border:1px solid var(--borde);
+  border-radius:11px; padding:13px 14px; box-shadow:0 10px 34px rgba(0,0,0,0.24);
+  width:330px; display:none}
+#globo .cita{font-size:12.5px; color:var(--tinta2); border-left:3px solid var(--aviso);
+  padding-left:9px; margin-bottom:9px; max-height:64px; overflow:auto; line-height:1.45}
+#globo textarea{width:100%; min-height:74px; border:1px solid var(--borde); border-radius:8px;
+  background:var(--plano); color:var(--tinta); font:inherit; font-size:13.5px; padding:8px 10px;
+  resize:vertical}
+#globo .botones{display:flex; gap:8px; margin-top:9px; align-items:center}
+button.bt{background:var(--s1); color:#fff; border:0; border-radius:8px; padding:7px 14px;
+  font:inherit; font-size:13px; font-weight:560; cursor:pointer}
+button.bt.sec{background:var(--plano); color:var(--tinta2); border:1px solid var(--borde)}
+button.bt.peligro{background:var(--plano); color:var(--mal); border:1px solid var(--borde)}
+button.bt:hover{filter:brightness(1.08)}
+#flotante{position:fixed; right:20px; bottom:20px; z-index:2050; display:flex; gap:9px;
+  align-items:center}
+#flotante button{box-shadow:0 4px 18px rgba(0,0,0,0.20)}
+#contador{background:var(--aviso); color:#0b0b0b; border-radius:999px; padding:2px 8px;
+  font-size:12px; font-weight:700; margin-left:6px}
+#cajon{position:fixed; right:0; top:0; bottom:0; width:min(430px,100%); z-index:2060;
+  background:var(--sup); border-left:1px solid var(--borde); display:none;
+  flex-direction:column; box-shadow:-10px 0 40px rgba(0,0,0,0.18)}
+#cajon header{padding:16px 18px; border-bottom:1px solid var(--borde);
+  display:flex; align-items:center; gap:10px}
+#cajon header h3{margin:0; font-size:16px; flex:1}
+#cajon .lista{flex:1; overflow-y:auto; padding:6px 14px 14px}
+#cajon footer{padding:12px 16px; border-top:1px solid var(--borde); display:flex;
+  gap:8px; flex-wrap:wrap; align-items:center}
+.coment{border:1px solid var(--borde); border-radius:10px; padding:11px 13px; margin:11px 0;
+  background:var(--plano)}
+.coment .cab{font-size:11.5px; color:var(--tinta3); text-transform:uppercase;
+  letter-spacing:0.05em; font-weight:650; margin-bottom:5px}
+.coment blockquote{margin:0 0 7px; padding-left:9px; border-left:3px solid var(--aviso);
+  font-size:12.5px; color:var(--tinta2); line-height:1.45}
+.coment .txt{font-size:13.5px; white-space:pre-wrap}
+.coment .acc{display:flex; gap:8px; margin-top:8px}
+.coment .acc button{background:none; border:0; color:var(--tinta3); font:inherit;
+  font-size:12px; cursor:pointer; padding:0}
+.coment .acc button:hover{color:var(--tinta)}
+#ayuda-com{font-size:13px; color:var(--tinta2); background:var(--plano);
+  border:1px solid var(--borde); border-radius:9px; padding:11px 13px; margin:8px 0}
+@media (max-width:640px){ #flotante{right:12px; bottom:12px} #globo{width:min(330px,92vw)} }
+
 #pista{position:fixed; pointer-events:none; z-index:2000; background:var(--sup);
   border:1px solid var(--borde); border-radius:9px; padding:9px 12px; font-size:13px;
   box-shadow:0 6px 22px rgba(0,0,0,0.16); opacity:0; transition:opacity .1s; max-width:270px; line-height:1.5}
@@ -808,7 +865,8 @@ hr{border:0; border-top:1px solid var(--borde); margin:44px 0}
   <li><a href="#sitios">Sitios</a></li>
   <li><a href="#metodo">Cómo se ha hecho</a></li>
   <li><a href="#limites">Límites</a></li>
-  <li class="tema"><button class="tema-btn" id="btn-tema">Modo oscuro</button></li>
+  <li class="tema"><button class="tema-btn" id="btn-comentar">Comentar</button>
+      <button class="tema-btn" id="btn-tema">Modo oscuro</button></li>
 </ul></nav>
 
 <div class="envoltorio">
@@ -818,6 +876,13 @@ hr{border:0; border-top:1px solid var(--borde); margin:44px 0}
   humedad— aplicado a 40.050 puntos de 1&nbsp;km, validado contra 298 termómetros y proyectado
   hasta 2100 con once modelos climáticos.</p>
   <p class="meta" id="meta-fecha"></p>
+  <div id="ayuda-com" style="margin-top:22px">
+    <strong>Para comentarlo:</strong> pulsa <em>Comentar</em> arriba a la derecha y luego
+    selecciona con el ratón cualquier palabra, frase o párrafo. Aparecerá un recuadro para
+    escribir qué cambiarías. Al terminar, «Copiar todo» y pégalo en la conversación.
+    Los comentarios <strong>no se guardan solos</strong>: si cierras la pestaña sin copiarlos
+    o descargarlos, se pierden.
+  </div>
 </header>
 
 <section id="respuesta">
@@ -1095,6 +1160,34 @@ ranking de temperatura no es un ranking de dónde vivir.</li>
 </div>
 
 <div id="pista" role="tooltip"></div>
+
+<div id="globo">
+  <div class="cita" id="globo-cita"></div>
+  <textarea id="globo-txt" placeholder="Qué mejorarías de esto..."></textarea>
+  <div class="botones">
+    <button class="bt" id="globo-ok">Guardar</button>
+    <button class="bt sec" id="globo-no">Cancelar</button>
+    <button class="bt peligro" id="globo-borrar" style="margin-left:auto; display:none">Borrar</button>
+  </div>
+</div>
+
+<div id="flotante">
+  <button class="bt sec" id="btn-cajon" style="display:none">Comentarios<span id="contador">0</span></button>
+</div>
+
+<div id="cajon">
+  <header>
+    <h3>Tus comentarios</h3>
+    <button class="bt sec" id="cajon-cerrar">Cerrar</button>
+  </header>
+  <div class="lista" id="cajon-lista"></div>
+  <footer>
+    <button class="bt" id="btn-copiar">Copiar todo</button>
+    <button class="bt sec" id="btn-descargar">Descargar .md</button>
+    <span style="font-size:12px; color:var(--tinta3); flex:1 0 100%">
+      Pega lo copiado en la conversación y lo reviso uno por uno.</span>
+  </footer>
+</div>
 <script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
  * (c) 2010-2023 Vladimir Agafonkin, (c) 2010-2011 CloudMade
@@ -1772,6 +1865,189 @@ $("#meta-fecha").textContent =
   "Informe generado el " + new Date().toLocaleDateString("es-ES",
     {day:"numeric", month:"long", year:"numeric"}) +
   " · 13 pasos de análisis · 40.050 puntos de 1 km · 298 estaciones · 11 modelos climáticos";
+
+
+/* ==================================================== modo comentario ====
+   Sin almacenamiento del navegador a proposito: los comentarios viven en
+   memoria y se exportan a mano. Por eso hay aviso al cerrar la pestania. */
+(function(){
+  let activo = false, sig = 1, rangoActual = null, editando = null;
+  const comentarios = [];
+  const globo = $("#globo"), cajon = $("#cajon");
+
+  const seccionDe = nodo => {
+    let e = nodo.nodeType === 1 ? nodo : nodo.parentElement;
+    while(e && e !== document.body){
+      const s = e.closest("section");
+      if(s){ const h = s.querySelector("h2"); if(h) return h.textContent.trim(); }
+      e = e.parentElement;
+    }
+    return "Sin sección";
+  };
+
+  function colocaGlobo(rect){
+    globo.style.display = "block";
+    const g = globo.getBoundingClientRect();
+    // Se sujeta a la ventana en los dos ejes. Si la seleccion queda medio fuera
+    // -- pasa al comentar algo largo, o al editar un comentario lejano -- el
+    // recuadro se iria de la pantalla y no habria forma de guardar.
+    let x = Math.min(rect.left, innerWidth - g.width - 12);
+    let y = rect.bottom + 10;
+    if(y + g.height > innerHeight - 12) y = rect.top - g.height - 10;
+    globo.style.left = Math.max(12, x) + "px";
+    globo.style.top = Math.min(Math.max(12, y), innerHeight - g.height - 12) + "px";
+    $("#globo-txt").focus();
+  }
+  const cierraGlobo = ()=>{ globo.style.display="none"; rangoActual=null; editando=null;
+    $("#globo-borrar").style.display="none"; };
+
+  document.addEventListener("mouseup", ev=>{
+    if(!activo || globo.contains(ev.target) || cajon.contains(ev.target)) return;
+    setTimeout(()=>{
+      const sel = getSelection();
+      if(!sel.rangeCount || sel.isCollapsed) return;
+      const r = sel.getRangeAt(0);
+      const texto = sel.toString().replace(/\s+/g," ").trim();
+      // fuera del mapa y de las graficas: ahi no hay texto que comentar
+      const dentro = r.commonAncestorContainer;
+      const el = dentro.nodeType===1 ? dentro : dentro.parentElement;
+      if(texto.length < 3 || !el.closest(".envoltorio") || el.closest(".mapa") ||
+         el.closest("svg") || el.closest("mark.anot")) return;
+      rangoActual = r.cloneRange(); editando = null;
+      $("#globo-cita").textContent = texto.length>200 ? texto.slice(0,200)+"…" : texto;
+      $("#globo-txt").value = "";
+      $("#globo-borrar").style.display = "none";
+      colocaGlobo(r.getBoundingClientRect());
+    }, 10);
+  });
+
+  function guarda(){
+    const txt = $("#globo-txt").value.trim();
+    if(!txt){ $("#globo-txt").focus(); return; }
+    if(editando){ editando.texto = txt; cierraGlobo(); pinta(); return; }
+    const r = rangoActual;
+    const cita = r.toString().replace(/\s+/g," ").trim();
+    const seccion = seccionDe(r.commonAncestorContainer);
+    const m = document.createElement("mark");
+    m.className = "anot"; m.dataset.n = sig;
+    try{ r.surroundContents(m); }
+    catch(e){ // la seleccion cruza varios elementos
+      try{ m.appendChild(r.extractContents()); r.insertNode(m); }
+      catch(e2){ alert("Esa selección cruza demasiados bloques. Prueba a marcar una frase suelta."); return; }
+    }
+    const c = {n:sig++, cita, texto:txt, seccion, el:m};
+    m.addEventListener("click", ev=>{ ev.stopPropagation(); abre(c); });
+    comentarios.push(c);
+    getSelection().removeAllRanges();
+    cierraGlobo(); pinta();
+  }
+
+  function abre(c){
+    editando = c; rangoActual = null;
+    $("#globo-cita").textContent = c.cita.length>200 ? c.cita.slice(0,200)+"…" : c.cita;
+    $("#globo-txt").value = c.texto;
+    $("#globo-borrar").style.display = "inline-block";
+    colocaGlobo(c.el.getBoundingClientRect());
+  }
+
+  function borra(c){
+    const i = comentarios.indexOf(c); if(i<0) return;
+    comentarios.splice(i,1);
+    const m = c.el, padre = m.parentNode;
+    while(m.firstChild) padre.insertBefore(m.firstChild, m);
+    padre.removeChild(m); padre.normalize();
+    cierraGlobo(); pinta();
+  }
+
+  function pinta(){
+    $("#contador").textContent = comentarios.length;
+    $("#btn-cajon").style.display = comentarios.length ? "inline-block" : "none";
+    const l = $("#cajon-lista");
+    if(!comentarios.length){
+      l.innerHTML = `<div id="ayuda-com">Todavía no hay ninguno.</div>`; return;
+    }
+    l.innerHTML = comentarios.map(c=>`<div class="coment" data-n="${c.n}">
+      <div class="cab">${c.n} · ${c.seccion}</div>
+      <blockquote>${c.cita.length>170?c.cita.slice(0,170)+"…":c.cita}</blockquote>
+      <div class="txt"></div>
+      <div class="acc"><button data-a="ir">Ir al texto</button>
+        <button data-a="ed">Editar</button><button data-a="del">Borrar</button></div></div>`).join("");
+    // el comentario es texto del usuario: se inserta como texto, nunca como HTML
+    l.querySelectorAll(".coment").forEach(d=>{
+      const c = comentarios.find(x=>x.n === +d.dataset.n);
+      d.querySelector(".txt").textContent = c.texto;
+      d.querySelectorAll("button").forEach(b=> b.addEventListener("click", ()=>{
+        if(b.dataset.a === "ir"){ c.el.scrollIntoView({block:"center"}); cierra(); }
+        if(b.dataset.a === "ed"){ cierra(); abre(c); }
+        if(b.dataset.a === "del") borra(c);
+      }));
+    });
+  }
+
+  function comoTexto(){
+    const f = new Date().toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
+    let t = `# Comentarios sobre el informe de Galicia\n_${f} · ${comentarios.length} comentarios_\n`;
+    let sec = null;
+    for(const c of comentarios.slice().sort((a,b)=>
+        a.el.compareDocumentPosition(b.el) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1)){
+      if(c.seccion !== sec){ sec = c.seccion; t += `\n## ${sec}\n`; }
+      t += `\n**${c.n}.** > ${c.cita}\n\n${c.texto}\n`;
+    }
+    return t;
+  }
+
+  const abreCajon = ()=>{ cajon.style.display="flex"; $("#flotante").style.display="none"; };
+  const cierra = ()=>{ cajon.style.display="none"; $("#flotante").style.display="flex"; };
+
+  $("#btn-comentar").addEventListener("click", ()=>{
+    activo = !activo;
+    document.body.classList.toggle("comentando", activo);
+    $("#btn-comentar").textContent = activo ? "Dejar de comentar" : "Comentar";
+    $("#btn-comentar").style.background = activo ? "var(--aviso)" : "";
+    $("#btn-comentar").style.color = activo ? "#0b0b0b" : "";
+    if(activo && !comentarios.length){
+      $("#btn-cajon").style.display = "inline-block";
+      $("#cajon-lista").innerHTML = `<div id="ayuda-com">Selecciona con el ratón cualquier
+        palabra, frase o párrafo del informe y aparecerá un recuadro para escribir qué
+        cambiarías. Los comentarios quedan resaltados en amarillo; pinchando encima se
+        editan.<br><br><strong>No se guardan solos.</strong> Cuando termines, «Copiar todo»
+        y pégalo en la conversación.</div>`;
+      abreCajon();
+    }
+  });
+  $("#globo-ok").addEventListener("click", guarda);
+  $("#globo-no").addEventListener("click", cierraGlobo);
+  $("#globo-borrar").addEventListener("click", ()=>{ if(editando) borra(editando); });
+  $("#globo-txt").addEventListener("keydown", ev=>{
+    if(ev.key === "Escape") cierraGlobo();
+    if(ev.key === "Enter" && (ev.metaKey || ev.ctrlKey)) guarda();
+  });
+  $("#btn-cajon").addEventListener("click", abreCajon);
+  $("#cajon-cerrar").addEventListener("click", cierra);
+
+  $("#btn-copiar").addEventListener("click", async ()=>{
+    const t = comoTexto(), b = $("#btn-copiar");
+    try{ await navigator.clipboard.writeText(t); }
+    catch(e){                      // en file:// el portapapeles puede estar vetado
+      const ta = document.createElement("textarea");
+      ta.value = t; ta.style.position="fixed"; ta.style.opacity="0";
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand("copy"); }catch(e2){ alert("No he podido copiar. Usa «Descargar .md»."); }
+      document.body.removeChild(ta);
+    }
+    b.textContent = "Copiado"; setTimeout(()=>b.textContent="Copiar todo", 1600);
+  });
+  $("#btn-descargar").addEventListener("click", ()=>{
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([comoTexto()], {type:"text/markdown"}));
+    a.download = "comentarios-informe-galicia.md";
+    a.click(); URL.revokeObjectURL(a.href);
+  });
+  addEventListener("beforeunload", ev=>{
+    if(comentarios.length){ ev.preventDefault(); ev.returnValue = ""; }
+  });
+  document.addEventListener("keydown", ev=>{ if(ev.key === "Escape"){ cierraGlobo(); cierra(); } });
+})();
 
 /* ================================================================== tema */
 (function(){
