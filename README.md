@@ -44,7 +44,7 @@ cada variable y en qué punto está el trabajo.
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
 | 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | ✅ hecho |
-| 14 | Informe interactivo en un solo HTML | ✅ mapa OSM, gráficas y metodología |
+| 14 | Informe interactivo en un solo HTML | ✅ mapa OSM, gráficas, metodología y modo comentario |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
 
@@ -1115,6 +1115,8 @@ informe/prep2.py                puntos, estaciones, series de AEMET y escenarios
 informe/plantilla.html          el informe sin los datos dentro
 informe/monta.py                mete datos y Leaflet en la plantilla
 informe/verifica.py             comprueba que cada cifra del texto sale de los datos
+informe/leaflet.css             se empotra en el HTML: el informe no depende de una CDN
+informe/leaflet.js              idem
 
 sincroniza.py                   pull / instalar kit / push, sin subir datos brutos
 .gitignore                      la primera red: qué no llega nunca a GitHub
@@ -1147,7 +1149,7 @@ que **nunca borran descargas reales**.
 | Tras el paso 12 | `aemet_series.csv`, `resumen_aemet.txt`, `aemet_exploracion.txt` |
 | Tras el paso 13 | `resumen_rocio.txt`, `rocio_tendencias.csv` |
 | Tras el paso 9 | `resumen_proyecciones.txt`, `proyecciones_galicia.csv.gz`, `ranking_con_proyeccion.csv` |
-| Tras el paso 14 | `informe/informe_galicia.html` (0,8 MB, autocontenido) |
+| Tras el paso 14 | `informe/informe_galicia.html` (0,9 MB, autocontenido) |
 | Reconocimientos | `wrf_exploracion.txt`, `adaptecca_exploracion.txt`, `wrf_fallos.txt` |
 
 **Nunca**: las carpetas `descargas/`, `wrf/`, `aemet/` y `rocio/` (datos brutos,
