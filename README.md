@@ -44,6 +44,7 @@ cada variable y en qué punto está el trabajo.
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
 | 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | ✅ hecho |
+| 14 | Informe interactivo en un solo HTML | ✅ mapa OSM, gráficas y metodología |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
 
@@ -693,6 +694,8 @@ python 09_proyecciones.py --explorar       # catálogo de AdapteCCa (~15 min)
 python 09_proyecciones.py --describe       # etiquetas de los ejes (1 min)
 python 09_proyecciones.py --descargar      # 28 recortes de Galicia (~15 min)
 python 09_proyecciones.py --analizar       # 1 min, sin red
+
+python 14_informe.py                       # monta informe_galicia.html
 ```
 
 Los pasos 1, 5 y 9 son **reanudables**. Cada fichero se baja a un temporal y se
@@ -1106,6 +1109,12 @@ celdas_galicia.csv              las 368 celdas ERA5-Land de Galicia
 plantilla_est.html              plantilla del mapa (la usa el paso 11)
 12_aemet.py                     series largas de AEMET y sesgo de ventana corta
 13_rocio.py                     rejilla ROCIO_IBEB de 5 km, 1951-2022
+14_informe.py                   monta el informe interactivo (llama a informe/)
+informe/prep.py                 rasteriza el campo de 1 km y los deltas de 5 km
+informe/prep2.py                puntos, estaciones, series de AEMET y escenarios
+informe/plantilla.html          el informe sin los datos dentro
+informe/monta.py                mete datos y Leaflet en la plantilla
+informe/verifica.py             comprueba que cada cifra del texto sale de los datos
 
 sincroniza.py                   pull / instalar kit / push, sin subir datos brutos
 .gitignore                      la primera red: qué no llega nunca a GitHub
@@ -1138,6 +1147,7 @@ que **nunca borran descargas reales**.
 | Tras el paso 12 | `aemet_series.csv`, `resumen_aemet.txt`, `aemet_exploracion.txt` |
 | Tras el paso 13 | `resumen_rocio.txt`, `rocio_tendencias.csv` |
 | Tras el paso 9 | `resumen_proyecciones.txt`, `proyecciones_galicia.csv.gz`, `ranking_con_proyeccion.csv` |
+| Tras el paso 14 | `informe/informe_galicia.html` (0,8 MB, autocontenido) |
 | Reconocimientos | `wrf_exploracion.txt`, `adaptecca_exploracion.txt`, `wrf_fallos.txt` |
 
 **Nunca**: las carpetas `descargas/`, `wrf/`, `aemet/` y `rocio/` (datos brutos,

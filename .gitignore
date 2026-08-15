@@ -36,6 +36,10 @@ aemet/
 rocio/
 *.tar.gz
 
+# Intermedios del paso 14: se regeneran al montar el informe
+informe/datos_mapa.json
+informe/datos_informe.json
+
 # Recortes por fichero del paso 9: unos 80 MB en 28 CSV. Lo que se sube es el
 # fundido proyecciones_galicia.csv.gz y el resumen.
 proyecciones/

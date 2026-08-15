@@ -1,0 +1,10 @@
+import json
+p = open("plantilla.html", encoding="utf-8").read()
+m = open("datos_mapa.json", encoding="utf-8").read()
+d = open("datos_informe.json", encoding="utf-8").read()
+lcss = open("leaflet.css", encoding="utf-8").read()
+ljs  = open("leaflet.js", encoding="utf-8").read()
+p = (p.replace("/*LEAFLET_CSS*/", lcss).replace("/*LEAFLET_JS*/", ljs)
+       .replace("/*DATOS_MAPA*/", m).replace("/*DATOS_INFORME*/", d))
+open("informe_galicia.html", "w", encoding="utf-8").write(p)
+import os; print(f"informe_galicia.html  {os.path.getsize('informe_galicia.html')/1e6:.2f} MB")
