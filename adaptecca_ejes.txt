@@ -1,0 +1,46 @@
+Descripcion de AdapteCCa - 2026-08-15 12:50
+
+=== tasmaxp99 / ssp585 ===
+  https://escenarios.adaptecca.es/thredds/dodsC/peninsula/Proyecciones_CMIP6_en_rejilla/Climatologia/Temperatura/tasmaxp99/climatology_CMIP6_ESD-RegBA_tasmaxp99_ssp585.nc
+  variable tasmaxp99: dims ('member', 'time_filter', 'period', 'lat', 'lon')  units=degC  Air Temperature 99th Percentile
+  variable tasmaxp99_anom: dims ('member', 'time_filter', 'period', 'lat', 'lon')  units=degC  Air Temperature 99th Percentile anomaly
+  variable tasmaxp99_relanom: dims ('member', 'time_filter', 'period', 'lat', 'lon')  units=%  Air Temperature 99th Percentile relative anomaly
+  dimensiones: {'member': 12, 'time_filter': 17, 'period': 4, 'lat': 251, 'lon': 400}
+  lon (n=400): -13.175 .. 6.775  paso 0.0500
+  lat (n=251): 33.475 .. 45.975  paso 0.0500
+  time_filter (n=17): ['Apr', 'Aug', 'Dec', 'Feb', 'Jan', 'Jul', 'Jun', 'Mar', 'May', 'Nov', 'Oct', 'Sep', 'DJF', 'JJA', 'MAM', 'SON', 'year']
+  period (n=4): ['far_future', 'medium_future', 'near_future', 'reference']
+  member (n=12): ['average', 'ACCESS-CM2_r1i1p1f1_ESD-RegBA', 'CMCC-CM2-SR5_r1i1p1f1_ESD-RegBA', 'CNRM-ESM2-1_r1i1p1f2_ESD-RegBA', 'EC-Earth3-Veg_r1i1p1f1_ESD-RegBA', 'IITM-ESM_r1i1p1f1_ESD-RegBA', 'KACE-1-0-G_r1i1p1f1_ESD-RegBA', 'MIROC6_r1i1p1f1_ESD-RegBA', 'MPI-ESM1-2-HR_r1i1p1f1_ESD-RegBA', 'MRI-ESM2-0_r1i1p1f1_ESD-RegBA', 'NorESM2-MM_r1i1p1f1_ESD-RegBA', 'UKESM1-0-LL_r2i1p1f2_ESD-RegBA']
+  recorte a Galicia: 45 x 57 = 2565 celdas de 100400  (2.6%)
+  -> 25.1 MB por fichero; 0.70 GB si bajamos 7 variables x 4 escenarios
+  media de tasmaxp99 sobre Galicia (todos los ejes): 26.26
+
+=== tasminNa20 / ssp585 ===
+  https://escenarios.adaptecca.es/thredds/dodsC/peninsula/Proyecciones_CMIP6_en_rejilla/Climatologia/Temperatura/tasminNa20/climatology_CMIP6_ESD-RegBA_tasminNa20_ssp585.nc
+  variable tasminNa20: dims ('member', 'time_filter', 'period', 'lat', 'lon')  units=1  Monthly count of days with minimum temperature above 20 degC
+  variable tasminNa20_anom: dims ('member', 'time_filter', 'period', 'lat', 'lon')  units=1  Monthly count of days with minimum temperature above 20 degC anomaly
+  variable tasminNa20_relanom: dims ('member', 'time_filter', 'period', 'lat', 'lon')  units=%  Monthly count of days with minimum temperature above 20 degC relative anomaly
+  dimensiones: {'member': 12, 'time_filter': 17, 'period': 4, 'lat': 251, 'lon': 400}
+  lon (n=400): -13.175 .. 6.775  paso 0.0500
+  lat (n=251): 33.475 .. 45.975  paso 0.0500
+  time_filter (n=17): ['Apr', 'Aug', 'Dec', 'Feb', 'Jan', 'Jul', 'Jun', 'Mar', 'May', 'Nov', 'Oct', 'Sep', 'DJF', 'JJA', 'MAM', 'SON', 'year']
+  period (n=4): ['far_future', 'medium_future', 'near_future', 'reference']
+  member (n=12): ['average', 'ACCESS-CM2_r1i1p1f1_ESD-RegBA', 'CMCC-CM2-SR5_r1i1p1f1_ESD-RegBA', 'CNRM-ESM2-1_r1i1p1f2_ESD-RegBA', 'EC-Earth3-Veg_r1i1p1f1_ESD-RegBA', 'IITM-ESM_r1i1p1f1_ESD-RegBA', 'KACE-1-0-G_r1i1p1f1_ESD-RegBA', 'MIROC6_r1i1p1f1_ESD-RegBA', 'MPI-ESM1-2-HR_r1i1p1f1_ESD-RegBA', 'MRI-ESM2-0_r1i1p1f1_ESD-RegBA', 'NorESM2-MM_r1i1p1f1_ESD-RegBA', 'UKESM1-0-LL_r2i1p1f2_ESD-RegBA']
+  recorte a Galicia: 45 x 57 = 2565 celdas de 100400  (2.6%)
+  -> 25.1 MB por fichero; 0.70 GB si bajamos 7 variables x 4 escenarios
+  media de tasminNa20 sobre Galicia (todos los ejes): 0.41
+
+=== tasmaxhwdmax / ssp585 ===
+  https://escenarios.adaptecca.es/thredds/dodsC/peninsula/Proyecciones_CMIP6_en_rejilla/Climatologia/Temperatura/tasmaxhwdmax/climatology_CMIP6_ESD-RegBA_tasmaxhwdmax_ssp585.nc
+  variable tasmaxhwdmax: dims ('member', 'time_filter', 'period', 'lat', 'lon')  units=num_days  Maximum Heatwave Duration Index
+  variable tasmaxhwdmax_anom: dims ('member', 'time_filter', 'period', 'lat', 'lon')  units=num_days  Maximum Heatwave Duration Index anomaly
+  variable tasmaxhwdmax_relanom: dims ('member', 'time_filter', 'period', 'lat', 'lon')  units=%  Maximum Heatwave Duration Index relative anomaly
+  dimensiones: {'member': 12, 'time_filter': 17, 'period': 4, 'lat': 251, 'lon': 400}
+  lon (n=400): -13.175 .. 6.775  paso 0.0500
+  lat (n=251): 33.475 .. 45.975  paso 0.0500
+  time_filter (n=17): ['Apr', 'Aug', 'Dec', 'Feb', 'Jan', 'Jul', 'Jun', 'Mar', 'May', 'Nov', 'Oct', 'Sep', 'DJF', 'JJA', 'MAM', 'SON', 'year']
+  period (n=4): ['far_future', 'medium_future', 'near_future', 'reference']
+  member (n=12): ['average', 'ACCESS-CM2_r1i1p1f1_ESD-RegBA', 'CMCC-CM2-SR5_r1i1p1f1_ESD-RegBA', 'CNRM-ESM2-1_r1i1p1f2_ESD-RegBA', 'EC-Earth3-Veg_r1i1p1f1_ESD-RegBA', 'IITM-ESM_r1i1p1f1_ESD-RegBA', 'KACE-1-0-G_r1i1p1f1_ESD-RegBA', 'MIROC6_r1i1p1f1_ESD-RegBA', 'MPI-ESM1-2-HR_r1i1p1f1_ESD-RegBA', 'MRI-ESM2-0_r1i1p1f1_ESD-RegBA', 'NorESM2-MM_r1i1p1f1_ESD-RegBA', 'UKESM1-0-LL_r2i1p1f2_ESD-RegBA']
+  recorte a Galicia: 45 x 57 = 2565 celdas de 100400  (2.6%)
+  -> 25.1 MB por fichero; 0.70 GB si bajamos 7 variables x 4 escenarios
+  media de tasmaxhwdmax sobre Galicia (todos los ejes): 8.21
