@@ -1,0 +1,46 @@
+Series anuales completas: 1,108 anios-estacion, 58 estaciones
+Descartados por incompletos: 214 anios-estacion (exigido: 330 dias y 87 de verano)
+  de ellos, 46 tenian el anio casi completo pero
+  el verano no: son los peligrosos, los que habrian pasado un
+  filtro que solo mirara el total. Por ejemplo:
+    1351 2024: 359 dias del anio pero solo 86 de verano
+    1354C 2017: 333 dias del anio pero solo 60 de verano
+    1387 1944: 356 dias del anio pero solo 82 de verano
+    1387 1945: 355 dias del anio pero solo 82 de verano
+
+estacion                   periodo      anios  Sen tx_verano  Sen d_tx30
+A Coruña                   1940-2025       84          +0.15       +0.00
+A Coruña Aeropuerto        1980-2025       45          +0.26       +0.28
+Vimianzo                   1985-2025       35          +0.03       +0.00
+Santiago De Compostela Aer 1960-2025       66          +0.30       +0.95
+Vigo Aeropuerto            1961-2025       65          +0.43       +1.52
+Lugo                       1980-2025       39          +0.74       +3.78
+Monforte De Lemos          1970-2025       44          +0.11       -0.28
+Ourense                    1980-2025       43          +0.57       +7.41
+
+--- lo que exagera una ventana de 15 anios ---
+Para cada estacion larga se calcula la pendiente sobre la serie
+completa y sobre TODAS las ventanas moviles de 15 anios. Si las
+ventanas cortas se reparten simetricamente alrededor de la larga, la
+nuestra no tiene por que estar sesgada; si estan sistematicamente por
+encima, nuestro +1,31 C/decada es un artefacto de la ventana.
+
+estacion                     larga  ventanas  mediana     p10     p90  >larga
+A Coruña                     +0.15        70    -0.01   -0.68   +0.91    40%
+A Coruña Aeropuerto          +0.26        31    +0.29   -0.22   +0.64    52%
+Vimianzo                     +0.03        21    -0.04   -1.22   +0.65    38%
+Santiago De Compostela Aer   +0.30        52    +0.35   -0.51   +1.06    52%
+Vigo Aeropuerto              +0.43        51    +0.54   -0.56   +1.79    59%
+Lugo                         +0.74        25    +0.42   +0.17   +1.66    32%
+Monforte De Lemos            +0.11        30    +0.06   -0.93   +0.72    43%
+Ourense                      +0.57        29    +0.45   -0.06   +1.19    34%
+
+Diferencia ventana corta menos serie completa, en conjunto:
+  mediana -0.08 C/decada, rango tipico -0.85 a +0.80
+  el 45% de las ventanas de 15 anios da una
+  pendiente MAYOR que la de la serie completa.
+
+Lectura: esa mediana es, en primera aproximacion, lo que hay que
+descontarle a nuestro +1,31 C/decada. Y el rango dice cuanta
+suerte hace falta para que una ventana concreta acierte.
+Datos: AEMET (opendata.aemet.es)
