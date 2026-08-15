@@ -1,4 +1,4 @@
-Proyecciones AdapteCCa para Galicia - 2026-08-15 13:12
+Proyecciones AdapteCCa para Galicia - 2026-08-15 13:38
 
 742,336 filas | 7 variables | 4 escenarios | 1657 celdas de 5 km
 Referencia 1971-2000. Horquilla p10-p90 sobre los 11 modelos.
@@ -95,42 +95,46 @@ calienta. Positiva = los calurosos se calientan mas.
   ssp370: rho +0.572 | cuarto fresco 28.4C +2.46 | cuarto calido 34.2C +3.75
   ssp585: rho +0.576 | cuarto fresco 28.4C +2.83 | cuarto calido 34.2C +4.25
 
-=== los extremos de Galicia, hoy y en 2041-2070 ===
+=== los extremos de Galicia, 1971-2000 frente a 2041-2070 ===
+OJO: la referencia de AdapteCCa es 1971-2000, no el clima de hoy.
+Nuestra climatologia observada es 2011-2025, asi que los absolutos
+de las dos fuentes no son comparables; las anomalias si.
 
-  ssp245 -- las 5 celdas mas frescas de hoy:
-    43.77 -7.58   hoy  25.0  2041-2070  26.5  (+1.5)
-    43.77 -7.53   hoy  25.0  2041-2070  26.5  (+1.5)
-    43.77 -7.47   hoy  25.0  2041-2070  26.5  (+1.5)
-    42.23 -6.78   hoy  25.1  2041-2070  28.5  (+3.3)
-    42.23 -6.83   hoy  25.2  2041-2070  28.5  (+3.3)
-  ssp245 -- las 5 mas calurosas de hoy:
-    41.88 -7.47   hoy  36.5  2041-2070  40.4  (+3.9)
-    41.92 -7.47   hoy  36.5  2041-2070  40.4  (+3.9)
-    42.33 -7.83   hoy  36.4  2041-2070  40.0  (+3.6)
-    41.88 -7.42   hoy  36.2  2041-2070  40.1  (+3.9)
-    42.33 -7.88   hoy  36.2  2041-2070  39.7  (+3.5)
-  rango entre la mas fresca y la mas calurosa: hoy 11.5 C, en 2041-2070 13.9 C
+  ssp245 -- las 5 celdas mas frescas en 1971-2000:
+    43.77 -7.58   1971-2000  25.0  2041-2070  26.5  (+1.5)
+    43.77 -7.53   1971-2000  25.0  2041-2070  26.5  (+1.5)
+    43.77 -7.47   1971-2000  25.0  2041-2070  26.5  (+1.5)
+    42.23 -6.78   1971-2000  25.1  2041-2070  28.5  (+3.3)
+    42.23 -6.83   1971-2000  25.2  2041-2070  28.5  (+3.3)
+  ssp245 -- las 5 mas calurosas en 1971-2000:
+    41.88 -7.47   1971-2000  36.5  2041-2070  40.4  (+3.9)
+    41.92 -7.47   1971-2000  36.5  2041-2070  40.4  (+3.9)
+    42.33 -7.83   1971-2000  36.4  2041-2070  40.0  (+3.6)
+    41.88 -7.42   1971-2000  36.2  2041-2070  40.1  (+3.9)
+    42.33 -7.88   1971-2000  36.2  2041-2070  39.7  (+3.5)
+  rango entre la mas fresca y la mas calurosa: 1971-2000 11.5 C, en 2041-2070 13.9 C
 
-  ssp585 -- las 5 celdas mas frescas de hoy:
-    43.77 -7.58   hoy  25.0  2041-2070  26.6  (+1.7)
-    43.77 -7.53   hoy  25.0  2041-2070  26.6  (+1.7)
-    43.77 -7.47   hoy  25.0  2041-2070  26.7  (+1.7)
-    42.23 -6.78   hoy  25.1  2041-2070  29.4  (+4.2)
-    42.23 -6.83   hoy  25.2  2041-2070  29.4  (+4.2)
-  ssp585 -- las 5 mas calurosas de hoy:
-    41.88 -7.47   hoy  36.5  2041-2070  41.5  (+5.1)
-    41.92 -7.47   hoy  36.5  2041-2070  41.5  (+5.1)
-    42.33 -7.83   hoy  36.4  2041-2070  41.0  (+4.6)
-    41.88 -7.42   hoy  36.2  2041-2070  41.2  (+5.0)
-    42.33 -7.88   hoy  36.2  2041-2070  40.7  (+4.5)
-  rango entre la mas fresca y la mas calurosa: hoy 11.5 C, en 2041-2070 14.9 C
+  ssp585 -- las 5 celdas mas frescas en 1971-2000:
+    43.77 -7.58   1971-2000  25.0  2041-2070  26.6  (+1.7)
+    43.77 -7.53   1971-2000  25.0  2041-2070  26.6  (+1.7)
+    43.77 -7.47   1971-2000  25.0  2041-2070  26.7  (+1.7)
+    42.23 -6.78   1971-2000  25.1  2041-2070  29.4  (+4.2)
+    42.23 -6.83   1971-2000  25.2  2041-2070  29.4  (+4.2)
+  ssp585 -- las 5 mas calurosas en 1971-2000:
+    41.88 -7.47   1971-2000  36.5  2041-2070  41.5  (+5.1)
+    41.92 -7.47   1971-2000  36.5  2041-2070  41.5  (+5.1)
+    42.33 -7.83   1971-2000  36.4  2041-2070  41.0  (+4.6)
+    41.88 -7.42   1971-2000  36.2  2041-2070  41.2  (+5.0)
+    42.33 -7.88   1971-2000  36.2  2041-2070  40.7  (+4.5)
+  rango entre la mas fresca y la mas calurosa: 1971-2000 11.5 C, en 2041-2070 14.9 C
 
 === nuestro ranking de 1 km, con el delta encima ===
-  top 20 de hoy: 19.9 a 24.0 C
-  ssp126: 14 de los 20 mejores de hoy siguen en el top 20; rho global 0.948
-  ssp245: 14 de los 20 mejores de hoy siguen en el top 20; rho global 0.933
-  ssp370: 14 de los 20 mejores de hoy siguen en el top 20; rho global 0.914
-  ssp585: 14 de los 20 mejores de hoy siguen en el top 20; rho global 0.892
+  union con la rejilla de 5 km: mediana 2.0 km al centro de celda, maxima 24.2 km; 0 puntos sin delta
+  top 20 de hoy (observado 2011-2025): 19.9 a 24.0 C
+  ssp126: 19 de los 20 mejores siguen en el top 20; rho global 0.936
+  ssp245: 19 de los 20 mejores siguen en el top 20; rho global 0.918
+  ssp370: 19 de los 20 mejores siguen en el top 20; rho global 0.889
+  ssp585: 18 de los 20 mejores siguen en el top 20; rho global 0.860
   escrito ranking_con_proyeccion.csv
 
 === limite que no se puede saltar ===
