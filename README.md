@@ -44,8 +44,8 @@ cada variable y en qué punto está el trabajo.
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
 | 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | ✅ hecho |
-| 14 | Informe interactivo en un solo HTML | ✅ 6 capas, glosario, 44 comprobaciones |
-| 15 | **Confort proyectado**: humidex futuro sobre las estaciones | 🔄 escrito, falta ejecutarlo |
+| 14 | Informe interactivo en un solo HTML | ✅ tres partes, 6 capas, 57 comprobaciones |
+| 15 | **Confort proyectado**: humidex futuro sobre las estaciones | ✅ 147 estaciones, dos hipótesis de humedad |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
 
@@ -977,6 +977,30 @@ por medio. En temperatura media la diferencia parece modesta —+0,26 frente a
 **cero** días de más de 30 °C por década y Ourense gana **siete y medio**. En
 los 45 años de la serie, eso son 33 días de verano que Ourense ha ganado y A
 Coruña no.
+
+### 8.7 bis · El confort proyectado: la horquilla de la humedad (paso 15)
+
+Sumando a la serie diaria real de cada estación la anomalía de temperatura de los
+modelos y recalculando el humidex día a día, con la humedad de hoy:
+
+| | humidex p99 | días con humidex > 35 |
+|---|---|---|
+| hoy, medido | mediana 45,1 | mediana 39 |
+| 2041-2070, **punto de rocío constante** | +2,80 | 58 |
+| 2041-2070, **humedad relativa constante** | +5,33 | 77 |
+
+Las dos hipótesis se separan **2,8 °C de humidex**, más que la distancia entre el
+escenario de emisiones más optimista y el más pesimista. **Lo que no se sabe
+sobre la humedad pesa más que lo que no se sabe sobre las emisiones.**
+
+La física acota pero no resuelve: sobre el océano hay agua sin límite y la
+humedad relativa se conserva, así que la costa se parecerá a la cota alta; tierra
+adentro el suelo se seca y la humedad relativa cae, así que el interior se
+parecerá a la baja. Es al revés de lo que convendría.
+
+El orden entre sitios aguanta igual (correlación de rangos 0,998), pero la
+distancia absoluta se dispara: Arteixo pasa de 1 día al año a entre 2 y 4; Leiro
+pasa de 116 a entre 142 y 162.
 
 ### 8.7 Lo que dicen las proyecciones (paso 9)
 

@@ -192,13 +192,67 @@ _mal = re.findall(r'\b(tenías razón|te dije|tu comentario|pincha|verás|pruéb
 if _mal: fallos.append(f"quedan formas de segunda persona: {set(_mal)}")
 else: ok += 1; print("  ok   el cuerpo del informe no interpela al lector")
 
+print("\n=== parte 1: los seis factores medidos ===")
+C = d.get("confort")
+assert C, "falta el bloque de confort (paso 15)"
+print(f"  {C['n']} estaciones bajo 400 m de {C['n_total']} con serie diaria")
+assert C["n"] == 73, f"el texto dice 73 y hay {C['n']}"
+comprueba("rho IVL vs los seis factores", 0.903, C["rho_ivl6"], 0.005)
+assert C["comunes10"] == 8, f"el texto dice 8 de 10 y son {C['comunes10']}"
+ok += 3
+print(f"  ok   {C['comunes10']}/10 del top coinciden entre los dos ordenamientos")
+# la ola de calor tiene que ser casi independiente: es todo el argumento
+_ola = C["corr"]["ola_max"]["tx_p99"]
+comprueba("correlacion ola de calor vs tx_p99", -0.07, _ola, 0.02)
+assert abs(_ola) < 0.2, "si la ola correlacionara, no aportaria nada y habria que decir otra cosa"
+_h35 = C["corr"]["d_hx35"]["tx_p99"]
+assert _h35 > 0.9, f"el texto dice que d_hx35 y tx_p99 miden casi lo mismo: {_h35}"
+ok += 1
+
+print("\n=== parte 3: las dos hipotesis de humedad ===")
+_hoy = {e["id"]: e for e in C["est"]}
+_med = lambda v: sorted(v)[len(v)//2]
+for hip, nom in (("rocio_fijo", "rocio constante"), ("hr_fija", "HR constante")):
+    f = {e["id"]: e for e in C["futuro"][hip]}
+    ids = [i for i in _hoy if i in f]
+    sube = _med([f[i]["hx_p99"] - _hoy[i]["hx_p99"] for i in ids])
+    dias = _med([f[i]["d_hx35"] for i in ids])
+    print(f"  {nom:16s} humidex {sube:+.2f} C · dias>35 mediana {dias:.0f}")
+    if hip == "rocio_fijo":
+        _sa, _da = sube, dias
+    else:
+        _sb, _db = sube, dias
+assert _sb > _sa * 1.5, \
+    "la cota alta tiene que subir bastante mas que la baja; si no, no son dos cotas"
+assert _db > _da, "y traducirse en mas dias de bochorno"
+ok += 2
+print(f"  ok   la horquilla entre hipotesis es de {_sb-_sa:.1f} C de humidex")
+_dhoy = _med([_hoy[i]["d_hx35"] for i in _hoy])
+print(f"  ok   dias con humidex>35: hoy {_dhoy:.0f} -> {_da:.0f} (baja) / {_db:.0f} (alta)")
+# el mejor y el peor, que son las cifras que cita el texto
+_mej = C["est"][0]; _peo = C["est"][-1]
+print(f"  ok   mejor {_mej['concello']} IVL {_mej['ivl']:.0f}, {_mej['d_hx35']:.1f} dias>35;"
+      f" peor {_peo['concello']} IVL {_peo['ivl']:.0f}, {_peo['d_hx35']:.1f}")
+assert _mej["d_hx35"] < 5 and _peo["d_hx35"] > 100
+ok += 1
+
+print("\n=== las tres partes estan marcadas, y cada seccion dice de donde sale ===")
+for et in ("Parte 1 de 3", "Parte 2 de 3", "Parte 3 de 3"):
+    assert et in html, f"falta la marca «{et}»"
+for cl in ('origen med', 'origen proy', 'origen mix'):
+    assert cl in html, f"falta la etiqueta de origen «{cl}»"
+ok += 2
+print("  ok   tres partes, con etiqueta de medido / proyectado / mixto")
+
 print("\n=== textos que prometen algo ===")
 for frase, cond in [("40.050", "40.050 puntos" in html), ("1.657 celdas", "1.657" in html),
                     ("−6,46 °C/km", "−6,46" in html), ("0,962", "0,962" in html),
                     ("+2,7 °C de sesgo", "+2,7" in html),
                     ("la capa de tendencia", "Cuánto se calienta" in html),
                     ("el aviso del dominio", "no es Galicia, es un rectángulo" in html),
-                    ("la aclaración del humidex", "lo que no tiene proyección es la\nhumedad" in html)]:
+                    ("la aclaración del humidex", "lo que no tiene proyección es la\nhumedad" in html),
+                    ("el nombre del índice", "Índice de Verano\nLlevadero" in html),
+                    ("el umbral de 35 justificado", "molestia notable" in html)]:
     if cond: ok += 1; print(f"  ok   aparece {frase}")
     else: fallos.append(f"falta la mencion de {frase}")
 

@@ -125,6 +125,19 @@ table.suelta{margin:16px 0; background:var(--sup); border:1px solid var(--borde)
 table.suelta td,table.suelta th{padding:9px 14px}
 
 /* pista flotante */
+/* ---------------------------------- de donde sale cada cosa: medido o proyectado --- */
+.origen{display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:650;
+  padding:2px 9px; border-radius:999px; letter-spacing:0.02em; vertical-align:middle}
+.origen.med{background:color-mix(in srgb,var(--s3) 16%, transparent); color:var(--bien)}
+.origen.proy{background:color-mix(in srgb,var(--s2) 16%, transparent); color:var(--s2)}
+.origen.mix{background:color-mix(in srgb,var(--s1) 14%, transparent); color:var(--s1)}
+h2 .origen, h3 .origen{margin-left:10px; position:relative; top:-2px}
+.parte{border-top:3px solid var(--s1); margin:64px 0 0; padding-top:8px}
+.parte .num{font-size:13px; font-weight:700; color:var(--s1); letter-spacing:0.1em;
+  text-transform:uppercase}
+.parte h2{margin-top:4px}
+.parte .intro-p{font-size:17px; color:var(--tinta2); max-width:68ch; margin:8px 0 0}
+
 /* --------------------------------------------------- referencias cruzadas --- */
 a.ref{color:var(--s1); text-decoration:none; border-bottom:1px solid
   color-mix(in srgb,var(--s1) 35%, transparent); white-space:nowrap}
@@ -230,9 +243,11 @@ hr{border:0; border-top:1px solid var(--borde); margin:44px 0}
 <body>
 <nav class="barra"><ul>
   <li><a href="#intro">De qué va</a></li>
-  <li><a href="#respuesta">La respuesta</a></li>
+  <li><a href="#respuesta">1 · Hoy</a></li>
   <li><a href="#mapa">El mapa</a></li>
-  <li><a href="#futuro">2041-2070</a></li>
+  <li><a href="#factores">Los seis factores</a></li>
+  <li><a href="#futuro">2 · Proyección</a></li>
+  <li><a href="#confort">3 · Confort futuro</a></li>
   <li><a href="#brecha">La brecha</a></li>
   <li><a href="#sitios">Sitios</a></li>
   <li><a href="#metodo">Cómo se ha hecho</a></li>
@@ -276,8 +291,10 @@ la casa es de las pocas decisiones que se toman una vez y duran décadas, así q
 mirarla con datos en vez de con la impresión de los veranos que uno recuerda.</p>
 
 <h3>Qué se mide, y por qué esas dos cosas</h3>
-<p>Un solo número no describe el calor. Aquí se usan dos, y cada uno responde a una molestia
-distinta:</p>
+<p>Un solo número no describe el calor. El índice principal se construye con dos, porque son los
+dos únicos que existen para <em>todo</em> el territorio a 1&nbsp;km de resolución; más adelante se
+añaden otros cuatro que solo pueden medirse donde hay estaciones
+(<a href="#factores" class="ref">los seis factores</a>).</p>
 
 <ul class="limpia">
 <li><strong>Los picos extremos (60&nbsp;% del peso).</strong> Medidos con el
@@ -307,10 +324,11 @@ puntos conserva su posición exacta. La lectura correcta, entonces, no es «este
 número&nbsp;3» sino «este grupo de sitios es el mejor», y ese grupo apenas depende del peso
 elegido.</p>
 
-<h3>Dónde aparece el índice</h3>
-<p>El resultado de esa combinación se expresa en una escala de <strong>0 a 100</strong>, donde
-<strong>100 es el mejor punto de Galicia y 0 el peor</strong>. Es una simple reescala de la nota
-combinada, hecha para que la cifra signifique algo a simple vista.</p>
+<h3>El IVL, y dónde aparece</h3>
+<p>A esa combinación se le llama en todo el informe <strong>IVL, Índice de Verano
+Llevadero</strong>, y se expresa en una escala de <strong>0 a 100</strong> donde
+<strong>100 es el mejor punto de Galicia y 0 el peor</strong>. «Llevadero» y no «fresco» porque lo
+que mide no es la temperatura más baja, sino el verano que menos condiciona la vida.</p>
 <p>Ese índice es lo que ordena todo lo que sigue: es la <strong>primera capa del
 <a href="#mapa" class="ref">mapa interactivo</a></strong>, la que aparece al abrirlo; es la columna
 «índice» de las listas de mejores y peores; y es el criterio con el que se eligen los veinte
@@ -341,8 +359,13 @@ viento, ni el precio de la vivienda, ni el trabajo, ni la familia. Y no baja al 
 sirve para elegir <em>la zona</em>, no la casa.</p>
 </section>
 
-<section id="respuesta">
-<h2>La respuesta</h2>
+<section id="respuesta" class="parte">
+<p class="num">Parte 1 de 3</p>
+<h2>Cómo está Galicia hoy <span class="origen med">medido</span></h2>
+<p class="intro-p">Todo lo de esta parte son <strong>datos observados</strong>: termómetros,
+higrómetros y quince años de registro. No hay ninguna proyección hasta la parte 2.</p>
+
+<h3>La respuesta, en una línea</h3>
 <p class="destacado">El noroeste costero —el arco de <strong>Fisterra a Camariñas</strong>, la
 Costa da Morte y el litoral de Bergantiños— es sistemáticamente el sitio más fresco de Galicia,
 y lo sigue siendo en 2070 en los cuatro <span class="gl" data-t="ssp">escenarios de emisiones</span>.</p>
@@ -415,7 +438,7 @@ es precisamente el límite reconocido más abajo. Se dan las coordenadas para po
 </section>
 
 <section id="mapa">
-<h2>El mapa</h2>
+<h2>El mapa <span class="origen med">medido</span></h2>
 <p>Cada celda son <strong>1&nbsp;km</strong>. El color es el <strong>percentil 99 de la temperatura
 máxima</strong>: el valor que solo se supera unos tres días de cada año, que es la definición
 operativa de «episodio de calor extremo». Más oscuro, más calor.</p>
@@ -465,6 +488,19 @@ vapor, pero también que sobre tierra la humedad relativa tiende a bajar al cale
 siente un verano</strong>. Para juzgar la habitabilidad —de personas, de animales, de cultivos—
 eso es una limitación de fondo, no un detalle técnico.</div>
 
+<h3>Un apunte que hará falta más adelante: la humedad no se comporta como la temperatura</h3>
+<p>La temperatura sube. La humedad, no necesariamente. Y como la mitad del criterio depende de
+ella, conviene dejar dicho por qué antes de entrar en las proyecciones.</p>
+<p>El aire caliente <strong>admite</strong> más vapor de agua: unos siete por ciento más por cada
+grado. Pero admitir no es tener. Que el aire llegue a llevar ese vapor depende de que haya agua
+disponible para evaporarse. <strong>Sobre el océano la hay siempre</strong>, así que la humedad
+relativa de la costa se conserva bastante bien al calentarse. <strong>Tierra adentro el suelo se
+seca en verano</strong>, y cuando ya no queda agua que evaporar la humedad relativa cae aunque la
+temperatura suba.</p>
+<p>De ahí que la humedad no se pueda dar por constante sin más, ni tratarla como una variable que
+acompaña a la temperatura. Es una incógnita con dos límites conocidos, y en
+<a href="#confort" class="ref">la parte 3</a> se calcula con los dos.</p>
+
 <h3>El segundo foco fresco: la costa sur de Pontevedra</h3>
 <p>El mapa muestra una segunda franja pálida en el suroeste, entre Baiona y A Guarda, que a
 primera vista parece contradecir el patrón. No lo contradice: es la misma física. Esa costa está
@@ -494,8 +530,65 @@ a 1.500&nbsp;m, no por el mar. Y como se ve en la sección siguiente, esos punto
 al ritmo del interior, no al de la costa. Cambia el color del mapa a «altitud» para separarlos.</p>
 </section>
 
-<section id="futuro">
-<h2>2041-2070: ¿aguanta la elección?</h2>
+<section id="factores">
+<h2>Los seis factores, medidos estación por estación <span class="origen med">medido</span></h2>
+
+<p>El <strong>IVL</strong> combina dos cosas —picos de calor y bochorno— porque son las dos únicas
+que existen en toda Galicia a 1&nbsp;km. Pero un verano se hace duro de más maneras, y las otras
+cuatro <strong>solo se pueden medir donde hay aparatos</strong>: hacen falta series diarias
+completas de temperatura y humedad, y eso son las 153 estaciones de MeteoGalicia, no una malla.</p>
+
+<p>De ellas, <strong>73 están por debajo de 400&nbsp;m</strong>, que es el corte que usa todo este
+trabajo. Sobre esas 73 se calculan los seis factores:</p>
+
+<div id="tabla-factores-que"></div>
+
+<h3>Qué añade cada uno, y cuáles sobran</h3>
+<p>Cuatro de los seis miden casi lo mismo. La correlación entre el percentil 99 de la máxima, el
+del humidex y los días con humidex por encima de 35 está entre <strong>0,95 y 0,97</strong>:
+ordenan los sitios prácticamente igual, y sumarlos sería contar tres veces la misma cosa. Los
+grados-día van algo por libre (0,74-0,84) porque miden el total del verano y no sus picos.</p>
+
+<p><strong>Los dos que sí aportan información nueva son los que menos se parecen a la
+temperatura:</strong></p>
+<ul class="limpia">
+<li>La <span class="gl" data-t="olacalor">ola de calor más larga</span> tiene una correlación de
+<strong>−0,07</strong> con el percentil 99. Es decir: <strong>ninguna</strong>. Y es lógico, porque
+su umbral es relativo al clima de cada sitio: mide si un lugar tiene rachas anómalas
+<em>para sí mismo</em>, no si hace calor. Viveiro y Ribeira, que están entre los diez mejores por
+temperatura, tienen las rachas más largas de la lista con 10 y 11 días.</li>
+<li>Las <span class="gl" data-t="nochestrop">noches tropicales</span> correlacionan 0,10 con la
+máxima y 0,47 con los grados-día. Dependen de la nubosidad y de la brisa nocturna más que del
+calor diurno.</li>
+</ul>
+
+<div class="tarjeta">
+<h4>¿Cambiaría el ranking metiendo los seis a partes iguales?</h4>
+<p style="margin-top:6px">Algo, pero poco, y conviene dar la cifra en vez de suponerla. La
+correlación de rangos entre ordenar por el IVL y ordenar por los seis factores con el mismo peso
+es <strong>0,903</strong>, y <strong>ocho de los diez primeros son los mismos</strong>. Los dos
+que cambian son elocuentes: salen <strong>Viveiro y Ribeira</strong>, que tienen las rachas de
+calor más largas de toda la lista —10 y 11 días—, y entran <strong>Baiona y Bueu</strong>. El
+índice ampliado penaliza la persistencia, que es justo lo que el IVL de dos factores no ve.</p>
+<p>La conclusión práctica: <strong>la cabeza de la lista es robusta</strong>, y quien quiera
+afinar entre los diez primeros hará bien en mirar las columnas de ola de calor y noches
+tropicales, porque ahí es donde se diferencian.</p>
+</div>
+
+<h3>Las estaciones, ordenadas</h3>
+<p>Las 73 estaciones por debajo de 400&nbsp;m con los seis factores. Ordenadas por el IVL; la
+columna «6 factores» da la posición que tendrían con el índice ampliado, para poder comparar.</p>
+<div id="tabla-seis"></div>
+</section>
+
+<section id="futuro" class="parte">
+<p class="num">Parte 2 de 3</p>
+<h2>Cuánto va a subir la temperatura <span class="origen proy">proyectado</span></h2>
+<p class="intro-p">A partir de aquí todo son <strong>proyecciones de modelos climáticos</strong>, y
+todas se refieren a <strong>una sola variable: el percentil 99 de la temperatura máxima</strong>.
+No hay proyección de humedad —eso se aborda en la parte 3— ni de ningún índice de confort.</p>
+
+<h3>¿Aguanta la elección hasta 2070?</h3>
 <p>Es la pregunta que de verdad importa al elegir dónde vivir. La respuesta corta es
 <strong>sí</strong>, y con un margen amplio. Las cifras salen de once modelos climáticos
 regionalizados a 5&nbsp;km; qué son y de dónde vienen está en
@@ -556,8 +649,18 @@ mantuviera, los escenarios se quedarían cortos. Conviene leer estas cifras como
 el techo.</div>
 </section>
 
+<section id="confort" class="parte">
+<p class="num">Parte 3 de 3</p>
+<h2>El confort en 2041-2070 <span class="origen mix">medido + proyectado</span></h2>
+<p class="intro-p">Aquí se juntan las dos partes anteriores: a la serie diaria real de cada
+estación se le suma la subida de temperatura que proyectan los modelos, y se recalcula el humidex
+día a día. La humedad no se proyecta —no existe esa proyección—: se mantiene la de hoy.</p>
+
+<div id="bloque-confort"></div>
+</section>
+
 <section id="brecha">
-<h2>La brecha se abre</h2>
+<h2>La brecha se abre <span class="origen mix">medido + proyectado</span></h2>
 <p>Los sitios que ya son calurosos <strong>se calientan más deprisa</strong> que los frescos. Es el
 hallazgo más útil del trabajo, porque significa que la ventaja del noroeste costero no solo se
 mantiene: crece.</p>
@@ -608,7 +711,7 @@ ganado y A Coruña no.</figcaption>
 </section>
 
 <section id="sitios">
-<h2>Comparar sitios concretos</h2>
+<h2>Comparar sitios concretos <span class="origen med">medido</span></h2>
 <p>Las 153 estaciones de MeteoGalicia con serie útil, medidas y sin modelo de por medio. El eje horizontal es el calor extremo y el
 vertical el bochorno, que son las dos mitades del criterio; al pasar el cursor por encima de
 cualquier punto se abre su ficha.</p>
@@ -1628,8 +1731,11 @@ function dibujaSeries(){
 }
 
 const DIBUJOS = [dibujaBrecha, dibujaEscenarios, dibujaDias30, dibujaEstaciones,
-                 dibujaFichas, dibujaSeries, dibujaMinis, dibujaReparto, dibujaPendiente];
-DIBUJOS.forEach(f=>f());
+                 dibujaFichas, dibujaSeries, dibujaMinis, dibujaReparto, dibujaPendiente,
+                 dibujaFactores, dibujaConfort];
+// El primer dibujado lo hace el bloque del tema, al final del guion: aqui
+// todavia no estan evaluadas las constantes que usan algunas de las funciones
+// (las funciones se elevan, los const no).
 
 /* ========================================================= tablas de texto */
 const HTML_FUENTES = `<div class="tabla-caja"><table class="suelta"><thead><tr>
@@ -1785,6 +1891,173 @@ function dibujaPendiente(){
   }
 }
 
+
+/* ================= parte 1: los seis factores medidos =================== */
+const FACTORES = [
+  ["tx_p99","Percentil 99 de la máxima","°C","txp99",
+   "El nivel que solo superan unos tres días al año. Mide los picos."],
+  ["hx_p99","Percentil 99 del humidex","","humidex",
+   "Lo mismo, pero con la humedad dentro: la temperatura que se siente."],
+  ["d_hx35","Días con humidex &gt; 35","al año","hx35",
+   "Cuántos días al año el bochorno entra en la banda de molestia notable."],
+  ["cdd","Grados-día de refrigeración","°C·día","cdd",
+   "El total del verano, no sus picos: cuánta refrigeración haría falta."],
+  ["ola_max","Ola de calor más larga","días","olacalor",
+   "La racha más larga por encima del umbral del propio sitio."],
+  ["noches_trop","Noches tropicales","al año","nochestrop",
+   "Noches en que la mínima no baja de 20 °C. Es lo que impide dormir."]
+];
+
+function dibujaFactores(){
+  const C = D.confort; if(!C) return;
+  const q = $("#tabla-factores-que");
+  if(q) q.innerHTML = `<div class="tabla-caja"><table class="suelta"><thead><tr>
+    <th>Factor</th><th>Unidad</th><th>Qué mide</th>
+    <th>Rango en las 73 estaciones</th></tr></thead><tbody>` +
+    FACTORES.map(([k,n,u,g,d])=>{
+      const v = C.est.map(e=>e[k]).filter(isFinite);
+      return `<tr><td><span class="gl" data-t="${g}">${n}</span></td>
+        <td style="color:var(--tinta3)">${u}</td><td style="text-align:left">${d}</td>
+        <td>${fmt(Math.min(...v), k==="cdd"||k==="ola_max"?0:1)} a
+            ${fmt(Math.max(...v), k==="cdd"||k==="ola_max"?0:1)}</td></tr>`;
+    }).join("") + `</tbody></table></div>`;
+
+  const t = $("#tabla-seis"); if(!t) return;
+  const orden6 = [...C.est].sort((a,b)=>b.ivl6-a.ivl6).map(e=>e.id);
+  const filas = C.est.map((e,i)=>{
+    const p6 = orden6.indexOf(e.id) + 1, salto = p6 - (i+1);
+    return `<tr><td>${i+1}</td><td>${e.concello}
+      <span style="color:var(--tinta3)">${e.provincia}</span></td>
+      <td><b>${fmt(e.ivl,0)}</b></td>
+      <td>${p6}${Math.abs(salto)>=5 ? ` <span style="color:var(--tinta3)">(${salto>0?"+":""}${salto})</span>` : ""}</td>
+      <td>${fmt(e.alt,0)} m</td><td>${fmt(e.tx_p99)}</td><td>${fmt(e.hx_p99)}</td>
+      <td>${fmt(e.d_hx35)}</td><td>${fmt(e.cdd,0)}</td><td>${fmt(e.ola_max,0)}</td>
+      <td>${fmt(e.noches_trop)}</td></tr>`;
+  });
+  const cab = `<thead><tr><th>#</th><th>Estación</th><th>IVL</th><th>6 factores</th>
+    <th>Altitud</th><th>tx p99</th><th>humidex</th><th>días&nbsp;&gt;35</th>
+    <th>grados-día</th><th>ola</th><th>noches</th></tr></thead>`;
+  t.innerHTML = `<div class="tabla-caja"><table class="suelta">${cab}<tbody>` +
+    filas.slice(0,15).join("") + `</tbody></table></div>
+    <details><summary>Ver las 73 estaciones</summary><div class="tabla-caja">
+      <table>${cab}<tbody>${filas.join("")}</tbody></table></div></details>
+    <p class="fuente">La columna «6 factores» es el puesto que ocuparía con el índice ampliado.
+      Entre paréntesis, el salto cuando es de cinco puestos o más.</p>`;
+}
+
+/* ================= parte 3: el confort proyectado ======================= */
+function dibujaConfort(){
+  const C = D.confort; const cont = $("#bloque-confort");
+  if(!C || !C.futuro || !cont) return;
+  const hoy = Object.fromEntries(C.est.map(e=>[e.id, e]));
+  const A = C.futuro.rocio_fijo, B = C.futuro.hr_fija;
+  const mA = Object.fromEntries(A.map(e=>[e.id, e])), mB = Object.fromEntries(B.map(e=>[e.id, e]));
+  const ids = C.est.map(e=>e.id).filter(i=>mA[i] && mB[i]);
+  const med = a => { const x=[...a].sort((p,q)=>p-q); return x[Math.floor(x.length/2)]; };
+  const dHoy = med(ids.map(i=>hoy[i].d_hx35));
+  const dA = med(ids.map(i=>mA[i].d_hx35)), dB = med(ids.map(i=>mB[i].d_hx35));
+  const hA = med(ids.map(i=>mA[i].hx_p99 - hoy[i].hx_p99));
+  const hB = med(ids.map(i=>mB[i].hx_p99 - hoy[i].hx_p99));
+
+  let h = `<h3>Las dos formas de decir «la humedad no cambia»</h3>
+  <p>El humidex es <code>T + 0,5555·(e − 10)</code>, donde <code>e</code> es el vapor de agua que
+  lleva el aire. Al subir la temperatura, mantener la humedad admite dos lecturas que dan
+  resultados muy distintos, y las dos son defendibles:</p>
+  <div class="cifras">
+    ${tarjeta(sig(hA,1)+" °C", "sube el humidex si el aire lleva <strong>la misma agua</strong> que hoy",
+              "cota inferior · el humidex sube exactamente lo que la temperatura")}
+    ${tarjeta(sig(hB,1)+" °C", "sube si mantiene el mismo <strong>porcentaje de saturación</strong>",
+              "cota superior · el aire caliente admite más vapor")}
+  </div>
+  <p>La primera supone <strong>punto de rocío constante</strong>: la misma cantidad de agua en el
+  aire. Como <code>e</code> no cambia, el humidex sube exactamente lo que sube el termómetro. La
+  segunda supone <strong>humedad relativa constante</strong>: al calentarse, el aire admite más
+  vapor y lo lleva, así que el humidex sube aproximadamente el doble.</p>
+  <p><strong>Ninguna de las dos es la verdad, y la diferencia entre ellas es enorme:</strong>
+  ${fmt(hB-hA,1)}&nbsp;°C de humidex. Es más que la diferencia entre el escenario de emisiones más
+  optimista y el más pesimista. Dicho de otro modo: <strong>lo que no sabemos sobre la humedad
+  pesa más que lo que no sabemos sobre las emisiones.</strong></p>
+  <p>La física acota el problema pero no lo resuelve: sobre el océano hay agua disponible sin
+  límite, así que la costa se parecerá más a la cota alta; tierra adentro el suelo se seca en
+  verano, así que el interior se parecerá más a la baja. Es, incómodamente, al revés de lo que
+  convendría.</p>
+
+  <h3>Días con humidex por encima de 35, hoy y en 2041-2070</h3>
+  <p>Escenario SSP2-4.5, sobre las 73 estaciones por debajo de 400&nbsp;m. La mediana pasa de
+  <strong>${fmt(dHoy,0)}</strong> días al año a <strong>${fmt(dA,0)}</strong> con la hipótesis
+  conservadora y a <strong>${fmt(dB,0)}</strong> con la alta.</p>
+  <figure><div class="grafica">
+    <p class="titulo-g">Días al año con humidex &gt; 35</p>
+    <p class="sub-g">Cada barra es una estación. Medido, y las dos cotas proyectadas.</p>
+    <div class="leyenda-s" id="leyenda-confort"></div>
+    <div id="g-confort"></div>
+  </div>
+  <figcaption>El orden entre estaciones se mantiene casi intacto —la correlación de rangos es
+  0,998— pero <strong>la distancia absoluta se dispara</strong>. Arteixo pasa de 1 día al año a
+  entre 2 y 4; Leiro pasa de 116 a entre 142 y 162. Los sitios buenos siguen siendo buenos en
+  términos relativos, y en términos absolutos la diferencia entre vivir en un sitio o en otro se
+  multiplica.</figcaption></figure>
+  <div id="tabla-confort"></div>`;
+  cont.innerHTML = h;
+
+  // --- barras apiladas por estacion ---
+  const sel = ids.map(i=>({n:hoy[i].concello, h:hoy[i].d_hx35, a:mA[i].d_hx35, b:mB[i].d_hx35}))
+                 .sort((x,y)=>x.h-y.h);
+  const W=760, H=420, ML=104, MR=20, MT=10, MB=42;
+  const s = svg(W,H); $("#g-confort").appendChild(s);
+  const paso = (H-MT-MB)/sel.length;
+  const ix = v => ML + v/170*(W-ML-MR);
+  for(let v=0; v<=160; v+=40){
+    el(s,"line",{x1:ix(v),x2:ix(v),y1:MT,y2:H-MB,class:"rejilla-l"});
+    el(s,"text",{x:ix(v),y:H-MB+16,"text-anchor":"middle",class:"tick"}, v);
+  }
+  el(s,"text",{x:ML+(W-ML-MR)/2,y:H-8,"text-anchor":"middle",class:"et-eje"},
+    "días al año con humidex > 35");
+  const cH=css("--o1"), cA=css("--o3"), cB=css("--o4");
+  sel.forEach((e,i)=>{
+    const y = MT + i*paso;
+    el(s,"rect",{x:ML, y:y+0.5, width:Math.max(0.6,ix(e.b)-ML), height:Math.max(1,paso-1),
+      fill:cB, "fill-opacity":0.85});
+    el(s,"rect",{x:ML, y:y+0.5, width:Math.max(0.6,ix(e.a)-ML), height:Math.max(1,paso-1),
+      fill:cA});
+    el(s,"rect",{x:ML, y:y+0.5, width:Math.max(0.6,ix(e.h)-ML), height:Math.max(1,paso-1),
+      fill:cH});
+    const zona = el(s,"rect",{x:ML, y, width:W-ML-MR, height:paso, fill:"transparent"});
+    zona.style.cursor="crosshair";
+    const html = `<b>${e.n}</b>
+      <div class="fila"><span>hoy</span><b>${fmt(e.h,1)} días</b></div>
+      <div class="fila"><span>2041-2070, cota baja</span><b>${fmt(e.a,1)}</b></div>
+      <div class="fila"><span>2041-2070, cota alta</span><b>${fmt(e.b,1)}</b></div>`;
+    zona.addEventListener("pointerenter",ev=>muestraPista(html,ev));
+    zona.addEventListener("pointermove",ev=>muestraPista(html,ev));
+    zona.addEventListener("pointerleave",ocultaPista);
+  });
+  for(const [i,n] of [[0,sel[0].n],[sel.length-1,sel[sel.length-1].n]])
+    el(s,"text",{x:ML-10, y:MT+i*paso+paso/2+4, "text-anchor":"end", class:"et-dir"}, n);
+  $("#leyenda-confort").innerHTML =
+    `<span><i class="punto-l" style="background:${cH}"></i>medido hoy</span>
+     <span><i class="punto-l" style="background:${cA}"></i>2041-2070, rocío constante</span>
+     <span><i class="punto-l" style="background:${cB}"></i>2041-2070, humedad relativa constante</span>`;
+
+  // --- tabla: los mejores y peores, y quien mas sube ---
+  const fila = e => `<tr><td>${hoy[e.id].concello}</td><td>${fmt(hoy[e.id].alt,0)} m</td>
+    <td>${fmt(hoy[e.id].d_hx35,1)}</td><td>${fmt(mA[e.id].d_hx35,1)}</td>
+    <td>${fmt(mB[e.id].d_hx35,1)}</td><td>${fmt(hoy[e.id].hx_p99,1)}</td>
+    <td>${fmt(mA[e.id].hx_p99,1)} – ${fmt(mB[e.id].hx_p99,1)}</td></tr>`;
+  const cab = `<thead><tr><th>Estación</th><th>Altitud</th><th>días&gt;35 hoy</th>
+    <th>cota baja</th><th>cota alta</th><th>humidex hoy</th>
+    <th>humidex 2041-2070</th></tr></thead>`;
+  const mejores = C.est.slice(0,8).filter(e=>mA[e.id]);
+  const peores = C.est.slice(-8).reverse().filter(e=>mA[e.id]);
+  $("#tabla-confort").innerHTML =
+    `<h4>Los ocho más llevaderos, hoy y proyectados</h4>
+     <div class="tabla-caja"><table class="suelta">${cab}<tbody>${mejores.map(fila).join("")}</tbody></table></div>
+     <h4>Los ocho peores</h4>
+     <div class="tabla-caja"><table class="suelta">${cab}<tbody>${peores.map(fila).join("")}</tbody></table></div>
+     <p class="fuente">Escenario SSP2-4.5, periodo 2041-2070. La temperatura viene de los modelos;
+     la humedad es la medida hoy, mantenida bajo las dos hipótesis.</p>`;
+}
+
 /* --- reparto de temperaturas: donde esta la frontera --- */
 function dibujaReparto(){
   const R = D.reparto; if(!R || !$("#g-reparto")) return;
@@ -1920,6 +2193,12 @@ const GLOSARIO = {
   ssp: ["Escenarios SSP",
     "Cuánto CO₂ emitirá el mundo. SSP1-2.6 es el optimista (emisiones que caen pronto); SSP2-4.5 el intermedio, hacia donde apuntan las políticas actuales; SSP3-7.0 el de emisiones altas; SSP5-8.5 el extremo. No son predicciones: son supuestos de partida.",
     "Los cuatro coinciden hasta 2040; solo se separan después."],
+  hx35: ["Días con humidex por encima de 35",
+    "Cuántos días al año el bochorno entra en la banda que Environment Canada llama de «molestia notable». Por debajo de 30 no hay molestia; de 30 a 39 sí; de 40 a 45 hay malestar fuerte y conviene evitar el esfuerzo; por encima de 45 hay riesgo de golpe de calor.",
+    "35 es el centro de la banda de molestia: el punto en que un día deja de ser solo caluroso y pasa a condicionar lo que se hace con él."],
+  ivl: ["IVL · Índice de Verano Llevadero",
+    "El criterio de este trabajo, en escala de 0 a 100: 60 % picos de calor extremo y 40 % bochorno, combinados y reescalados de modo que 100 sea el mejor punto de Galicia y 0 el peor. Solo se calcula por debajo de 400 m.",
+    "Es la primera capa del mapa y lo que ordena todas las listas."],
   cdd: ["Grados-día de refrigeración",
     "Suma, día a día, los grados que la temperatura media supera los 18 °C. Aproxima cuánta energía haría falta para refrigerar: no distingue un día muy caluroso de tres templados, mide el total del verano.",
     "Es la cifra que mejor traduce el calor a factura eléctrica."],

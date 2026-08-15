@@ -181,6 +181,56 @@ O["estaciones_futuro"] = sorted(_fut, key=lambda x: x["hoy"])
 print(f"estaciones con proyeccion: {len(_fut)}  "
       f"delta de {min(x['d'] for x in _fut):+.2f} a {max(x['d'] for x in _fut):+.2f}")
 
+# ---- paso 15: los seis factores medidos y el confort proyectado ------------
+_rc = f"{R}/confort_estaciones.csv"
+if os.path.exists(_rc):
+    cf = pd.read_csv(_rc)
+    _h = cf[cf.periodo == "hoy"].copy()
+    # Se limita a 400 m, como el IVL de la malla: por encima "fresco" significa
+    # otra cosa. Sin este corte, las cinco estaciones mas llevaderas de Galicia
+    # son cumbres de 1.200-1.700 m y la lista deja de responder a la pregunta.
+    _b = _h[_h.alt < 400].copy()
+    _z = lambda x: (x - x.mean()) / x.std()
+    _nota = 0.6 * _z(_b.tx_p99) + 0.4 * _z(_b.hx_p99)
+    _b["ivl"] = 100 * (_nota.max() - _nota) / (_nota.max() - _nota.min())
+    SEIS = ["tx_p99", "hx_p99", "d_hx35", "cdd", "ola_max", "noches_trop"]
+    _seis = sum(_z(_b[c]) for c in SEIS) / 6
+    _b["ivl6"] = 100 * (_seis.max() - _seis) / (_seis.max() - _seis.min())
+    _b = _b.sort_values("ivl", ascending=False)
+    O["confort"] = {
+        "n": int(len(_b)), "n_total": int(len(_h)),
+        "est": json.loads(_b[["id", "concello", "provincia", "lat", "lon", "alt", "n_anios",
+                              "ivl", "ivl6"] + SEIS].round(2).to_json(orient="records")),
+        # cuanto cambia el orden al meter los cuatro factores extra
+        "rho_ivl6": round(float(np.corrcoef(_b.ivl.rank(), _b.ivl6.rank())[0, 1]), 3),
+        "comunes10": int(len(set(_b.nlargest(10, "ivl").id) & set(_b.nlargest(10, "ivl6").id))),
+        "corr": {c: {c2: round(float(np.corrcoef(_b[c], _b[c2])[0, 1]), 2)
+                     for c2 in SEIS} for c in SEIS},
+    }
+    # --- el confort proyectado, las dos hipotesis ---
+    _fut = {}
+    for hip in ("rocio_fijo", "hr_fija"):
+        f = cf[(cf.periodo == "medium_future") & (cf.escenario == "ssp245")
+               & (cf.hipotesis == hip)].set_index("id")
+        j = f.join(_b.set_index("id")[["ivl", "alt", "concello"]], how="inner", rsuffix="_h")
+        _fut[hip] = json.loads(j.reset_index()[["id", "concello", "hx_p99", "d_hx35",
+                                                "tx_p99", "cdd", "noches_trop", "d_tx"]]
+                               .round(2).to_json(orient="records"))
+    O["confort"]["futuro"] = _fut
+    # los que mas y menos suben de temperatura
+    _dt = cf[(cf.periodo == "medium_future") & (cf.escenario == "ssp245")
+             & (cf.hipotesis == "rocio_fijo")]
+    _dt = _dt[_dt.id.isin(_b.id)].sort_values("d_tx")
+    O["confort"]["suben"] = {
+        "menos": json.loads(_dt.head(6)[["concello", "provincia", "alt", "d_tx"]]
+                            .round(2).to_json(orient="records")),
+        "mas": json.loads(_dt.tail(6).iloc[::-1][["concello", "provincia", "alt", "d_tx"]]
+                          .round(2).to_json(orient="records"))}
+    print(f"confort: {len(_b)} estaciones bajo 400 m de {len(_h)}; "
+          f"rho IVL vs seis factores {O['confort']['rho_ivl6']}")
+else:
+    print("AVISO: falta confort_estaciones.csv (paso 15)")
+
 # ---- ROCIO: clima vs tendencia ---------------------------------------------
 ro = pd.read_csv(f"{R}/rocio_tendencias.csv")
 O["rocio"] = [[round(x,2),round(y,3)] for x,y in
