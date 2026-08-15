@@ -101,6 +101,57 @@ else: ok += 1; print(f"  ok   {len(marcados)} terminos marcados, todos definidos
 sobran = definidos - marcados
 if sobran: print(f"  aviso: definidos y no usados en el texto: {sobran}")
 
+print("\n=== el indice: descrito Y usado, que era lo que fallaba ===")
+assert all("ind" in q for q in ex["frescos"]), "las listas tienen que llevar el indice"
+_f = [q["ind"] for q in ex["frescos"]]
+_c = [q["ind"] for q in ex["calidos"]]
+assert _f == sorted(_f, reverse=True), f"los frescos no estan ordenados por indice: {_f}"
+assert _c == sorted(_c), f"los calidos no estan ordenados por indice: {_c}"
+assert abs(_f[0] - 100) < 0.1 and abs(_c[0]) < 0.1, "la escala tiene que ir de 0 a 100"
+ok += 2
+print(f"  ok   listas ordenadas por indice: frescos {_f[0]:.0f}-{_f[-1]:.0f}, "
+      f"calidos {_c[0]:.0f}-{_c[-1]:.0f}")
+assert '"ind"' in html and "Índice 60/40" in html, "el indice tiene que ser una capa del mapa"
+ok += 1
+print("  ok   el indice es la primera capa del mapa")
+
+print("\n=== la compresion del humidex ===")
+_cp = d["compresion"]
+_our = _cp["ourense"]["tx"] - _cp["ourense"]["hx"]
+_cor = _cp["coruna_interior"]["tx"] - _cp["coruna_interior"]["hx"]
+comprueba("Ourense: tx", 36.1, _cp["ourense"]["tx"], 0.05)
+comprueba("Ourense: humidex", 37.1, _cp["ourense"]["hx"], 0.05)
+comprueba("A Coruña interior: tx", 32.3, _cp["coruna_interior"]["tx"], 0.05)
+comprueba("A Coruña interior: humidex", 35.4, _cp["coruna_interior"]["hx"], 0.05)
+_dtx = _cp["ourense"]["tx"] - _cp["coruna_interior"]["tx"]
+_dhx = _cp["ourense"]["hx"] - _cp["coruna_interior"]["hx"]
+comprueba("los 3,8 C de diferencia en seco", 3.8, _dtx, 0.05)
+comprueba("se quedan en 1,7 de humidex", 1.7, _dhx, 0.05)
+assert _dhx < _dtx, "el texto dice que el humidex COMPRIME; si no, hay que reescribirlo"
+ok += 1
+
+print("\n=== las 153 estaciones proyectadas ===")
+_ef = d["estaciones_futuro"]
+assert len(_ef) == 153, f"deberian ser 153 y hay {len(_ef)}"
+_dd = [x["d"] for x in _ef]
+comprueba("anomalia minima", 1.48, min(_dd), 0.02)
+comprueba("anomalia maxima", 4.02, max(_dd), 0.02)
+# "ninguna adelanta a otra por mucho": lo que hay que medir no es cuantos pares
+# se cruzan sino CUANTO. Un par separado por 0,3 C que se invierte a 0,4 no
+# reordena nada relevante; lo grave seria un adelantamiento de grados.
+_cr = [(abs(_ef[i]["hoy"] - _ef[j]["hoy"]), abs(_ef[i]["fut"] - _ef[j]["fut"]))
+       for i in range(len(_ef)) for j in range(i + 1, len(_ef))
+       if (_ef[i]["hoy"] - _ef[j]["hoy"]) * (_ef[i]["fut"] - _ef[j]["fut"]) < 0]
+_pares = len(_ef) * (len(_ef) - 1) // 2
+_grandes = sum(1 for _, f in _cr if f > 1.0)
+_rho = float(np.corrcoef(pd.Series([x["hoy"] for x in _ef]).rank(),
+                         pd.Series([x["fut"] for x in _ef]).rank())[0, 1])
+print(f"  {len(_ef)} estaciones; {len(_cr)} pares se cruzan de {_pares:,} "
+      f"({len(_cr)/_pares:.1%}), y solo {_grandes} lo hacen por mas de 1 C")
+comprueba("correlacion de rangos hoy vs futuro", 0.99, _rho, 0.005)
+assert _grandes < 30, f"{_grandes} adelantamientos de mas de 1 C: eso ya no es 'por poco'"
+ok += 1
+
 print("\n=== el peso 60/40, que es la afirmacion mas fragil del informe ===")
 import pandas as _pd
 from scipy.spatial import ConvexHull as _CH

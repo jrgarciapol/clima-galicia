@@ -307,6 +307,20 @@ puntos conserva su posición exacta. La lectura correcta, entonces, no es «este
 número&nbsp;3» sino «este grupo de sitios es el mejor», y ese grupo apenas depende del peso
 elegido.</p>
 
+<h3>Dónde aparece el índice</h3>
+<p>El resultado de esa combinación se expresa en una escala de <strong>0 a 100</strong>, donde
+<strong>100 es el mejor punto de Galicia y 0 el peor</strong>. Es una simple reescala de la nota
+combinada, hecha para que la cifra signifique algo a simple vista.</p>
+<p>Ese índice es lo que ordena todo lo que sigue: es la <strong>primera capa del
+<a href="#mapa" class="ref">mapa interactivo</a></strong>, la que aparece al abrirlo; es la columna
+«índice» de las listas de mejores y peores; y es el criterio con el que se eligen los veinte
+puntos que el mapa marca en negro. Cuando en el texto se dice «el mejor sitio», se refiere
+siempre al índice, no a la temperatura sola.</p>
+<p><strong>Una acotación importante:</strong> el índice solo se calcula por debajo de
+400&nbsp;m de altitud, sobre 11.794 puntos. Por encima de esa cota «fresco» significa otra cosa
+—fresco por altura, no por mar— y esos sitios se comportan de forma distinta ante el
+calentamiento, como se ve en <a href="#brecha" class="ref">«La brecha se abre»</a>.</p>
+
 <h3>De dónde salen los datos</h3>
 <p>De seis fuentes públicas, todas de organismos oficiales, cada una aportando lo que las otras no
 pueden. El detalle de qué es cada una y cómo se usa está en
@@ -359,6 +373,8 @@ casi todo costa noroeste.</figcaption>
 </figure>
 
 <h3>Los quince extremos de cada lado</h3>
+<p>Ordenados por el <strong>índice 60/40</strong> —no por temperatura a secas—, que es el criterio
+que define este trabajo.</p>
 <div class="minis" id="minis-extremos"></div>
 <div id="tablas-extremos"></div>
 
@@ -422,6 +438,32 @@ atlántica y se deshilacha tierra adentro siguiendo los valles. Los tres focos o
 <strong>valle del Miño</strong> (Ourense, Ribadavia, Leiro), el <strong>Sil y Valdeorras</strong>,
 y el <strong>bajo Miño</strong> hacia Tui. Entre A Coruña y Ourense hay 130&nbsp;km y
 <strong>diez grados</strong> en el percentil 99.</p>
+
+<h3>Por qué el bochorno no ordena igual que la temperatura</h3>
+<p>Comparando la capa «Calor extremo» con la capa «Bochorno» aparece algo que no es evidente:
+<strong>el humidex comprime las diferencias</strong>. Sobre Ourense capital la máxima del percentil
+99 promedia 36,1&nbsp;°C y el humidex 37,1: apenas un punto por encima. En las comarcas interiores
+de A&nbsp;Coruña la máxima es de 32,3&nbsp;°C y el humidex de 35,4: tres puntos por encima. Los
+3,8&nbsp;°C que separan a los dos sitios en temperatura seca se quedan en <strong>1,7 puntos de
+humidex</strong>.</p>
+
+<p>El motivo es la humedad. El verano de Ourense es seco —la estación mide un 62,6&nbsp;% de
+humedad relativa media— y el de la costa es húmedo, en torno al 85&nbsp;%. La humedad añade
+sensación de calor allí donde la temperatura es más baja, y casi no añade nada donde es más alta,
+así que el índice de confort acerca lo que la temperatura separa.</p>
+
+<p>Eso justifica el reparto 60/40 en vez de fiarlo todo al humidex: <strong>si el criterio fuera
+solo bochorno, la diferencia entre el interior y la costa parecería menos de la mitad de lo que
+es</strong>. Y explica por qué el interior gallego, siendo mucho más caluroso, no resulta tan
+sofocante como su temperatura sugeriría.</p>
+
+<div class="aviso"><strong>La consecuencia incómoda para las proyecciones.</strong> Como se dice
+más adelante, ninguna fuente de escenarios publica un índice de confort con humedad. Y el humedal
+que la costa gallega tiene hoy no está garantizado: la física dice que el aire cálido admite más
+vapor, pero también que sobre tierra la humedad relativa tiende a bajar al calentarse. Es decir,
+<strong>de las dos mitades del criterio, la que se puede proyectar es la que peor describe cómo se
+siente un verano</strong>. Para juzgar la habitabilidad —de personas, de animales, de cultivos—
+eso es una limitación de fondo, no un detalle técnico.</div>
 
 <h3>El segundo foco fresco: la costa sur de Pontevedra</h3>
 <p>El mapa muestra una segunda franja pálida en el suroeste, entre Baiona y A Guarda, que a
@@ -583,6 +625,31 @@ alto —las de las rías interiores— y ese matiz es el que aporta el 40&nbsp;%
 </figure>
 
 <div id="fichas"></div>
+
+<h3>Las 153 estaciones, hoy y en 2041-2070</h3>
+<p>Cada línea es una estación real: a la izquierda su percentil 99 medido, a la derecha el mismo
+valor con la anomalía proyectada de su nivel térmico. Sirve para ver de un vistazo que
+<strong>todas suben y el orden apenas cambia</strong>, y para localizar cualquier
+municipio concreto en la escala.</p>
+
+<figure>
+<div class="grafica">
+  <p class="titulo-g">Percentil 99 de la máxima, estación por estación</p>
+  <p class="sub-g">153 estaciones de MeteoGalicia. Escenario SSP2-4.5, periodo 2041-2070.</p>
+  <div id="g-pendiente"></div>
+</div>
+<figcaption>El haz se desplaza hacia arriba <strong>casi sin cruzarse</strong>: de los 11.628
+pares posibles de estaciones, solo el 2,6&nbsp;% cambia de orden, y de esos apenas quince lo hacen
+por más de un grado. La correlación de rangos entre las dos columnas es <strong>0,99</strong>. Las
+líneas más planas —las que menos suben— son las de la costa; las más inclinadas, las del interior:
+la anomalía va de <strong>+1,5&nbsp;°C</strong> en las estaciones más frescas a
+<strong>+4,0</strong> en las más calurosas, que es la brecha abriéndose sobre puntos medidos.</figcaption>
+</figure>
+
+<p class="nota-ref">Cómo se asigna la anomalía a cada estación: se le da la de la celda de
+AdapteCCa cuyo clima de referencia más se parece al suyo. Es una correspondencia por nivel
+térmico, no geográfica, porque el sesgo entre una celda de 5&nbsp;km y una garita concreta puede
+ser mayor que la diferencia entre celdas vecinas.</p>
 
 <h3>La evolución año a año</h3>
 <p>Las cinco estaciones de AEMET con serie completa desde 1980. Es el dato más crudo de todo el
@@ -886,7 +953,7 @@ $("#cifras-futuro").innerHTML =
 // el lienzo, el resto del informe -- graficas, tablas y texto -- tiene que
 // seguir funcionando. Antes un fallo aqui dejaba la pagina entera en blanco.
 function montaMapa(){
-  let capa = "tx", momento = "hoy", escenario = "ssp245", verEstaciones = false;
+  let capa = "ind", momento = "hoy", escenario = "ssp245", verEstaciones = false;
   const M = MAPA_D.malla, DL = MAPA_D.delta;
   // La escala NO es el rango de los datos sino el tramo donde estan casi todos.
   // Con 21-45 C el 95 % de Galicia caia entre el 30 % y el 63 % de la rampa y el
@@ -895,21 +962,30 @@ function montaMapa(){
   // ("de los mas frescos" / "de los mas calurosos"). El techo deja sitio ademas
   // para el desplazamiento de 2041-2070, para que los momentos sean comparables.
   const CAPAS = {
-    tx:{n:"Calor extremo", u:" °C", desc:"percentil 99 de la máxima", lo:26, hi:40, proy:true,
+    // Invertida: el 100 es el mejor sitio, asi que el color oscuro tiene que
+    // ser el PEOR. Sin invertir, el mapa diria lo contrario que los demas.
+    ind:{n:"Índice 60/40", u:" / 100", desc:"índice del criterio, 100 = el mejor de Galicia",
+         lo:100, hi:0, proy:false,
+         q:`El <b>criterio completo de este trabajo</b>: 60&nbsp;% picos de calor extremo y
+            40&nbsp;% bochorno, combinados y llevados a una escala de 0 a 100 donde
+            <b>100 es el mejor punto de Galicia</b> y 0 el peor. Es la capa que ordena las
+            listas de mejores y peores. Solo cubre el territorio por debajo de 400&nbsp;m:
+            por encima, «fresco» significa otra cosa.`},
+    tx:{n:"Calor extremo", u:" °C", desc:"percentil 99 de la máxima", lo:26, hi:40, recorta:true, proy:true,
         q:`El <b>percentil 99 de la temperatura máxima</b>: el nivel que solo se supera unos tres
            días al año. Mide los picos, no el promedio, y es el 60&nbsp;% del criterio. Es la única
            capa que se puede llevar al futuro, porque es la única que las proyecciones publican.`},
-    hx:{n:"Bochorno", u:"", desc:"percentil 99 del humidex", lo:28, hi:40, proy:false,
+    hx:{n:"Bochorno", u:"", desc:"percentil 99 del humidex", lo:28, hi:40, recorta:true, proy:false,
         q:`El <b>humidex</b> en su percentil 99: temperatura y humedad combinadas en la cifra que
            «se siente». Con 85&nbsp;% de humedad, 28&nbsp;°C se sienten como 35. Es el 40&nbsp;%
            del criterio, y <b>no tiene proyección al futuro</b>: ninguna fuente de escenarios
            publica un índice de confort con humedad.`},
     d32:{n:"Días >32 °C", u:" días/año", desc:"días al año por encima de 32 °C", lo:0, hi:110,
-         proy:false,
+         recorta:true, proy:false,
          q:`<b>Cuántos días al año</b> la máxima pasa de 32&nbsp;°C, promediado sobre 2011-2025.
             Traduce el percentil a algo contable: es la diferencia entre un verano con dos días
             malos y otro con dos meses. Va de 0 a 169 según el punto de Galicia.`},
-    alt:{n:"Altitud", u:" m", desc:"metros sobre el mar", lo:0, hi:1400, proy:false,
+    alt:{n:"Altitud", u:" m", desc:"metros sobre el mar", lo:0, hi:1400, recorta:true, proy:false,
          q:`<b>Metros sobre el nivel del mar</b>, del modelo digital del terreno promediado a
             1&nbsp;km. Sirve para separar las dos formas de ser fresco: por el mar o por la
             altura. Se comportan de manera opuesta ante el calentamiento.`},
@@ -922,10 +998,10 @@ function montaMapa(){
              medido con 72 años de observación (1951-2022). No es una proyección: es lo que ha
              pasado. Los tonos oscuros del sur son la brecha que se abre.`}
   };
-  const bytes = {tx:b64aBytes(M.tx.d), hx:b64aBytes(M.hx.d),
+  const bytes = {tx:b64aBytes(M.tx.d), hx:b64aBytes(M.hx.d), ind:b64aBytes(M.ind.d),
                  alt:b64aBytes(M.alt.d), d32:b64aBytes(M.d32.d)};
   // limites con los que se cuantizo a 0-255 en origen (distintos de los de pintado)
-  const QLIM = {tx:M.tx, hx:M.hx, alt:M.alt, d32:M.d32};
+  const QLIM = {tx:M.tx, hx:M.hx, alt:M.alt, d32:M.d32, ind:M.ind};
   let opacidad = 0.82;
 
   // Lugar mas proximo al cursor. Sin esto el mapa dice "aqui hace 33 grados" y
@@ -943,7 +1019,8 @@ function montaMapa(){
 
   $("#ctrl-mapa").innerHTML = `
     <div class="control"><span>Qué se pinta</span><div class="segmentado" id="seg-capa">
-      <button data-v="tx" aria-pressed="true">Calor extremo</button>
+      <button data-v="ind" aria-pressed="true">Índice 60/40</button>
+      <button data-v="tx" aria-pressed="false">Calor extremo</button>
       <button data-v="hx" aria-pressed="false">Bochorno</button>
       <button data-v="d32" aria-pressed="false">Días &gt;32 °C</button>
       <button data-v="tend" aria-pressed="false">Cuánto se calienta</button>
@@ -1087,15 +1164,19 @@ function montaMapa(){
     const n = 5, ticks = [];
     // la capa de tendencia va en decimas de grado: con cero decimales la
     // leyenda decia "de 0 a 0"
-    const dec = (c.hi - c.lo) < 3 ? 2 : 0;
+    const dec = Math.abs(c.hi - c.lo) < 3 ? 2 : 0;
     for(let i=0;i<n;i++) ticks.push(fmt(c.lo + (c.hi-c.lo)*i/(n-1), dec));
+    // El simbolo de "o menos / o mas" solo cuando la escala recorta de verdad.
+    // El indice no recorta: va de 0 a 100 y ese es todo su rango.
+    const pre = c.recorta ? "≤&thinsp;" : "", post = c.recorta ? "≥&thinsp;" : "";
     $("#leyenda-mapa").innerHTML =
       `<span style="color:var(--tinta2)">${c.desc}</span>
        <span style="display:inline-flex;align-items:center;gap:8px">
-         <span>≤&thinsp;${ticks[0]}</span>
+         <span>${pre}${ticks[0]}</span>
          <span class="rampa" style="background:linear-gradient(90deg,${g})"></span>
-         <span>≥&thinsp;${ticks[n-1]}${c.u}</span></span>
-       <span style="color:var(--tinta3)">más oscuro = más ${capa==="alt"?"alto":"calor"}</span>
+         <span>${post}${ticks[n-1]}${c.u}</span></span>
+       <span style="color:var(--tinta3)">más oscuro = ${capa==="alt" ? "más alto" :
+         capa==="ind" ? "peor sitio" : "más calor"}</span>
        <span id="lectura" style="margin-left:auto;font-variant-numeric:tabular-nums;color:var(--tinta)"></span>`;
     const extra = CAPAS[capa].celdas
       ? `Tendencia medida con 72 años de observación (ROCIO, de AEMET). Celdas de 5&nbsp;km,
@@ -1124,6 +1205,7 @@ function montaMapa(){
       m.bindPopup(`<b>${etiqueta} ${p.puesto}</b><br>Cerca de ${p.cerca} (a ${fmt(p.km)} km)<br>
         Altitud ${fmt(p.altitud,0)} m<br>Calor extremo ${fmt(p.tx_p99_1km+SESGO)} °C<br>
         Humidex ${fmt(p.hx_p99_1km)}<br>Días &gt;32 °C: ${p.wrf_n_ge32}` +
+        (p.indice != null ? `<br><b>Índice ${fmt(p.indice,0)} / 100</b>` : "") +
         (p.d_ssp245 != null ? `<br><span style="color:#52514e">2041-2070 (SSP2-4.5):
         ${fmt(p.tx_p99_1km+SESGO+p.d_ssp245)} °C</span>` : ""));
       g.addLayer(m);
@@ -1546,7 +1628,7 @@ function dibujaSeries(){
 }
 
 const DIBUJOS = [dibujaBrecha, dibujaEscenarios, dibujaDias30, dibujaEstaciones,
-                 dibujaFichas, dibujaSeries, dibujaMinis, dibujaReparto];
+                 dibujaFichas, dibujaSeries, dibujaMinis, dibujaReparto, dibujaPendiente];
 DIBUJOS.forEach(f=>f());
 
 /* ========================================================= tablas de texto */
@@ -1647,6 +1729,62 @@ $("#meta-fecha").textContent =
 
 
 
+
+/* --- las 153 estaciones: medido hoy -> proyectado 2041-2070 --- */
+function dibujaPendiente(){
+  const E = D.estaciones_futuro; if(!E || !$("#g-pendiente")) return;
+  $("#g-pendiente").innerHTML = "";
+  const W=760, H=430, ML=54, MR=54, MT=26, MB=40;
+  const s = svg(W,H); $("#g-pendiente").appendChild(s);
+  const lo = 24, hi = 46;
+  const iy = v => H-MB - (v-lo)/(hi-lo)*(H-MT-MB);
+  const x0 = ML + 60, x1 = W - MR - 60;
+  for(let v=24; v<=46; v+=4){
+    el(s,"line",{x1:ML,x2:W-MR,y1:iy(v),y2:iy(v),class:"rejilla-l"});
+    el(s,"text",{x:ML-8,y:iy(v)+4,"text-anchor":"end",class:"tick"}, v);
+  }
+  el(s,"text",{x:x0,y:MT-8,"text-anchor":"middle",class:"et-dir"},"medido hoy");
+  el(s,"text",{x:x1,y:MT-8,"text-anchor":"middle",class:"et-dir"},"2041-2070");
+  el(s,"text",{x:16,y:MT+(H-MT-MB)/2,"text-anchor":"middle",class:"et-eje",
+    transform:`rotate(-90 16 ${MT+(H-MT-MB)/2})`},"percentil 99 de la máxima (°C)");
+  // color por nivel actual: la rampa ordinal, de fresco a caluroso
+  const cols = ["--o1","--o2","--o3","--o4"].map(css);
+  const q = [28, 32, 36];
+  for(const e of E){
+    const k = e.hoy < q[0] ? 0 : e.hoy < q[1] ? 1 : e.hoy < q[2] ? 2 : 3;
+    const g = el(s,"g",{});
+    el(g,"line",{x1:x0, y1:iy(e.hoy), x2:x1, y2:iy(e.fut), stroke:cols[k],
+      "stroke-width":1.6, "stroke-opacity":0.5, "stroke-linecap":"round"});
+    el(g,"circle",{cx:x0, cy:iy(e.hoy), r:3, fill:cols[k], "fill-opacity":0.75});
+    el(g,"circle",{cx:x1, cy:iy(e.fut), r:3, fill:cols[k], "fill-opacity":0.75});
+    const html = `<b>${e.n}</b> <span style="color:var(--tinta3)">${e.prov}</span>
+      <div class="fila"><span>altitud</span><b>${fmt(e.alt,0)} m</b></div>
+      <div class="fila"><span>hoy</span><b>${fmt(e.hoy)} °C</b></div>
+      <div class="fila"><span>2041-2070</span><b>${fmt(e.fut)} °C</b></div>
+      <div class="fila"><span>sube</span><b>${sig(e.d)} °C</b></div>` +
+      (e.d30 != null ? `<div class="fila"><span>días &gt;30 °C hoy</span><b>${fmt(e.d30)}/año</b></div>` : "");
+    g.style.cursor = "crosshair";
+    g.addEventListener("pointerenter", ev=>{
+      g.querySelector("line").setAttribute("stroke-opacity", 1);
+      g.querySelector("line").setAttribute("stroke-width", 3);
+      muestraPista(html, ev);
+    });
+    g.addEventListener("pointermove", ev=>muestraPista(html, ev));
+    g.addEventListener("pointerleave", ()=>{
+      g.querySelector("line").setAttribute("stroke-opacity", 0.5);
+      g.querySelector("line").setAttribute("stroke-width", 1.6);
+      ocultaPista();
+    });
+  }
+  // las tres de referencia, con nombre
+  const ref = ["Camariñas", "Santiago De Compostela", "Ourense"];
+  for(const n of ref){
+    const e = E.find(x=>x.n.startsWith(n)); if(!e) continue;
+    el(s,"text",{x:x1+8, y:iy(e.fut)+4, class:"et-dir"}, e.n.split(" ")[0]);
+    el(s,"text",{x:x0-8, y:iy(e.hoy)+4, class:"et-dir", "text-anchor":"end"}, fmt(e.hoy));
+  }
+}
+
 /* --- reparto de temperaturas: donde esta la frontera --- */
 function dibujaReparto(){
   const R = D.reparto; if(!R || !$("#g-reparto")) return;
@@ -1740,11 +1878,12 @@ function dibujaMinis(){
   }
   // las tablas de 15, debajo de los dos mapas
   const tabla = (titulo, lista) => `<h4>${titulo}</h4><div class="tabla-caja">
-    <table class="suelta"><thead><tr><th>#</th><th>Cerca de</th><th>Altitud</th>
-    <th>tx p99</th><th>días &gt;32 °C</th><th>Coordenadas</th></tr></thead><tbody>` +
+    <table class="suelta"><thead><tr><th>#</th><th>Cerca de</th><th>Índice</th><th>Altitud</th>
+    <th>tx p99</th><th>humidex</th><th>días &gt;32 °C</th><th>Coordenadas</th></tr></thead><tbody>` +
     lista.map((q,i)=>`<tr><td>${i+1}</td><td>${q.cerca}
       ${q.km > 3 ? `<span style="color:var(--tinta3)">a ${fmt(q.km)} km</span>` : ""}</td>
-      <td>${fmt(q.alt,0)} m</td><td>${fmt(q.tx)} °C</td><td>${q.d32}</td>
+      <td><b>${fmt(q.ind,0)}</b></td>
+      <td>${fmt(q.alt,0)} m</td><td>${fmt(q.tx)} °C</td><td>${fmt(q.hx)}</td><td>${q.d32}</td>
       <td style="color:var(--tinta3)">${fmt(q.lat,3)}, ${fmt(q.lon,3)}</td></tr>`).join("") +
     `</tbody></table></div>`;
   const cajas = $("#tablas-extremos");

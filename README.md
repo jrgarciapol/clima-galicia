@@ -44,7 +44,7 @@ cada variable y en qué punto está el trabajo.
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
 | 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | ✅ hecho |
-| 14 | Informe interactivo en un solo HTML | ✅ 5 capas, glosario, 30 comprobaciones |
+| 14 | Informe interactivo en un solo HTML | ✅ 6 capas, glosario, 44 comprobaciones |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.
 
@@ -1046,6 +1046,7 @@ cualquiera habría envenenado el resultado:
 
 | Qué pasaba | Cómo se detectó |
 |---|---|
+| **El índice 60/40 se describía y luego no se usaba**: las listas de mejores y peores estaban ordenadas por temperatura a secas, y el índice no aparecía en ningún mapa ni en ninguna tabla | Rafa preguntó dónde estaba escrito ese índice, y no estaba en ninguna parte |
 | «Con 50/50 o 40/60 salen los mismos doce primeros puestos **en el mismo orden**»: falso. Los sitios sí coinciden (10-12 de 12), pero el orden interno se baraja — solo la mitad conserva su posición | recalculando la nota con siete repartos distintos, en vez de repetir la afirmación |
 | El dominio del modelo de 1 km es un **rectángulo**, no Galicia: incluye franjas de Portugal, Asturias, León y Zamora. El segundo punto «más fresco de Galicia» estaba en Caminha | Rafa pidió un mapa con los cuatro extremos, y al dibujarlos se vio uno al sur del Miño |
 | Unir el ranking de 1 km con la rejilla de 5 km buscando la latitud y la longitud más parecidas **por separado**: en la costa ese par cae sobre celdas de mar, y 31 de 400 puntos se quedaban sin proyección — los más bajos y frescos, o sea los candidatos buenos | el informe decía «6 de los 20 mejores salen del top 20» y al mirar cuáles eran, su delta era `NaN` |

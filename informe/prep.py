@@ -42,6 +42,22 @@ def cuantiza(m, lo, hi):
 
 tx = rasteriza(a.tx_p99_1km.values)
 d32 = rasteriza(a.wrf_n_ge32.values.astype(float))
+
+# El indice 60/40, para poder pintarlo: es el criterio del trabajo y hasta ahora
+# no aparecia en ningun mapa. Misma definicion que en prep2.py.
+from scipy.spatial import ConvexHull
+from matplotlib.path import Path as _Path
+_est = pd.read_csv(f"{R}/estaciones_lista.csv")
+_gal = _Path(_est[["lon", "lat"]].values[ConvexHull(_est[["lon", "lat"]].values).vertices])
+_m = (_gal.contains_points(a[["lon", "lat"]].values, radius=0.08) & (a.altitud < 400)
+      & a.tx_p99_1km.notna() & a.hx_p99_1km.notna())
+_b = a[_m]
+_n = (0.6 * (_b.tx_p99_1km - _b.tx_p99_1km.mean()) / _b.tx_p99_1km.std()
+      + 0.4 * (_b.hx_p99_1km - _b.hx_p99_1km.mean()) / _b.hx_p99_1km.std())
+_ind = pd.Series(np.nan, index=a.index)
+_ind[_b.index] = 100 * (_n.max() - _n) / (_n.max() - _n.min())
+ind = rasteriza(_ind.values)
+print(f"indice: {int(np.isfinite(ind).sum())} celdas de malla con valor")
 hx = rasteriza(a.hx_p99_1km.values)
 alt = rasteriza(a.altitud.values)
 LO_TX, HI_TX = 18.0, 42.0
@@ -50,7 +66,8 @@ OUT["malla"] = {"s": S, "o": O, "paso": PASO, "ny": ny, "nx": nx,
                 "tx": {"lo": LO_TX, "hi": HI_TX, "d": cuantiza(tx, LO_TX, HI_TX)},
                 "hx": {"lo": LO_HX, "hi": HI_HX, "d": cuantiza(hx, LO_HX, HI_HX)},
                 "alt": {"lo": 0.0, "hi": 1800.0, "d": cuantiza(alt, 0, 1800)},
-                "d32": {"lo": 0.0, "hi": 170.0, "d": cuantiza(d32, 0, 170)}}
+                "d32": {"lo": 0.0, "hi": 170.0, "d": cuantiza(d32, 0, 170)},
+                "ind": {"lo": 0.0, "hi": 100.0, "d": cuantiza(ind, 0, 100)}}
 print(f"malla {ny}x{nx}, cobertura {np.isfinite(tx).mean():.1%}, "
       f"tx {np.nanmin(tx):.1f}-{np.nanmax(tx):.1f}")
 
