@@ -44,7 +44,7 @@ cada variable y en qué punto está el trabajo.
 | 11 | Mapa interactivo de estaciones | ✅ hecho |
 | 12 | Series largas de AEMET para la tendencia | ✅ 58 estaciones, 1.108 años |
 | 13 | **ROCIO_IBEB**: 72 años de observación en rejilla de 5 km | ✅ hecho |
-| 14 | Informe interactivo en un solo HTML | ✅ tres partes, 6 capas, 57 comprobaciones |
+| 14 | Informe interactivo en un solo HTML | ✅ tres partes, dos mapas, 59 comprobaciones |
 | 15 | **Confort proyectado**: humidex futuro sobre las estaciones | ✅ 147 estaciones, dos hipótesis de humedad |
 
 **Lo que bloquea:** nada. La cadena está completa de extremo a extremo.

@@ -1892,6 +1892,84 @@ function dibujaPendiente(){
 }
 
 
+
+/* Mapa de la parte 3: circulos proporcionales sobre las estaciones.
+   Deliberadamente NO se interpola a una superficie. Con 73 puntos mal
+   repartidos, un campo continuo inventaria valores donde no hay nada medido,
+   que es justo el error que este informe se niega a cometer en otras partes. */
+let mapaConf = null, capaConf = null, estadoConf = "hoy";
+function montaMapaConfort(hoy, mA, mB, ids){
+  const cont = document.getElementById("mapa-confort");
+  if(!cont || typeof L === "undefined") return;
+  const LIM_D = 170;                     // escala fija en las tres vistas
+  const datos = ids.map(i=>({...hoy[i], a:mA[i].d_hx35, b:mB[i].d_hx35, h:hoy[i].d_hx35}))
+                   .filter(e=>isFinite(e.lat) && isFinite(e.lon));
+  if(!datos.length) return;
+
+  const ctrl = document.getElementById("ctrl-confort");
+  if(ctrl) ctrl.innerHTML = `<div class="control"><span>Qué se pinta</span>
+    <div class="segmentado" id="seg-conf">
+      <button data-v="hoy" aria-pressed="true">Medido hoy</button>
+      <button data-v="a" aria-pressed="false">2041-2070 · rocío constante</button>
+      <button data-v="b" aria-pressed="false">2041-2070 · humedad relativa constante</button>
+    </div></div>`;
+
+  if(!mapaConf){
+    mapaConf = L.map("mapa-confort", {scrollWheelZoom:false, minZoom:6});
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {maxZoom:16, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'})
+      .addTo(mapaConf);
+    mapaConf.on("click", ()=> mapaConf.scrollWheelZoom.enable());
+    const la = datos.map(e=>e.lat), lo = datos.map(e=>e.lon);
+    const caja = [[Math.min(...la)-0.15, Math.min(...lo)-0.15],
+                  [Math.max(...la)+0.15, Math.max(...lo)+0.15]];
+    mapaConf.setView([42.85,-8.05], 8);
+    const enc = ()=>{ mapaConf.invalidateSize(); mapaConf.fitBounds(caja, {padding:[10,10]}); };
+    setTimeout(enc, 0); addEventListener("load", enc);
+  }
+
+  function pinta(){
+    if(capaConf) mapaConf.removeLayer(capaConf);
+    capaConf = L.layerGroup();
+    for(const e of datos){
+      const v = estadoConf === "hoy" ? e.h : estadoConf === "a" ? e.a : e.b;
+      const rgb = colorRampa(v / LIM_D);
+      const r = 5 + 13 * Math.sqrt(Math.max(0, v) / LIM_D);
+      const m = L.circleMarker([e.lat, e.lon], {radius:r, weight:1.5, color:"#fcfcfb",
+        fillColor:`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, fillOpacity:0.9});
+      m.bindTooltip(`<b>${e.concello}</b> · ${fmt(v,1)} días`, {direction:"top"});
+      m.bindPopup(`<b>${e.concello}</b> (${e.provincia})<br>
+        Altitud ${fmt(e.alt,0)} m · IVL ${fmt(e.ivl,0)}/100<br><br>
+        <b>Días con humidex &gt; 35</b><br>
+        hoy: <b>${fmt(e.h,1)}</b><br>
+        2041-2070, rocío constante: ${fmt(e.a,1)}<br>
+        2041-2070, humedad relativa constante: ${fmt(e.b,1)}<br><br>
+        <span style="color:#52514e">humidex p99 hoy ${fmt(e.hx_p99,1)} ·
+        máxima p99 ${fmt(e.tx_p99,1)} °C</span>`);
+      capaConf.addLayer(m);
+    }
+    capaConf.addTo(mapaConf);
+    const g = RAMPA.map((h,i)=>`${h} ${(i/(RAMPA.length-1)*100).toFixed(0)}%`).join(",");
+    const et = estadoConf === "hoy" ? "medido, 2011-2025"
+             : estadoConf === "a" ? "2041-2070, punto de rocío constante"
+             : "2041-2070, humedad relativa constante";
+    const l = document.getElementById("leyenda-confort-mapa");
+    if(l) l.innerHTML = `<span style="color:var(--tinta2)">días al año con humidex &gt; 35 ·
+      ${et}</span>
+      <span style="display:inline-flex;align-items:center;gap:8px"><span>0</span>
+      <span class="rampa" style="background:linear-gradient(90deg,${g})"></span>
+      <span>${LIM_D}</span></span>
+      <span style="color:var(--tinta3)">la escala no cambia entre vistas</span>`;
+  }
+  const seg = document.getElementById("seg-conf");
+  if(seg) seg.addEventListener("click", ev=>{
+    const b = ev.target.closest("button"); if(!b) return;
+    [...b.parentNode.children].forEach(x=>x.setAttribute("aria-pressed", x===b));
+    estadoConf = b.dataset.v; pinta();
+  });
+  pinta();
+}
+
 /* ================= parte 1: los seis factores medidos =================== */
 const FACTORES = [
   ["tx_p99","Percentil 99 de la máxima","°C","txp99",
@@ -1949,6 +2027,11 @@ function dibujaFactores(){
 function dibujaConfort(){
   const C = D.confort; const cont = $("#bloque-confort");
   if(!C || !C.futuro || !cont) return;
+  // Al redibujar (cambio de tema) se rehace el HTML del bloque, asi que el
+  // contenedor del mapa que Leaflet tenia inicializado deja de existir. Si no
+  // se olvida la referencia, el mapa se queda pegado a un div huerfano y los
+  // 73 circulos desaparecen sin dar ningun error.
+  if(mapaConf){ mapaConf.remove(); mapaConf = null; capaConf = null; }
   const hoy = Object.fromEntries(C.est.map(e=>[e.id, e]));
   const A = C.futuro.rocio_fijo, B = C.futuro.hr_fija;
   const mA = Object.fromEntries(A.map(e=>[e.id, e])), mB = Object.fromEntries(B.map(e=>[e.id, e]));
@@ -1997,6 +2080,19 @@ function dibujaConfort(){
   entre 2 y 4; Leiro pasa de 116 a entre 142 y 162. Los sitios buenos siguen siendo buenos en
   términos relativos, y en términos absolutos la diferencia entre vivir en un sitio o en otro se
   multiplica.</figcaption></figure>
+
+  <h3>Lo mismo, sobre el mapa</h3>
+  <p>Cada círculo es una estación, y su tamaño y color son los días al año con humidex por encima
+  de 35. El botón cambia entre lo medido hoy y las dos cotas de 2041-2070, <strong>manteniendo la
+  misma escala</strong>, de modo que lo que se ve crecer es el bochorno y no el dibujo.</p>
+  <div class="controles" id="ctrl-confort"></div>
+  <div class="mapa" id="mapa-confort" style="height:560px"></div>
+  <div class="leyenda" id="leyenda-confort-mapa"></div>
+  <p class="pie-fig">Solo las 73 estaciones por debajo de 400&nbsp;m, que son las que entran en el
+  ranking. <strong>No hay interpolación</strong>: entre estación y estación el mapa no dice nada,
+  porque con 73 puntos repartidos de forma desigual una superficie continua daría una precisión
+  falsa. Mapa base &copy; colaboradores de OpenStreetMap.</p>
+
   <div id="tabla-confort"></div>`;
   cont.innerHTML = h;
 
@@ -2038,6 +2134,9 @@ function dibujaConfort(){
     `<span><i class="punto-l" style="background:${cH}"></i>medido hoy</span>
      <span><i class="punto-l" style="background:${cA}"></i>2041-2070, rocío constante</span>
      <span><i class="punto-l" style="background:${cB}"></i>2041-2070, humedad relativa constante</span>`;
+
+  // --- el mapa de circulos proporcionales ---
+  montaMapaConfort(hoy, mA, mB, ids);
 
   // --- tabla: los mejores y peores, y quien mas sube ---
   const fila = e => `<tr><td>${hoy[e.id].concello}</td><td>${fmt(hoy[e.id].alt,0)} m</td>

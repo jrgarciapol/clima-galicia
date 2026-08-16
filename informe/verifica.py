@@ -236,6 +236,16 @@ print(f"  ok   mejor {_mej['concello']} IVL {_mej['ivl']:.0f}, {_mej['d_hx35']:.
 assert _mej["d_hx35"] < 5 and _peo["d_hx35"] > 100
 ok += 1
 
+print("\n=== el mapa de bochorno de la parte 3 ===")
+assert "mapa-confort" in html and "seg-conf" in html, "falta el mapa de la parte 3"
+assert "No hay interpolación" in html, \
+    "hay que decir que NO se interpola: con 73 puntos una superficie mentiria"
+# los tres estados tienen que existir y ser distintos
+_n_con_coord = sum(1 for e in C["est"] if e.get("lat") and e.get("lon"))
+assert _n_con_coord == C["n"], f"{C['n']-_n_con_coord} estaciones sin coordenadas para el mapa"
+ok += 2
+print(f"  ok   {_n_con_coord} estaciones con coordenadas, escala fija y sin interpolar")
+
 print("\n=== las tres partes estan marcadas, y cada seccion dice de donde sale ===")
 for et in ("Parte 1 de 3", "Parte 2 de 3", "Parte 3 de 3"):
     assert et in html, f"falta la marca «{et}»"
